@@ -1,13 +1,13 @@
-angular.module('remap', [
+angular.module('cover', [
   'ui.bootstrap', 
   'ui.router',
 ]).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
     url: '/',
-    templateUrl: 'assets/partials/dashbroad.html',
-  }).state('paper', {
+    templateUrl: 'assets/partials/dashboard.html',
+  }).state('courses', {
     url: '/courses',
-    templateUrl: 'assets/partials/courses.html',
+    templateUrl: 'assets/partials/course_list.html',
   });
 
   $urlRouterProvider.otherwise('/');

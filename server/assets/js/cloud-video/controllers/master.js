@@ -1,6 +1,6 @@
-angular.module('remap').controller('MasterCtrl', function ($scope, $q, $modal, $http) {
+angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $http) {
   $scope.currentUser = null;
-  /*
+  
   var loginPromise;
   $scope.login = function () {
     if ($scope.currentUser)
@@ -8,7 +8,7 @@ angular.module('remap').controller('MasterCtrl', function ($scope, $q, $modal, $
     loginPromise = null;
     if (!loginPromise || loginPromise.$rejected) {
       loginPromise = $modal.open({
-          templateUrl : 'partials/login.html',
+          templateUrl : '/assets/partials/login.html',
           backdrop : 'static',
           keyboard : false,
           size : 'sm',
@@ -41,7 +41,7 @@ angular.module('remap').controller('MasterCtrl', function ($scope, $q, $modal, $
     var scope = $scope.$new('isolate');
     scope.register = true;
     return $modal.open({
-      templateUrl : 'partials/user_edit.html',
+      templateUrl : 'assets/partials/user_edit.html',
       backdrop : 'static',
       keyboard : false,
       size : 'sm',
@@ -70,5 +70,4 @@ angular.module('remap').controller('MasterCtrl', function ($scope, $q, $modal, $
       window.location.reload();
     });
   };
-  */
 });
