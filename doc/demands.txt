@@ -1,0 +1,10 @@
+course:
+  retrieve: GET /courses , GET /courses/:id
+    my_course:简化，改成简略信息
+    点击才显示详细
+    展示不做
+  create: POST /courses, GET /subjects
+    创建课程页面
+  update:
+    设置班级 POST /classes, PUT /classes/:id, GET /students
+    设置成绩比例 PUT /courses/:id

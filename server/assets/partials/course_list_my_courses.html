@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-3" style="border-left: 1px solid #DDD; border-right: 1px solid #DDD; ">
+    <div style="border-bottom: 1px solid #DDD; min-height: 30vh"><a>课程方案</a></div>
+    <div style="border-bottom: 1px solid #DDD; min-height: 30vh"><a ui-sref="textbooks">教材库</a></div>
+    <div style="border-bottom: 1px solid #DDD; min-height: 10vh"><a>个人中心</a></div>
+    <div style="border-bottom: 1px solid #DDD; min-height: 10vh"><a>自建中心</a></div>
+  </div>
+  <div class="col-md-8">
+    <div style="border-bottom: 1px solid #DDD;" ng-repeat="course in courses">
+      <p>{{course.name}}</p>
+      <p>授课教师：{{course.teacher}}</p>
+      <p>开课时间：{{course.time}}</p>
+      <p>学生人数：{{course.student_number}}人</p>
+      <p>推荐教材：{{course.textbook}}</p>
+    </div>
+  </div>
+</div>
