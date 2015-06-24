@@ -28,50 +28,55 @@
     "angular-animate": "~1.3.15",
     "angular-ui-utils": "~0.2.3",
     "ngprogress": "~1.0.7",
-    "ladda": "~0.9.8"
+    "ladda": "~0.9.8",
+    "less": "~2.5.1"
   },
   "exportsOverride": {
     "angular": {
-      "js": "angular.js"
+      "js/lib": "angular.js"
     },
     "angular-animate": {
-      "js": "*.min.*"
+      "js/lib": "*.min.*"
     },
     "angular-bootstrap": {
-      "js": "ui-bootstrap-tpls.min.js"
+      "js/lib": "ui-bootstrap-tpls.min.js"
     },
     "angular-i18n": {
-      "js": [
+      "js/lib": [
         "angular-locale_zh-cn.js"
       ]
     },
     "angular-ui-router": {
-      "js": "release/*.js"
+      "js/lib": "release/*.js"
     },
     "angular-ui-utils": {
-      "js": "ui-utils.min.js"
+      "js/lib": "ui-utils.min.js"
+    },
+    "less": {
+      "js/lib": "dist/less.js"
     },
     "bootstrap": {
-      "css": "dist/css/bootstrap.min.css",
-      "font": "dist/fonts/*",
-      "js": "js/dropdown.*"
+      "styles/lib": "dist/fonts/*.*",
+      "js/lib": "js/dropdown.*"
     },
     "flat-ui": {
-      "css": "dist/css/flat-ui.min.css",
-      "font": "dist/fonts/*",
-      "js": "dist/js/flat-ui.min.js"
+      "styles/lib": "dist/css/*.*",
+      "js/lib": "dist/js/flat-ui.min.js"
     },
     "jquery": {
-      "js": "dist/jquery.min.js"
+      "js/lib": "dist/jquery.min.js"
     },
     "ladda": {
-      "css": "dist/ladda-themeless.min.css",
-      "js": [
+      "styles/lib": "dist/ladda-themeless.min.css",
+      "js/lib": [
         "dist/ladda.min.js"
       ]
     },
     "ngprogress": {
-      "js": "build/*.min.js"
+      "js/lib": "build/*.min.js"
+    },
+    "spin.js": {
+      "js/lib": "*"
     }
   }
 }

@@ -1,0 +1,131 @@
+angular.module('cover')
+.controller('CourseEditCtrl',
+function ($scope, $http,oldCourse,create,$timeout) {
+  //modal begin
+  $scope.oldCourse=angular.copy(oldCourse);
+  $scope.course=oldCourse;
+  if(create){
+    $scope.course.studentNum=20;
+    $scope.course.classNum=1;
+    $scope.course.examRatio=40;
+    $scope.course.homeworkRatio=30;
+    $scope.course.quizRatio=30;
+  }
+  console.info(oldCourse);
+  console.info($scope.course);
+  $scope.errorText={};
+  $scope.create=create;
+  $scope.editOrCreate=function(course){
+    if(create){
+      $scope.$close({course:course,done:'created'});
+    }else{
+      $scope.$close({course:course,done:'edited'});
+    }
+  }
+  $scope.close=function(){
+    $scope.course=angular.copy($scope.oldCourse);
+    $scope.$close({course:$scope.course,done:'dismissed'});
+  }
+  //modal end
+
+  //form-group inputs begin
+  $scope.isPosInt=function(num)
+  {
+     var re = /^[1-9]+[0-9]*]*$/;
+     return re.test(num);
+  };
+
+  $scope.ratios={
+    'homeworkRatio':{
+      title:'作业比例',
+      type:'success',
+    },
+    'quizRatio':{
+      title:'测验比例',
+      type:'info'
+    },
+    'examRatio':{
+      title:'考试比例',
+      type:'danger'
+    },
+  };
+  $scope.$watchGroup(['course.homeworkRatio','course.examRatio'],function(ratios){
+    $scope.course.quizRatio=100-$scope.course.examRatio-$scope.course.homeworkRatio;
+  })
+  //form-group inputs end
+
+  //teaching matatiral begin
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.addSlide = function() {
+    var newWidth = slides.length+1;
+    slides.push({
+      image: 'assets/images/kittys/' + newWidth+'.jpg',
+      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+    });
+  };
+  for (var i=0; i<4; i++) {
+    $scope.addSlide();
+  }
+  //teaching matatiral end
+
+  //datepicker begin
+  $scope.today = new Date();
+  $scope.tomorrow = new Date();
+  $scope.tomorrow.setDate($scope.tomorrow.getDate() + 1);
+  $scope.minDate = $scope.tomorrow;
+
+  $scope.clear = function () {
+    $scope.dt = null;
+  };
+
+  // Disable weekend selection
+  $scope.disabled = function(date, mode) {
+    return ( mode === 'day' && ( date.getDay() === 0 || date.getDay() === 6 ) );
+  };
+
+  $scope.open = function($event,options) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    options.opened = true;
+  };
+
+  $scope.dateOptions = {
+    formatYear: 'yy',
+    startingDay: 1
+  };
+
+
+
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[0];
+  //datepicker end
+
+  //className begin
+  $scope.$watch('course.classNum',function(newClassNum,oldClassNum){
+    console.log(oldClassNum+','+newClassNum);
+    console.log($scope.course.classNames);
+    $scope.course.classNames=$scope.course.classNames||['班级1'];
+    if(newClassNum<oldClassNum){
+      for(var i=oldClassNum;i>newClassNum;i--){
+        $scope.course.classNames.pop();
+      }
+    }else{
+      for(var i=oldClassNum;i<newClassNum;i++){
+        $scope.course.classNames.push('班级'+(i+1));
+      }
+    }
+  })
+  //className end
+
+  $scope.submitForm = function(isValid) {
+    alert('our form is amazing');
+
+    // check to make sure the form is completely valid
+    if (isValid) {
+    }
+
+  };
+});

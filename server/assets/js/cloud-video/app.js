@@ -1,5 +1,5 @@
 angular.module('cover', [
-  'ui.bootstrap', 
+  'ui.bootstrap',
   'ui.router',
 ]).config(function ($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
@@ -23,6 +23,9 @@ angular.module('cover', [
   }).state('courses.communication', {
     url: '/international_communication',
     templateUrl: 'assets/partials/course_list_international_communication.html',
+  }).state('courseManage', {
+    url: '/course_manage',
+    templateUrl: 'assets/partials/course_manage.html',
   });
 
   $urlRouterProvider.otherwise('/');

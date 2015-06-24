@@ -1,0 +1,124 @@
+This API sample follows the json-api standard. http://jsonapi.org/
+
+## Data type sample
+
+course: {
+    "type": "courses",
+    "id": id,
+    "attributes": {
+      "name": "...",
+      "type": "...",
+      "code": "...",
+      "description": "...",
+      "start_time": "2015-05-07T13:44:48.305Z", //ISO format
+      "end_time": "2015-05-07T13:44:48.305Z"
+    },
+    "relationships": {
+       "major": { data: { "type": "majors", "id": "1"} }
+       "subject": {data: [
+         {"type": "subject", "id": "1"}, 
+         {"type": "subject", "id": "9"}
+       ]},
+       ...
+   } 
+}
+
+## Basic resource operations (CRUD)
+
+GET /courses
+*DESCRIPTION: get all courses
+*RETURN:
+200 OK
+{"data": [{course}, ...]}
+if empty
+200 OK
+{"data": []}
+
+
+GET /courses/:id
+*DESCRIPTION: get the course with certain id
+*RETURN: 
+if found
+200 OK
+{"data" : {course}}
+if not found
+200 OK
+{"data": null}
+
+POST /courses
+*DESCRIPTION: create a new courses
+*PAYLOAD: {"data": {course without id}}
+*RETURN:
+201 CREATED 
+{"data": course}
+
+409 CONFLICT
+
+PATCH /courses/:id
+*DESCRIPTION: update a course
+*PAYLOAD: {"data": {course}}
+*RETURN: 
+200 OK
+{"data": {course updated}}
+
+404 NOT FOUND
+409 CONFLICT(if that update would violate other server-enforced constraints)
+
+
+DELETE /courses/:id
+*DESCRIPTION: delete the course with certain id
+*RETURN:
+204 NO CONTENT(if successful)
+404 NOT FOUND
+
+### Related resources
+
+GET /courses/1/major
+* Get the major of the course.
+* RETURNS: {data: {major}}
+
+GET /courses/1/subjects
+* Get the subjects of the course.
+* RETURNS: {data: [{subject}, ...]}
+
+### To-one relationship
+
+GET /courses/1/links/major
+* Get the major relation of the course.
+* RETURNS: {data: {type: 'majors', id: '12'}}
+
+PATCH /courses/1/links/major
+* Change the major of the course.
+* PAYLOAD: {data: {type: 'majors', id: '12'}}
+* RETURNS: 204 No Content
+
+PATCH /courses/1/links/major
+* Remove the major from the course.
+* PAYLOAD: {data: null}
+* RETURNS: 204 No Content
+
+### To-many relationship
+
+GET /courses/1/links/subjects
+* List the subject relations of the course
+* RETURNS: {data: [{type: 'subjects', id: '34'}, ...]}
+
+PATCH /courses/1/links/subjects
+* Replace the subject relations of the course
+* PAYLOAD: {data: [{type: 'subjects', id: '34'}, ...]}
+* RETURNS: 204 No Content
+
+PATCH /courses/1/links/subjects
+* Clear the subjects of the course
+* PAYLOAD: {data: []}
+* RETURNS: 204 No Content
+
+POST /courses/1/links/subjects
+* Add subjects to the course.
+* PAYLOAD: {data: [{type: 'subjects', id: '56'}, ...]}
+* RETURNS: 204 No Content
+
+DELETE /courses/1/links/subjects
+* Remove subjects from the course.
+* PAYLOAD: {data: [{type: 'subjects', id: '34'}, ...]}
+* RETURNS: 204 No Content
