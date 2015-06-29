@@ -41,23 +41,19 @@ angular.module('cover', [
         resource.$relationships = item.relationships;
         return Restangular.restangularizeElement(parent, resource, what, {});
       };
-      var populateIncluded = function (resource, resourceMap) {
-        resource.$included = resource.$included || {};
+      var populateRelated = function (resource, resourceMap) {
+        resource.$related = resource.$related || {};
         for (var relationName in resource.$relationships) {
           var relation = resource.$relationships[relationName];
           if (relation && relation.data) {
-            var includedByLink = function (link) {
-              var typedMap = resourceMap[link.type];
-              return typedMap && typedMap[link.id];
-            };
             if (Array.isArray(relation.data)) {
-              var includeds = resource.$included[relationName] = [];
+              var relateds = resource.$related[relationName] = [];
               relation.data.forEach(function (link) {
-                var included = includedByLink(link);
-                if (included) includeds.push(included);
+                var related = resourceByLink(link);
+                if (related) relateds.push(related);
               });
             } else {
-              resource.$included[relationName] = includedByLink(relation.data);
+              resource.$related[relationName] = resourceByLink(relation.data);
             }
           }
         }
@@ -69,26 +65,39 @@ angular.module('cover', [
         if (!typedMap) typedMap = resourceMap[resource.$type] = {};
         typedMap[resource.$id] = resource;
       };
-      var primary = [];
-      data.data.forEach(function (item) {
-        var resource = parseJsonApiItem(item, primary);
-        primary.push(resource);
-        addResourceToMap(resource);
-      });
+      var resourceByLink = function (link) {
+        var typedMap = resourceMap[link.type];
+        return typedMap && typedMap[link.id];
+      };
+      var primary = null;
+      if (Array.isArray(data.data)) {
+        primary = [];
+        data.data.forEach(function (item) {
+          var resource = parseJsonApiItem(item, primary);
+          primary.push(resource);
+          addResourceToMap(resource);
+        });
+      } else {
+        primary = parseJsonApiItem(data.data, null);
+        addResourceToMap(primary);
+      }
       primary.$root = data;
       primary.$included = [];
       primary.$byType = resourceMap;
-      Restangular.restangularizeCollection(null, primary.$included, what, {});
       data.included.forEach(function (item) {
         var resource = parseJsonApiItem(item, primary.$included);
         primary.$included.push(resource);
         addResourceToMap(resource);
       });
-      primary.forEach(function (resource) {
-        populateIncluded(resource, resourceMap);
-      });
+      if (Array.isArray(primary)) {
+        primary.forEach(function (resource) {
+          populateRelated(resource, resourceMap);
+        });
+      } else {
+        populateRelated(primary, resourceMap);
+      }
       primary.$included.forEach(function (resource) {
-        populateIncluded(resource, resourceMap);
+        populateRelated(resource, resourceMap);
       });
       return primary;
     });

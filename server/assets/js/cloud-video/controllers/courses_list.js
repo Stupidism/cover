@@ -1,6 +1,6 @@
 angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular) {
   $scope.courses = Restangular.all('courses').getList().$object;
-  
+  Restangular.one('courses', 1).get().then(console.log.bind(console));
 
   if($scope.courses.length>0){
     $scope.courses[0].open=true;
