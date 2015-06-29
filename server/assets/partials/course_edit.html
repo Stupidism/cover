@@ -52,26 +52,16 @@
               tooltip-enable="userForm.studentNum.$invalid && !userForm.studentNum.$pristine|| !isPosInt(course.studentNum)" />
           </div>
           <div class="form-group"
-          ng-class="{'has-error' : userForm.classNum.$invalid && !userForm.classNum.$pristine || !isPosInt(course.classNum)}">
-            班级数量:
-            <input class="form-control input-sm" type="number" name="classNum"
-              ng-model="course.classNum"  min="1" max="10" ng-required="true"
-              placeholder="请输入班级数量"
-              tooltip="班级数量要求为整数,至少为1,至多为10"
-              tooltip-placement="top" tooltip-trigger="mouseenter"
-              tooltip-enable="userForm.classNum.$invalid && !userForm.classNum.$pristine|| !isPosInt(course.classNum)" />
-          </div>
-          <div class="form-group"
-          ng-class="{'has-error' : userForm.homeworkRatio.$invalid
-            && !userForm.homeworkRatio.$pristine || !isPosInt(course.homeworkRatio)}">
+          ng-class="{'has-error' : userForm.assignmentRatio.$invalid
+            && !userForm.assignmentRatio.$pristine || !isPosInt(course.assignmentRatio)}">
             作业比例:
-            <input class="form-control input-sm" type="number" name="homeworkRatio"
-              ng-model="course.homeworkRatio" ng-min="20" ng-max="50" ng-required="true"
+            <input class="form-control input-sm" type="number" name="assignmentRatio"
+              ng-model="course.assignmentRatio" ng-min="20" ng-max="50" ng-required="true"
               placeholder="请输入作业比例"
               tooltip="作业比例要求为整数,至少为20,至多为50"
               tooltip-placement="top" tooltip-trigger="mouseenter"
-              tooltip-enable="userForm.homeworkRatio.$invalid
-              && !userForm.homeworkRatio.$pristine|| !isPosInt(course.homeworkRatio)" />
+              tooltip-enable="userForm.assignmentRatio.$invalid
+              && !userForm.assignmentRatio.$pristine|| !isPosInt(course.assignmentRatio)" />
           </div>
           <div class="form-group"
           ng-class="{'has-error' : userForm.examRatio.$invalid
@@ -85,18 +75,28 @@
               tooltip-enable="userForm.examRatio.$invalid
               && !userForm.examRatio.$pristine|| !isPosInt(course.examRatio)" />
           </div>
+          <div class="form-group"
+          ng-class="{'has-error' : userForm.classNum.$invalid && !userForm.classNum.$pristine || !isPosInt(classNum)}">
+            班级数量:
+            <input class="form-control input-sm" type="number" name="classNum"
+              ng-model="classNum"  min="1" max="10" ng-required="true"
+              placeholder="请输入班级数量"
+              tooltip="班级数量要求为整数,至少为1,至多为10"
+              tooltip-placement="top" tooltip-trigger="mouseenter"
+              tooltip-enable="userForm.classNum.$invalid && !userForm.classNum.$pristine|| !isPosInt(classNum)" />
+          </div>
         </div>
         <div class="col-md-8 cover-right">
           <div class="form-group" ng-class="{'has-error' :
           userForm.summary.$invalid && !userForm.summary.$pristine }">
-            课程简介:   {{course.summary.length}}/100
+            课程简介:{{userForm.summary.$viewValue.length||0}}/100
             <textarea name="summary" class="form-control" type="text" ng-model="course.summary"
               ng-minlength="5" ng-maxlength="100" required
             ></textarea>
           </div>
           <div ng-repeat="(desc,attrs) in {
-              '报名时间':{'startEnroll':{},'endEnroll':{}},
-              '开课时间':{'startTeach':{},'endTeach':{}}
+              '报名时间':{'enrollStarttime':{},'enrollEndtime':{}},
+              '开课时间':{'startTime':{},'endTime':{}}
             }">
             {{desc}}:
             <div class="row">

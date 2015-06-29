@@ -1,5 +1,6 @@
 angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular) {
   $scope.courses = Restangular.all('courses').getList().$object;
+  
 
   if($scope.courses.length>0){
     $scope.courses[0].open=true;
@@ -48,16 +49,6 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
         }
       }
     });
-  };
-
-
-  $scope.today = function() {
-    $scope.dt = new Date();
-  };
-  $scope.today();
-
-  $scope.clear = function () {
-    $scope.dt = null;
   };
 
   // Disable weekend selection

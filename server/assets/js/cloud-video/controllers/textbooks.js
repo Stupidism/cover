@@ -13,4 +13,3 @@ angular.module('cover').controller('TextbooksCtrl', function ($scope, $q, $state
     publisher: 'QHDX'
   }];
 });
-

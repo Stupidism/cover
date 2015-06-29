@@ -6,13 +6,13 @@ function ($scope, $http,oldCourse,create,$timeout) {
   $scope.course=oldCourse;
   if(create){
     $scope.course.studentNum=20;
-    $scope.course.classNum=1;
     $scope.course.examRatio=40;
-    $scope.course.homeworkRatio=30;
+    $scope.course.assignmentRatio=30;
     $scope.course.quizRatio=30;
+    $scope.classNum=1;
+  }else{
+    $scope.classNum=1;
   }
-  console.info(oldCourse);
-  console.info($scope.course);
   $scope.errorText={};
   $scope.create=create;
   $scope.editOrCreate=function(course){
@@ -36,11 +36,11 @@ function ($scope, $http,oldCourse,create,$timeout) {
   };
 
   $scope.ratios={
-    'homeworkRatio':{
+    'assignmentRatio':{
       title:'作业比例',
       type:'success',
     },
-    'quizRatio':{
+    'testRatio':{
       title:'测验比例',
       type:'info'
     },
@@ -49,8 +49,8 @@ function ($scope, $http,oldCourse,create,$timeout) {
       type:'danger'
     },
   };
-  $scope.$watchGroup(['course.homeworkRatio','course.examRatio'],function(ratios){
-    $scope.course.quizRatio=100-$scope.course.examRatio-$scope.course.homeworkRatio;
+  $scope.$watchGroup(['course.assignmentRatio','course.examRatio'],function(ratios){
+    $scope.course.testRatio=100-$scope.course.examRatio-$scope.course.assignmentRatio;
   })
   //form-group inputs end
 
@@ -104,9 +104,7 @@ function ($scope, $http,oldCourse,create,$timeout) {
   //datepicker end
 
   //className begin
-  $scope.$watch('course.classNum',function(newClassNum,oldClassNum){
-    console.log(oldClassNum+','+newClassNum);
-    console.log($scope.course.classNames);
+  $scope.$watch('classNum',function(newClassNum,oldClassNum){
     $scope.course.classNames=$scope.course.classNames||['班级1'];
     if(newClassNum<oldClassNum){
       for(var i=oldClassNum;i>newClassNum;i--){

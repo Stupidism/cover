@@ -1,6 +1,6 @@
 angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $http) {
   $scope.currentUser = null;
-  
+
   var loginPromise;
   $scope.login = function () {
     if ($scope.currentUser)
@@ -13,7 +13,7 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
           keyboard : false,
           size : 'sm',
         }).result.then(function (user) {
-          
+
           return $http.post('login', user)
           .then(function (res) {
             $scope.currentUser = res.data;
@@ -35,8 +35,8 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
     }
     return loginPromise || $q.reject();
   };
-  
-  
+
+
   $scope.register = function () {
     var scope = $scope.$new('isolate');
     scope.register = true;

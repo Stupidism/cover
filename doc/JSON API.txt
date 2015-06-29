@@ -123,9 +123,51 @@ DELETE /courses/1/links/subjects
 * PAYLOAD: {data: [{type: 'subjects', id: '34'}, ...]}
 * RETURNS: 204 No Content
 
-###Special cases:
+### Special cases
 //Add relations with extra info
 PATCH /student/:id/links/clazzs
 * Replace the subject relations of the course
 * PAYLOAD: {data: [{type: 'clazz', id: '34', meta:{password:"123456"}}, ...]}
 * RETURNS: 204 No Content
+
+### Examples
+1.Create a course with several clazzs
+
+POST /course
+*DESCRIPTION: create a new course
+*PAYLOAD: {"data": {
+    "type": "course",
+    "attributes": {
+      "name": "...",
+      "type": "...",
+      "code": "...",
+      "description": "...",
+      "startTime": "2015-05-07T13:44:48.305Z", //ISO format
+      "endTime": "2015-05-07T13:44:48.305Z"
+    }
+}}
+*RETURN:
+201 CREATED 
+{"data": course(whole course with id:course_id)}
+
+POST /clazz
+*DESCRIPTION: create a new clazz
+*PAYLOAD: {"data": {
+    "type": "clazz",
+    "attributes": {
+      "name": "...",
+	  "password": "..."
+    },
+	"relationships": {
+      "course": {
+        "data": { "type": "course", "id": course_id }
+      }
+    }
+}}
+*RETURN:
+201 CREATED 
+{"data": course(whole course with id)}
+
+
+
+

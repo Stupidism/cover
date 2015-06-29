@@ -10,10 +10,10 @@ module.exports = function(grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
     },
-    
+
     bower: {
       install: {
-         //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory 
+         //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
         options: {
           targetDir:'./assets',
           layout: function(type, component, source) {
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         },
       }
     },
-    
+
   });
 
   // Load the plugin that provides the "uglify" task.
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     'uglify',
   ]);
 
-  
+
   // Default task(s).
   grunt.registerTask('default', [
     'uglify',
