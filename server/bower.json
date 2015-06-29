@@ -56,15 +56,18 @@
       "js/lib": "dist/less.js"
     },
     "bootstrap": {
-      "styles/lib": "dist/fonts/*.*",
+      "$css": "dist/css/*",
+      "$fonts": "dist/fonts/*",
       "js/lib": "js/dropdown.*"
     },
     "flat-ui": {
-      "styles/lib": "dist/css/*.*",
+      "$css": "dist/css/*.css",
+      "$fonts/glyphicons": "dist/fonts/glyphicons/*",
+      "$fonts/lato": "dist/fonts/lato/*",
       "js/lib": "dist/js/flat-ui.min.js"
     },
     "jquery": {
-      "js/lib": "dist/jquery.min.js"
+      "js/lib": "dist/jquery.min.*"
     },
     "ladda": {
       "styles/lib": "dist/ladda-themeless.min.css",
@@ -76,6 +79,9 @@
       "js/lib": "build/*.min.js"
     },
     "spin.js": {
+      "js/lib": "*"
+    },
+    "videojs": {
       "js/lib": "*"
     }
   }
