@@ -122,3 +122,10 @@ DELETE /courses/1/links/subjects
 * Remove subjects from the course.
 * PAYLOAD: {data: [{type: 'subjects', id: '34'}, ...]}
 * RETURNS: 204 No Content
+
+###Special cases:
+//Add relations with extra info
+PATCH /student/:id/links/clazzs
+* Replace the subject relations of the course
+* PAYLOAD: {data: [{type: 'clazz', id: '34', meta:{password:"123456"}}, ...]}
+* RETURNS: 204 No Content
