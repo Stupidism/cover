@@ -1,7 +1,8 @@
 angular.module('cover', [
   'ui.bootstrap',
   'ui.router',
-]).config(function ($stateProvider, $urlRouterProvider) {
+  'restangular',
+]).config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'assets/partials/dashboard.html',
@@ -29,4 +30,27 @@ angular.module('cover', [
   });
 
   $urlRouterProvider.otherwise('/');
+}).run(function (Restangular) {
+  Restangular.setBaseUrl('/api/');
+  Restangular.addResponseInterceptor(
+    function (data, operation, what, url, response, deferred) {
+      var parseJsonApiItem = function (item, parent) {
+        var result = angular.copy(item.attributes);
+        result.$id = item.id;
+        result.$type = item.type;
+        result.$relationships = item.relationships;
+        return Restangular.restangularizeElement(parent, result, what, {});
+      };
+      var primary = [];
+      data.data.forEach(function (item) {
+        primary.push(parseJsonApiItem(item, primary));
+      });
+      primary.$root = data;
+      primary.$included = [];
+      Restangular.restangularizeCollection(null, primary.$included, what, {});
+      data.included.forEach(function (item) {
+        primary.$included.push(parseJsonApiItem(item, primary.$included));
+      });
+      return primary;
+    });
 });

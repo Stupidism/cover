@@ -1,34 +1,6 @@
-angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal) {
+angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular) {
+  $scope.courses = Restangular.all('courses').getList().$object;
 
-  $scope.courses = [{
-    "id": 1,
-    "version": null,
-    "isDeleted": false,
-    "createTime": "2015-06-15 14:50:59",
-    "code": "0",
-    "name": "CAID-2D",
-    "description": "课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程",
-    "type": "1",
-    "startTime": 1434351084000,
-    "endTime": 1434783076000,
-    "assignmentRatio": 0,
-    "testRatio": 0,
-    "examRatio": 0,
-  },{
-    "id": 2,
-    "version": null,
-    "isDeleted": false,
-    "createTime": "2015-06-15 14:50:59",
-    "code": "0",
-    "name": "CAID-3D建模",
-    "description": "课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程课程",
-    "type": "3",
-    "startTime": 1434351084000,
-    "endTime": 1434783076000,
-    "assignmentRatio": 0,
-    "testRatio": 0,
-    "examRatio": 0,
-  }];
   if($scope.courses.length>0){
     $scope.courses[0].open=true;
   }
