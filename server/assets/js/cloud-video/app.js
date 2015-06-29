@@ -35,21 +35,60 @@ angular.module('cover', [
   Restangular.addResponseInterceptor(
     function (data, operation, what, url, response, deferred) {
       var parseJsonApiItem = function (item, parent) {
-        var result = angular.copy(item.attributes);
-        result.$id = item.id;
-        result.$type = item.type;
-        result.$relationships = item.relationships;
-        return Restangular.restangularizeElement(parent, result, what, {});
+        var resource = angular.copy(item.attributes);
+        resource.$id = item.id;
+        resource.$type = item.type;
+        resource.$relationships = item.relationships;
+        return Restangular.restangularizeElement(parent, resource, what, {});
+      };
+      var populateIncluded = function (resource, resourceMap) {
+        resource.$included = resource.$included || {};
+        for (var relationName in resource.$relationships) {
+          var relation = resource.$relationships[relationName];
+          if (relation && relation.data) {
+            var includedByLink = function (link) {
+              var typedMap = resourceMap[link.type];
+              return typedMap && typedMap[link.id];
+            };
+            if (Array.isArray(relation.data)) {
+              var includeds = resource.$included[relationName] = [];
+              relation.data.forEach(function (link) {
+                var included = includedByLink(link);
+                if (included) includeds.push(included);
+              });
+            } else {
+              resource.$included[relationName] = includedByLink(relation.data);
+            }
+          }
+        }
+        return resource;
+      };
+      var resourceMap = {};
+      var addResourceToMap = function (resource) {
+        var typedMap = resourceMap[resource.$type];
+        if (!typedMap) typedMap = resourceMap[resource.$type] = {};
+        typedMap[resource.$id] = resource;
       };
       var primary = [];
       data.data.forEach(function (item) {
-        primary.push(parseJsonApiItem(item, primary));
+        var resource = parseJsonApiItem(item, primary);
+        primary.push(resource);
+        addResourceToMap(resource);
       });
       primary.$root = data;
       primary.$included = [];
+      primary.$byType = resourceMap;
       Restangular.restangularizeCollection(null, primary.$included, what, {});
       data.included.forEach(function (item) {
-        primary.$included.push(parseJsonApiItem(item, primary.$included));
+        var resource = parseJsonApiItem(item, primary.$included);
+        primary.$included.push(resource);
+        addResourceToMap(resource);
+      });
+      primary.forEach(function (resource) {
+        populateIncluded(resource, resourceMap);
+      });
+      primary.$included.forEach(function (resource) {
+        populateIncluded(resource, resourceMap);
       });
       return primary;
     });
