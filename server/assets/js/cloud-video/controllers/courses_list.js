@@ -1,21 +1,33 @@
-angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular) {
-  $scope.courses = Restangular.all('courses').getList().$object;
-
-  if($scope.courses.length>0){
-    $scope.courses[0].open=true;
-  }
+angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q) {
+  $scope.courses = [];
+  Restangular.one('courses', 1).get().then(console.log.bind(console))
+  $scope.login().then(function () {
+    angular.copy($scope.currentUser.$related.courses, $scope.courses);
+    if($scope.courses.length>0){
+      $scope.courses[0].open=true;
+    }
+  });
 
   $scope.oneAtATime=true;
   $scope.openAll=function(){
-    console.info("openALl");
     $scope.oneAtATime=false;
     $scope.courses.map(function(course){course.open=true;})
   }
 
   $scope.editCourse = function (course,$event,create) {
     $event.stopPropagation();
-    course = course ? angular.copy(course) : {};
     create = !!create;
+    if (create) {
+      course = {
+        type: 1,
+        $type: 'course',
+        $relationships: {
+          teachers: {data: [$scope.currentUser.$asLink()]}
+        }
+      };
+    } else {
+      course = angular.copy(course)
+    }
     $modal.open({
       animation:true,
       size:'lg',
@@ -32,7 +44,20 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
       },
     }).result.then(function (editedCourse) {
       if (create) {
-        $scope.courses.push(course);
+        Restangular.all('courses').post(editedCourse).then(function (course) {
+          $scope.courses.push(course);
+          if (!editedCourse.classNames) editedCourse.classNames = [];
+          return $q.all(editedCourse.classNames.map(function (name) {
+            return Restangular.all('clazzs').post({
+              $type: 'clazz',
+              enrollPwd: "123456",
+              name: name,
+              $relationships: {
+                course: {data: course.$asLink()}
+              }
+            });
+          }));
+        });
       } else {
         $scope.courses.forEach(function (course) {
           if (course.id === editedCourse.id) {

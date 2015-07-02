@@ -68,7 +68,9 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
     });
   };
   $scope.logout = function () {
-    $http.post("/api/account/logout").then(function () {
+    $http.post("/api/account/logout", {}, {headers: {
+      'Access-Token': $scope.currentUser.$token,
+    }}).then(function () {
       window.location.reload();
     });
   };

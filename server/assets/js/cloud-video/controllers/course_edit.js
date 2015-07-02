@@ -3,6 +3,7 @@ angular.module('cover')
 function ($scope,$http, course,create,$timeout) {
   //modal begin
   $scope.course=course;
+  console.log(course);
   if(create){
     $scope.course.studentNum=20;
     $scope.course.examRatio=40;

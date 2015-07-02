@@ -3,11 +3,17 @@ angular.module('cover').factory('JsonApiOrg', function () {
     _prop: function (obj, prop, value, configurable) {
       Object.defineProperty(obj, prop, {value: value, configurable: configurable});
     },
+    _addUtilsTo: function (resource) {
+      this._prop(resource, '$asLink', function () {
+        return {type: this.$type, id: this.$id};
+      });
+    },
     parseResource: function (item) {
       var resource = angular.copy(item.attributes);
       resource.$id = item.id;
       resource.$type = item.type;
-      resource.$relationships = item.relationships;
+      resource.$relationships = item.relationships || {};
+      this._addUtilsTo(resource);
       return resource;
     },
     resourceMapAdd: function (resourceMap, resource) {
@@ -60,13 +66,15 @@ angular.module('cover').factory('JsonApiOrg', function () {
         that.resourceMapAdd(resourceMap, primary);
       }
       this._prop(primary, '$root', data);
-      this._prop(primary, '$included', []);
       this._prop(primary, '$byType', resourceMap);
-      data.included.forEach(function (item) {
-        var resource = transformResource(that.parseResource(item), null);
-        primary.$included.push(resource);
-        that.resourceMapAdd(resourceMap, resource);
-      });
+      if (data.included) {
+        this._prop(primary, '$included', []);
+        data.included.forEach(function (item) {
+          var resource = transformResource(that.parseResource(item), null);
+          primary.$included.push(resource);
+          that.resourceMapAdd(resourceMap, resource);
+        });
+      }
       if (Array.isArray(primary)) {
         primary.forEach(function (resource) {
           that.populateRelated(resource, resourceMap);
@@ -74,10 +82,24 @@ angular.module('cover').factory('JsonApiOrg', function () {
       } else {
         that.populateRelated(primary, resourceMap);
       }
-      primary.$included.forEach(function (resource) {
-        that.populateRelated(resource, resourceMap);
-      });
+      if (primary.$included) {
+        primary.$included.forEach(function (resource) {
+          that.populateRelated(resource, resourceMap);
+        });
+      }
       return primary;
+    },
+    serialize: function (resource) {
+      var doc = {};
+      var item = doc.data = {};
+      item.attributes = angular.copy(resource);
+      for (var key in item.attributes) {
+        if (key[0] === '$') delete item.attributes[key];
+      }
+      item.type = resource.$type;
+      item.id = resource.$id || resource.id;
+      item.relationships = resource.$relationships;
+      return doc;
     },
   }
 });

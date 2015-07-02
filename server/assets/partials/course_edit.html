@@ -35,7 +35,7 @@
           <div class="form-group" ng-class="{'has-error' : userForm.name.$invalid && !userForm.name.$pristine}">
             课程名称:
             <input class="form-control input-sm" type="text" name="name"
-              ng-model="course.name" ng-minlength="2" ng-maxlength="8" ng-required="true"
+              ng-model="course.name" ng-minlength="2" ng-maxlength="255" ng-required="true"
               placeholder="请输入课程名称"
               tooltip="课程名称长度至少为2"
               tooltip-placement="top" tooltip-trigger="mouseenter"
@@ -146,7 +146,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">Close</button>
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
     <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">{{create?'创建课程':'保存修改'}}</button>
   </div>
 

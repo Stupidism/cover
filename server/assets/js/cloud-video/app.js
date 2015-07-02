@@ -25,7 +25,8 @@ angular.module('cover', [
     url: '/international_communication',
     templateUrl: 'assets/partials/course_list_international_communication.html',
   }).state('courseManage', {
-    url: '/course_manage',
+    url: '/course_manage?id',
+    controller: 'CourseManageCtrl',
     templateUrl: 'assets/partials/course_manage.html',
   });
 
@@ -39,4 +40,10 @@ angular.module('cover', [
       };
       return JsonApiOrg.parse(data, transformResource);
     });
+  Restangular.addRequestInterceptor(function (element, operation, what, url) {
+    if (['post', 'put', 'patch'].indexOf(operation) >= 0) {
+      return JsonApiOrg.serialize(element);
+    }
+    return element;
+  });
 });
