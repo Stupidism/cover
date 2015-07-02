@@ -1,4 +1,4 @@
-angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $http) {
+angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $http, JsonApiOrg) {
   $scope.currentUser = null;
 
   var loginPromise;
@@ -13,10 +13,12 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
           keyboard : false,
           size : 'sm',
         }).result.then(function (user) {
-
-          return $http.post('login', user)
+          user.role = 1;
+          return $http.post('/api/account/login', user)
           .then(function (res) {
-            $scope.currentUser = res.data;
+            $scope.currentUser = JsonApiOrg.parse(res.data.user);
+            $scope.currentUser.$token = res.data.token;
+            console.log($scope.currentUser);
           }, function (res) {
             console.info(res);
             if(res.status==403)
@@ -50,7 +52,7 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
       $http.post("api/users/", user)
         .then(function(res){
           console.info(user);
-          $http.post('login', user)
+          $http.post('/api/login', user)
           .then(function (res) {
             $scope.currentUser = res.data;
           }, function (res) {
@@ -66,7 +68,7 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
     });
   };
   $scope.logout = function () {
-    $http.post("logout").then(function () {
+    $http.post("/api/account/logout").then(function () {
       window.location.reload();
     });
   };
