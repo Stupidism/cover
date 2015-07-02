@@ -1,6 +1,5 @@
 angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular) {
   $scope.courses = Restangular.all('courses').getList().$object;
-  Restangular.one('courses', 1).get().then(console.log.bind(console));
 
   if($scope.courses.length>0){
     $scope.courses[0].open=true;
@@ -15,38 +14,31 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
 
   $scope.editCourse = function (course,$event,create) {
     $event.stopPropagation();
-    var create=create||false;
-    if(create){
-      courese={
-        id:$scope.maxId
-      };
-    }
+    course = course ? angular.copy(course) : {};
+    create = !!create;
     $modal.open({
       animation:true,
       size:'lg',
-      backdrop :create?true:false,
+      backdrop: create ? true : false,
       templateUrl: 'assets/partials/course_edit.html',
       controller: 'CourseEditCtrl',
       resolve: {
-        oldCourse: function () {
+        course: function () {
           return course;
         },
         create: function(){
           return create;
         },
       },
-    }).result.then(function (res) {
-      console.info(res.done);
-      if(res.done==='created'){
-        $scope.maxId++;
+    }).result.then(function (editedCourse) {
+      if (create) {
         $scope.courses.push(course);
-      }else if(!create&&res.done==='dismissed'){
-        for (var i = 0; i < $scope.courses.length; i++) {
-          if ($scope.courses[i].id === res.course.id){
-            $scope.courses[i]=res.course;
-            return;
+      } else {
+        $scope.courses.forEach(function (course) {
+          if (course.id === editedCourse.id) {
+            angular.copy(editedCourse, course);
           }
-        }
+        });
       }
     });
   };

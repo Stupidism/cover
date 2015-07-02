@@ -1,9 +1,8 @@
 angular.module('cover')
 .controller('CourseEditCtrl',
-function ($scope, $http,oldCourse,create,$timeout) {
+function ($scope,$http, course,create,$timeout) {
   //modal begin
-  $scope.oldCourse=angular.copy(oldCourse);
-  $scope.course=oldCourse;
+  $scope.course=course;
   if(create){
     $scope.course.studentNum=20;
     $scope.course.examRatio=40;
@@ -15,17 +14,6 @@ function ($scope, $http,oldCourse,create,$timeout) {
   }
   $scope.errorText={};
   $scope.create=create;
-  $scope.editOrCreate=function(course){
-    if(create){
-      $scope.$close({course:course,done:'created'});
-    }else{
-      $scope.$close({course:course,done:'edited'});
-    }
-  }
-  $scope.close=function(){
-    $scope.course=angular.copy($scope.oldCourse);
-    $scope.$close({course:$scope.course,done:'dismissed'});
-  }
   //modal end
 
   //form-group inputs begin
@@ -51,6 +39,7 @@ function ($scope, $http,oldCourse,create,$timeout) {
   };
   $scope.$watchGroup(['course.assignmentRatio','course.examRatio'],function(ratios){
     $scope.course.testRatio=100-$scope.course.examRatio-$scope.course.assignmentRatio;
+    $scope.ratiosValid = !isNaN($scope.course.testRatio);
   })
   //form-group inputs end
 
@@ -75,6 +64,7 @@ function ($scope, $http,oldCourse,create,$timeout) {
   $scope.tomorrow = new Date();
   $scope.tomorrow.setDate($scope.tomorrow.getDate() + 1);
   $scope.minDate = $scope.tomorrow;
+  if (!create) $scope.minDate = new Date(0);
 
   $scope.clear = function () {
     $scope.dt = null;
@@ -96,8 +86,6 @@ function ($scope, $http,oldCourse,create,$timeout) {
     formatYear: 'yy',
     startingDay: 1
   };
-
-
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];

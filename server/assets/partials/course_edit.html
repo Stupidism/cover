@@ -1,7 +1,7 @@
-<form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate> <!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+<form name="userForm" ng-submit="$close(course)" novalidate>
 
   <div class="modal-header">
-    <button type="button" class="close" ng-click="close()">×</button>
+    <button type="button" class="close" ng-click="$dismiss()">×</button>
     <h3>{{create?'新建':'编辑'}}课程</h3>
   </div>
   <div class="modal-body cover-modal">
@@ -45,9 +45,9 @@
           ng-class="{'has-error' : userForm.studentNum.$invalid && !userForm.studentNum.$pristine || !isPosInt(course.studentNum)}">
             上课人数:
             <input class="form-control input-sm" type="number" name="studentNum"
-              ng-model="course.studentNum" min="20" max="60" ng-required="true"
+              ng-model="course.studentNum" min="20" max="200" ng-required="true"
               placeholder="请输入上课人数"
-              tooltip="上课人数要求为整数,至少为20,至多为60"
+              tooltip="上课人数要求为整数,至少为20,至多为200"
               tooltip-placement="top" tooltip-trigger="mouseenter"
               tooltip-enable="userForm.studentNum.$invalid && !userForm.studentNum.$pristine|| !isPosInt(course.studentNum)" />
           </div>
@@ -88,9 +88,9 @@
         </div>
         <div class="col-md-8 cover-right">
           <div class="form-group" ng-class="{'has-error' :
-          userForm.summary.$invalid && !userForm.summary.$pristine }">
-            课程简介:{{userForm.summary.$viewValue.length||0}}/100
-            <textarea name="summary" class="form-control" type="text" ng-model="course.summary"
+          userForm.description.$invalid && !userForm.description.$pristine }">
+            课程简介:{{userForm.description.$viewValue.length||0}}/100
+            <textarea name="description" class="form-control" type="text" ng-model="course.description"
               ng-minlength="5" ng-maxlength="100" required
             ></textarea>
           </div>
@@ -115,12 +115,17 @@
           </div>
           <div class="form-group">
             成绩比例:
-            <progress class="cover-progress">
+            <progress class="cover-progress" ng-show="ratiosValid">
               <bar ng-repeat="(ratioName,ratio) in ratios" value="course[ratioName]" type="{{ratio.type}}">
                 <span>{{ratio.title}}:{{course[ratioName]}}%
                 </span>
               </bar>
             </progress>
+            <div class="cover-progress progress progress-striped" ng-show="!ratiosValid">
+              <div class="progress-bar progress-bar-warning" style="width: 100%;">
+                <span>请按左侧要求填写成绩比例！</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -141,9 +146,8 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button href="#" class="btn btn-wuxia" ng-click="close()">Close</button>
-    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid" ng-click="editOrCreate(course)">{{create?'创建课程':'保存修改'}}</button>
-
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">Close</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">{{create?'创建课程':'保存修改'}}</button>
   </div>
 
 </form>
