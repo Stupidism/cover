@@ -1,6 +1,5 @@
 angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q) {
   $scope.courses = [];
-  Restangular.one('courses', 1).get().then(console.log.bind(console))
   $scope.login().then(function () {
     angular.copy($scope.currentUser.$related.courses, $scope.courses);
     $scope.courses.sort(function (a, b) { return b.id - a.id; });

@@ -25,9 +25,26 @@ angular.module('cover', [
     url: '/international_communication',
     templateUrl: 'assets/partials/course_list_international_communication.html',
   }).state('courseManage', {
-    url: '/course_manage?id',
+    url: '/course_manage?course',
     controller: 'CourseManageCtrl',
     templateUrl: 'assets/partials/course_manage.html',
+  }).state('courseManage.textbooks', {
+    url: '/textbooks',
+    controller: 'TextbooksCtrl',
+    template: '<div class="textbook-player" cover-flash="http://202.120.40.73:36038/VPFile{{course.ebookUrl}}"></div>',
+  }).state('courseManage.microcourse', {
+    url: '/microcourse',
+    templateUrl: 'assets/partials/video_demo.html',
+  }).state('courseManage.subjects', {
+    url: '/subjects',
+    templateUrl: 'assets/partials/subject_list.html',
+  }).state('courseManage.classes', {
+    url: '/classes',
+    templateUrl: 'assets/partials/class_list.html',
+  }).state('courseManage.edit', {
+    url: '/edit',
+    controller: 'CourseManageEditCtrl',
+    templateUrl: 'assets/partials/course_manage_edit.html',
   });
 
   $urlRouterProvider.otherwise('/');
