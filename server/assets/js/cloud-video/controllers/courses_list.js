@@ -3,6 +3,7 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
   Restangular.one('courses', 1).get().then(console.log.bind(console))
   $scope.login().then(function () {
     angular.copy($scope.currentUser.$related.courses, $scope.courses);
+    $scope.courses.sort(function (a, b) { return b.id - a.id; });
     if($scope.courses.length>0){
       $scope.courses[0].open=true;
     }
