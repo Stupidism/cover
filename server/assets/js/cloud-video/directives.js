@@ -21,4 +21,26 @@ angular.module('cover').directive('coverFlash', function() {
       };
     }
   };
+}).directive('coverEbook', function() {
+  var total_vid = 0;
+  return {
+    scope: {
+      coverEbook: "@"
+    },
+    restrict: 'A',
+    templateUrl: 'assets/partials/cover_ebook.html',
+    link: function ($scope, element, attrs) {
+      var vid = total_vid++;
+      $scope.$watch('coverEbook', function(src) {
+        if (!src) return;
+        var target = element.find('.cover-textbook-viewer');
+        target.attr('id', 'cover-textbook-viewer--' + vid);
+        target.FlexPaperViewer({
+          config : {
+            SwfFile : escape(src),
+          }
+        });
+      });
+    },
+  };
 });

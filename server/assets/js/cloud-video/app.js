@@ -25,22 +25,29 @@ angular.module('cover', [
     url: '/international_communication',
     templateUrl: 'assets/partials/course_list_international_communication.html',
   }).state('courseManage', {
-    url: '/course_manage?course',
+    url: '/course_manage/:course',
     controller: 'CourseManageCtrl',
     templateUrl: 'assets/partials/course_manage.html',
   }).state('courseManage.textbooks', {
     url: '/textbooks',
     controller: 'TextbooksCtrl',
-    template: '<div class="textbook-player" cover-flash="http://202.120.40.73:36038/VPFile{{course.ebookUrl}}"></div>',
+    template: '<div cover-ebook="/VPFile{{course.ebookUrl}}"></div>'
   }).state('courseManage.microcourse', {
     url: '/microcourse',
     templateUrl: 'assets/partials/video_demo.html',
+  }).state('courseManage.assignments', {
+    url: '/assignments',
+    templateUrl: 'assets/partials/assignment_list.html',
   }).state('courseManage.subjects', {
     url: '/subjects',
     templateUrl: 'assets/partials/subject_list.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',
+  }).state('courseManage.classDetails', {
+    url: '/classes/:class',
+    controller: 'ClassDetailsCtrl',
+    templateUrl: 'assets/partials/class_details.html',
   }).state('courseManage.edit', {
     url: '/edit',
     controller: 'CourseManageEditCtrl',

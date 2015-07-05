@@ -2,7 +2,7 @@
   <div class="row">
     <div ng-repeat="clazz in course.$related.clazzs" class="col-md-6">
       <div class="clazz cover-card">
-        <h3>{{clazz.name}}</h3>
+        <h3><a ui-sref="^.classDetails({class: clazz.id})">{{clazz.name}}</a></h3>
         <p>学生数量：{{clazz.studentNum}}人</p>
         <p>加入密码：{{clazz.enrollPwd}}</p>
       </div>
