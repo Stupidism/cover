@@ -43,4 +43,32 @@ angular.module('cover').directive('coverFlash', function() {
       });
     },
   };
+}).directive('coverVideo', function() {
+  var total_vid = 0;
+  return {
+    scope: {
+      coverVideo: "@",
+      width: "=",
+      height: "=",
+      image: "@?",
+    },
+    restrict: 'A',
+    template: '<div class="video-container"><div>Loading the player...</div></div>',
+    link: function ($scope, element, attrs) {
+      var vid = total_vid++;
+      $scope.$watch('coverVideo', function(src) {
+        if (!src) return;
+        var target = element.find('.video-container > div');
+        var id = 'cover-video--' + vid;
+        target.attr('id', id);
+        var playerInstance = jwplayer(id);
+        playerInstance.setup({
+          file: src,
+          image: $scope.image,
+          width: $scope.width,
+          height: $scope.height,
+        });
+      });
+    },
+  };
 });
