@@ -34,8 +34,8 @@ angular.module('cover', [
     template: '<div cover-ebook="/VPFile{{course.ebookUrl}}"></div>'
   }).state('courseManage.microcourse', {
     url: '/microcourse',
-    template: '<div cover-video="/VPFile/videos/cc833351a9b4b3fc.mp4"></div>'
-    //templateUrl: 'assets/partials/video_demo.html',
+    controller: 'MicroCourseCtrl',
+    templateUrl: 'assets/partials/microcourse.html',
   }).state('courseManage.assignments', {
     url: '/assignments',
     templateUrl: 'assets/partials/assignment_list.html',
