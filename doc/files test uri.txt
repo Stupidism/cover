@@ -1,0 +1,14 @@
+base url: http://192.168.0.110:8080/VPFile
+
+ppt:    /files/d5fd6fc14b34c6c4
+excel:  /files/5cf743d941735745
+word:   /files/98e08ab172710ce1
+pdf:    /files/1eab5a7718641d06
+
+video:  /videos/cc833351a9b4b3fc
+	/videos/2eabfea5c1bef40a
+
+image: /images/259f5e4763d52c7e
+       /images/e75fdc423babedfd
+
+audio: /files/3f56bea760ab126e

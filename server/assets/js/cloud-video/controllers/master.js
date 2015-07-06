@@ -25,7 +25,7 @@ angular.module('cover').controller('MasterCtrl', function ($scope, $q, $modal, $
       return $q.when($scope.currentUser);
     if (!loginPromise) {
       loginPromise = $modal.open({
-          templateUrl : '/assets/partials/login.html',
+          templateUrl : 'assets/partials/login.html',
           backdrop : 'static',
           keyboard : false,
           size : 'sm',
