@@ -42,6 +42,10 @@ angular.module('cover', [
   }).state('courseManage.subjects', {
     url: '/subjects',
     templateUrl: 'assets/partials/subject_list.html',
+  }).state('courseManage.subjectDetails', {
+    url: '/subjects/:subject',
+    controller: 'SubjectDetailsCtrl',
+    templateUrl: 'assets/partials/subject_details.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',

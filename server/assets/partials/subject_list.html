@@ -6,7 +6,7 @@
       <th>描述</th>
     </tr>
     <tr ng-repeat="subject in course.$related.subjects">
-      <td>{{subject.code}}</td>
+      <td><a ui-sref="^.subjectDetails({subject: subject.$id})">{{subject.code}}</a></td>
       <td>{{subject.name}}</td>
       <td class="ellipsis wsn" style="max-width: 20em">{{subject.description}}</td>
     </tr>

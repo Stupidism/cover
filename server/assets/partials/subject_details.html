@@ -1,6 +1,8 @@
+<h3>知识点： {{subject.name}}</h3>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-4" ng-repeat="resource in microcourse.$related.resources">
+    <div class="col-md-4" ng-repeat="resource in subject.$related.resources">
       <div cover-video="/VPFile{{resource.url}}.mp4"></div>
     </div>
   </div>
