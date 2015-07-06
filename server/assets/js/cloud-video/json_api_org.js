@@ -91,7 +91,16 @@ angular.module('cover').factory('JsonApiOrg', function () {
     },
     serialize: function (resource) {
       var doc = {};
-      var item = doc.data = {};
+      doc.data = this.serializeResource(resource);
+      if (resource.$root) {
+        for (var key in resource.$root) {
+          doc[key] = resource.$root[key];
+        }
+      }
+      return doc;
+    },
+    serializeResource: function (resource) {
+      var item = {};
       item.attributes = angular.copy(resource);
       for (var key in item.attributes) {
         if (key[0] === '$') delete item.attributes[key];
@@ -99,7 +108,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
       item.type = resource.$type;
       item.id = resource.$id;
       item.relationships = resource.$relationships;
-      return doc;
+      return item;
     },
-  }
+  };
 });

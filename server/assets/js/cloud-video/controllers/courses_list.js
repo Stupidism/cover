@@ -1,4 +1,4 @@
-angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q) {
+angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
   $scope.courses = [];
   $scope.login().then(function () {
     angular.copy($scope.currentUser.$related.courses, $scope.courses);
@@ -44,19 +44,20 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
       },
     }).result.then(function (editedCourse) {
       if (create) {
+        if (!editedCourse.classNames) editedCourse.classNames = [];
+        var classes = editedCourse.classNames.map(function (name) {
+          return JsonApiOrg.serializeResource({
+            $type: 'clazz',
+            enrollPwd: "123456",
+            name: name,
+            $relationships: {
+              course: {meta: {ref: 'primary'}}
+            }
+          });
+        });
+        editedCourse.$root = {included: classes},
         Restangular.all('courses').post(editedCourse).then(function (course) {
-          $scope.courses.push(course);
-          if (!editedCourse.classNames) editedCourse.classNames = [];
-          return $q.all(editedCourse.classNames.map(function (name) {
-            return Restangular.all('clazzs').post({
-              $type: 'clazz',
-              enrollPwd: "123456",
-              name: name,
-              $relationships: {
-                course: {data: course.$asLink()}
-              }
-            });
-          }));
+          $scope.courses.unshift(course);
         });
       } else {
         $scope.courses.forEach(function (course) {
