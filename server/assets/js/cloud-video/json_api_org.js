@@ -1,12 +1,16 @@
 angular.module('cover').factory('JsonApiOrg', function () {
-  return {
-    _prop: function (obj, prop, value, configurable) {
-      Object.defineProperty(obj, prop, {value: value, configurable: configurable});
-    },
+  var JsonApiOrg = {
     _addUtilsTo: function (resource) {
-      this._prop(resource, '$asLink', function () {
+      resource.toJSON = function () {
+        var json = angular.copy(this);
+        JsonApiOrg._ignoredProps.forEach(function (prop) {
+          delete json[prop];
+        });
+        return json;
+      };
+      resource.$asLink = function () {
         return {type: this.$type, id: this.$id};
-      });
+      };
     },
     parseResource: function (item) {
       var resource = angular.copy(item.attributes);
@@ -29,62 +33,63 @@ angular.module('cover').factory('JsonApiOrg', function () {
       var typedMap = resourceMap[type];
       return typedMap && typedMap[id];
     },
+    _ignoredProps: ['$related', '$root', '$byType', '$included'],
     populateRelated: function (resource, resourceMap) {
-      var that = this;
-      this._prop(resource, '$related', resource.$related || {}, true);
+      resource.$related = resource.$related || {};
       for (var relationName in resource.$relationships) {
         var relation = resource.$relationships[relationName];
         if (relation && relation.data) {
           if (Array.isArray(relation.data)) {
             var relateds = resource.$related[relationName] = [];
             relation.data.forEach(function (link) {
-              var related = that.resourceMapQuery(resourceMap, link);
+              var related = JsonApiOrg.resourceMapQuery(resourceMap, link);
               if (related) relateds.push(related);
             });
           } else {
             resource.$related[relationName] =
-              that.resourceMapQuery(resourceMap, relation.data);
+              JsonApiOrg.resourceMapQuery(resourceMap, relation.data);
           }
         }
       }
       return resource;
     },
     parse: function (data, transformResource) {
-      var that = this;
       var resourceMap = {};
       if (!transformResource) transformResource = function (a) { return a; };
       var primary = null;
       if (Array.isArray(data.data)) {
         primary = [];
         data.data.forEach(function (item) {
-          var resource = transformResource(that.parseResource(item), primary);
+          var resource = transformResource(
+            JsonApiOrg.parseResource(item), primary);
           primary.push(resource);
-          that.resourceMapAdd(resourceMap, resource);
+          JsonApiOrg.resourceMapAdd(resourceMap, resource);
         });
       } else {
-        primary = transformResource(that.parseResource(data.data), null);
-        that.resourceMapAdd(resourceMap, primary);
+        primary = transformResource(JsonApiOrg.parseResource(data.data), null);
+        JsonApiOrg.resourceMapAdd(resourceMap, primary);
       }
-      this._prop(primary, '$root', data);
-      this._prop(primary, '$byType', resourceMap);
+      primary.$root = data;
+      primary.$byType = resourceMap;
       if (data.included) {
-        this._prop(primary, '$included', []);
+        primary.$included = [];
         data.included.forEach(function (item) {
-          var resource = transformResource(that.parseResource(item), null);
+          var resource = transformResource(
+            JsonApiOrg.parseResource(item), null);
           primary.$included.push(resource);
-          that.resourceMapAdd(resourceMap, resource);
+          JsonApiOrg.resourceMapAdd(resourceMap, resource);
         });
       }
       if (Array.isArray(primary)) {
         primary.forEach(function (resource) {
-          that.populateRelated(resource, resourceMap);
+          JsonApiOrg.populateRelated(resource, resourceMap);
         });
       } else {
-        that.populateRelated(primary, resourceMap);
+        JsonApiOrg.populateRelated(primary, resourceMap);
       }
       if (primary.$included) {
         primary.$included.forEach(function (resource) {
-          that.populateRelated(resource, resourceMap);
+          JsonApiOrg.populateRelated(resource, resourceMap);
         });
       }
       return primary;
@@ -101,7 +106,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
     },
     serializeResource: function (resource) {
       var item = {};
-      item.attributes = angular.copy(resource);
+      item.attributes = resource.toJSON();
       for (var key in item.attributes) {
         if (key[0] === '$') delete item.attributes[key];
       }
@@ -111,4 +116,5 @@ angular.module('cover').factory('JsonApiOrg', function () {
       return item;
     },
   };
+  return JsonApiOrg;
 });
