@@ -2,7 +2,7 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
   $scope.courses = [];
   $scope.login().then(function () {
     angular.copy($scope.currentUser.$related.courses, $scope.courses);
-    $scope.courses.sort(function (a, b) { return b.id - a.id; });
+    $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
     if($scope.courses.length>0){
       $scope.courses[0].open=true;
     }
@@ -60,7 +60,7 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
         });
       } else {
         $scope.courses.forEach(function (course) {
-          if (course.id === editedCourse.id) {
+          if (course.$id === editedCourse.$id) {
             angular.copy(editedCourse, course);
           }
         });

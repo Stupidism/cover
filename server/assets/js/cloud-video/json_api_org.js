@@ -97,7 +97,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
         if (key[0] === '$') delete item.attributes[key];
       }
       item.type = resource.$type;
-      item.id = resource.$id || resource.id;
+      item.id = resource.$id;
       item.relationships = resource.$relationships;
       return doc;
     },

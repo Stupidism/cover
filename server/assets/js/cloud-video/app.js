@@ -56,6 +56,9 @@ angular.module('cover', [
 
   $urlRouterProvider.otherwise('/');
 }).run(function (Restangular, JsonApiOrg) {
+  Restangular.setRestangularFields({
+      id: "$id"
+  });
   Restangular.setBaseUrl('/api/');
   Restangular.addResponseInterceptor(
     function (data, operation, what, url, response, deferred) {
