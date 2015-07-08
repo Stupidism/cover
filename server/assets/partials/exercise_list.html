@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>问题</th>
+      <th>分析</th>
+      <th>答案</th>
+    </tr>
+    <tr ng-repeat="exercise in course.$related.exercises">
+      <td>{{exercise.question}}</td>
+      <td>{{exercise.analysis}}</td>
+      <td class="ellipsis wsn" style="max-width: 20em">{{exercise.answer}}</td>
+    </tr>
+  </tbody>
+</table>
