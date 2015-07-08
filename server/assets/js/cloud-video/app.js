@@ -28,6 +28,10 @@ angular.module('cover', [
     url: '/course_manage/:course',
     controller: 'CourseManageCtrl',
     templateUrl: 'assets/partials/course_manage.html',
+  }).state('courseManage.courseIndex', {
+    url: '/courseIndex',
+    controller: 'CourseIndexCtrl',
+    templateUrl: 'assets/partials/course_index.html',
   }).state('courseManage.textbooks', {
     url: '/textbooks',
     controller: 'TextbooksCtrl',
