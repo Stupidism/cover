@@ -99,6 +99,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
       doc.data = this.serializeResource(resource);
       if (resource.$root) {
         for (var key in resource.$root) {
+          if (doc.hasOwnProperty(key)) continue;
           doc[key] = resource.$root[key];
         }
       }

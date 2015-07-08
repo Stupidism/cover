@@ -79,7 +79,7 @@ angular.module('cover', [
     return element;
   });
 
-  Restangular.setFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
+  Restangular.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
     if (coverAuth.currentUser) {
       headers['Access-Token'] = coverAuth.currentUser.$token;
     }
