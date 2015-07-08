@@ -60,7 +60,7 @@ angular.module('cover', [
   });
 
   $urlRouterProvider.otherwise('/');
-}).run(function (Restangular, JsonApiOrg) {
+}).run(function (Restangular, JsonApiOrg, coverAuth, $http) {
   Restangular.setRestangularFields({
       id: "$id"
   });
@@ -77,5 +77,31 @@ angular.module('cover', [
       return JsonApiOrg.serialize(element);
     }
     return element;
+  });
+
+  Restangular.setFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
+    if (coverAuth.currentUser) {
+      headers['Access-Token'] = coverAuth.currentUser.$token;
+    }
+    return {
+      element: element,
+      params: params,
+      headers: headers,
+      httpConfig: httpConfig
+    };
+  });
+  Restangular.addErrorInterceptor(function(response, deferred, responseHandler) {
+    if (response.status === 401) {
+      coverAuth.login().then(function() {
+        var config = response.config;
+        if (coverAuth.currentUser) {
+          config.headers = config.headers || {};
+          config.headers['Access-Token'] = coverAuth.currentUser.$token;
+        }
+        return $http(config);
+      }).then(responseHandler, deferred.reject);
+      return false;
+    }
+    return true;
   });
 });
