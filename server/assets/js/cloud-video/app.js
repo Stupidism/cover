@@ -56,6 +56,9 @@ angular.module('cover', [
   }).state('courseManage.exercises', {
     url: '/exercises',
     templateUrl: 'assets/partials/exercise_list.html',
+  }).state('courseManage.scores', {
+    url: '/scores',
+    templateUrl: 'assets/partials/score_list.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',
