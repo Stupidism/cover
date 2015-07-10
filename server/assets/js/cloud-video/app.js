@@ -29,7 +29,7 @@ angular.module('cover', [
     controller: 'CourseManageCtrl',
     templateUrl: 'assets/partials/course_manage.html',
   }).state('courseManage.courseIndex', {
-    url: '/courseIndex',
+    url: '/courseindex',
     controller: 'CourseIndexCtrl',
     templateUrl: 'assets/partials/course_index.html',
   }).state('courseManage.textbooks', {
@@ -43,6 +43,13 @@ angular.module('cover', [
   }).state('courseManage.assignments', {
     url: '/assignments',
     templateUrl: 'assets/partials/assignment_list.html',
+  }).state('courseManage.assignmentsAdd', {
+    url: '/assignmentsadd',
+    templateUrl: 'assets/partials/assignment_add.html',
+  }).state('courseManage.assignmentDetails', {
+    url: '/assignments/:assign',
+    controller: 'AssignmentDetailsCtrl',
+    templateUrl: 'assets/partials/assignment_details.html',
   }).state('courseManage.subjects', {
     url: '/subjects',
     templateUrl: 'assets/partials/subject_list.html',
@@ -50,13 +57,13 @@ angular.module('cover', [
     url: '/subjects/:subject',
     controller: 'SubjectDetailsCtrl',
     templateUrl: 'assets/partials/subject_details.html',
-  }).state('courseManage.problems', {
-    url: '/problems',
-    templateUrl: 'assets/partials/problem_list.html',
-  }).state('courseManage.problemDetails', {
-    url: '/problems/:problems',
-    controller: 'ProblemDetailsCtrl',
-    templateUrl: 'assets/partials/problem_details.html',
+  }).state('courseManage.questions', {
+    url: '/questions',
+    templateUrl: 'assets/partials/question_list.html',
+  }).state('courseManage.questionDetails', {
+    url: '/questions/:question',
+    controller: 'QuestionDetailsCtrl',
+    templateUrl: 'assets/partials/question_details.html',
   }).state('courseManage.exercises', {
     url: '/exercises',
     templateUrl: 'assets/partials/exercise_list.html',

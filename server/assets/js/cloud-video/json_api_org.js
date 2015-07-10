@@ -1,13 +1,14 @@
 angular.module('cover').factory('JsonApiOrg', function () {
   var JsonApiOrg = {
+    _toJSON: function () {
+      var json = angular.copy(this);
+      JsonApiOrg._ignoredProps.forEach(function (prop) {
+        delete json[prop];
+      });
+      return json;
+    },
     _addUtilsTo: function (resource) {
-      resource.toJSON = function () {
-        var json = angular.copy(this);
-        JsonApiOrg._ignoredProps.forEach(function (prop) {
-          delete json[prop];
-        });
-        return json;
-      };
+      resource.toJSON = JsonApiOrg._toJSON;
       resource.$asLink = function () {
         return {type: this.$type, id: this.$id};
       };
@@ -107,7 +108,11 @@ angular.module('cover').factory('JsonApiOrg', function () {
     },
     serializeResource: function (resource) {
       var item = {};
-      item.attributes = resource.toJSON();
+      if (resource.toJSON) {
+        item.attributes = resource.toJSON();
+      } else {
+        item.attributes = JsonApiOrg._toJSON.call(resource);
+      }
       for (var key in item.attributes) {
         if (key[0] === '$') delete item.attributes[key];
       }
