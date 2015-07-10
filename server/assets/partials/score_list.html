@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>班级</th>
+      <th>姓名</th>
+      <th>成绩</th>
+    </tr>
+    <tr ng-repeat="sscore in course.$related.scores">
+      <td>{{sscore.clazz.name}}</td>
+      <td>{{sscore.student}}</td>
+      <td>{{sscore.score}}</td>
+    </tr>
+  </tbody>
+</table>
