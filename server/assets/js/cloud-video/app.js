@@ -60,6 +60,10 @@ angular.module('cover', [
   }).state('courseManage.exercises', {
     url: '/exercises',
     templateUrl: 'assets/partials/exercise_list.html',
+  }).state('courseManage.outline', {
+    url: '/outline',
+    controller: 'CourseOutlineCtrl',
+    templateUrl: 'assets/partials/course_outline.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',

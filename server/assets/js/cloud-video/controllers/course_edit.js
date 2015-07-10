@@ -1,8 +1,9 @@
 angular.module('cover')
 .controller('CourseEditCtrl',
-function ($scope,$http, course,create,$timeout) {
+function ($scope,$http, course,create,$timeout, Restangular) {
   //modal begin
   $scope.course=course;
+  $scope.textbooks=course.$related.textbooks;
   console.log(course);
   if(create){
     $scope.course.studentNum=20;
@@ -45,6 +46,41 @@ function ($scope,$http, course,create,$timeout) {
   //form-group inputs end
 
   //teaching matatiral begin
+  course.$related.textbooks=Restangular.one('courses',course.$id).getList('textbooks').$object;
+  console.log(course);
+  Restangular.one('textbooks').getList().then(function (textbooks){
+    $scope.textbooks = textbooks;
+  console.log($scope.textbooks);
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  $scope.isRelated=new Array($scope.textbooks.length);
+  $scope.addSlide = function(now) {
+    slides.push({
+      image: 'http://192.168.0.110:8080/VPFile/' + $scope.textbooks[now].pic,
+      author: $scope.textbooks[now].author,
+      publisher: $scope.textbooks[now].publisher,
+      publishTime: $scope.textbooks[now].publishTime,
+      isbn: $scope.textbooks[now].isbn,
+      name: $scope.textbooks[now].name,
+      description: $scope.textbooks[now].description,
+      check: $scope.isRelated[now]
+    });
+  };
+  for (var i=0; i<$scope.textbooks.length; i++) {
+    $scope.isRelated[i] = 0;
+    for (var j=0; j<course.$related.textbooks.length; j++) {
+      if (course.$related.textbooks[j].$id === $scope.textbooks[i].$id) {
+        $scope.isRelated[i] = 1;
+        break;
+      }
+    }
+
+  }
+  for (var i=0; i<$scope.textbooks.length; i++) {
+    $scope.addSlide(i);
+  }
+  })
+  /*
   $scope.myInterval = 5000;
   var slides = $scope.slides = [];
   $scope.addSlide = function() {
@@ -58,6 +94,8 @@ function ($scope,$http, course,create,$timeout) {
   for (var i=0; i<4; i++) {
     $scope.addSlide();
   }
+*/
+
   //teaching matatiral end
 
   //datepicker begin

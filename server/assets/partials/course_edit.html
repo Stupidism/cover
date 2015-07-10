@@ -15,17 +15,28 @@
           </carousel>
           <div ng-show="slide.active" ng-repeat="slide in slides">
             <div >
-              <p>作者:{{$index}}</p>
-              <p>出版社:{{$index}}</p>
-              <p>出版时间:{{$index}}</p>
-              <p>ISBN:{{$index}}</p>
+              <p>作者:{{slide.author}}</p>
+              <p>出版社:{{slide.publisher}}</p>
+              <p>出版时间:{{slide.publishTime}}</p>
+              <p>ISBN:{{slide.isbn}}</p>
             </div>
           </div>
         </div>
-        <div class="col-md-8 cover-right">
+        <div class="col-md-4 cover-right">
           <div ng-show="slide.active" ng-repeat="slide in slides">
+            <p>教材名称: </br>{{slide.name}}</p>
+            <br>
             <p>教材简介: </br>{{slide.description}}</p>
+            <pre>{{slide.check}}</pre>
+            <button type="button" class="btn btn-primary" ng-model="slide.check" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
+              选择
+            </button>
           </div>
+        </div>
+        <div class="col-md-4 cover-right">
+          <p>已选教材: </br></p>
+          <div ng-repeat="textbook in textbooks">
+              <p>{{textbook.name}}<br></p>
         </div>
       </div>
     </div>
