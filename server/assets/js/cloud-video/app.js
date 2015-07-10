@@ -60,16 +60,13 @@ angular.module('cover', [
   }).state('courseManage.exercises', {
     url: '/exercises',
     templateUrl: 'assets/partials/exercise_list.html',
-<<<<<<< HEAD
   }).state('courseManage.outline', {
     url: '/outline',
     controller: 'CourseOutlineCtrl',
     templateUrl: 'assets/partials/course_outline.html',
-=======
   }).state('courseManage.scores', {
     url: '/scores',
     templateUrl: 'assets/partials/score_list.html',
->>>>>>> 724ac3b5dde05f9304ce498dd7eff008d0f93f5f
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',
