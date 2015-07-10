@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>编号</th>
+      <th>描述</th>
+      <th>提问者</th>
+      <th>提问时间</th>
+      <th>访问量</th>
+    </tr>
+    <tr ng-repeat="question in course.$related.questions">
+      <td><a ui-sref="^.questionDetails({question: question.$id})">{{question.title}}</a></td>
+      <td>{{question.content}}</td>
+      <td>{{question.createUserId}}</td>
+      <td>{{question.createTime}}</td>
+      <td>{{question.viewCount}}</td>
+    </tr>
+  </tbody>
+</table>

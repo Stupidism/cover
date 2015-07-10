@@ -4,11 +4,17 @@
       <th>编号</th>
       <th>名称</th>
       <th>简介</th>
+      <th>总分</th>
+      <th>开始日期</th>
+      <th>截止日期</th>
     </tr>
     <tr ng-repeat="assign in course.$related.assignments">
-      <td>{{assign.code}}</td>
+      <td><a ui-sref="^.assignmentDetails({assign: assign.$id})">{{assign.code}}</a></td>
       <td>{{assign.name}}</td>
       <td class="ellipsis wsn" style="max-width: 20em">{{assign.description}}</td>
+      <td>{{assign.totalScore}}</td>
+      <td>{{assign.startTime}}</td>
+      <td>{{assign.$related.deadlines.time}}</td>
     </tr>
   </tbody>
 </table>
