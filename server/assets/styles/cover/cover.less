@@ -155,3 +155,23 @@
   width: 100%;
   height: 900px;
 }
+
+.cover-resource {
+  min-height: 220px;
+  background-color: #000;
+  background-clip: content-box;
+  color: white;
+}
+
+.cover-resource-new {
+  min-height: 220px;
+  position: relative;
+
+  .cover-file-upload {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    width: ~"-moz-calc(100% - 30px)";
+    width: ~"calc(100% - 30px)";
+  }
+}

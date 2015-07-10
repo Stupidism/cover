@@ -130,8 +130,8 @@ function ($scope,$http, course,create,$timeout, Restangular) {
     startingDay: 1
   };
 
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
+  $scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd hh:mm:ss', 'dd.MM.yyyy', 'shortDate'];
+  $scope.format = $scope.formats[1];
   //datepicker end
 
   //className begin
