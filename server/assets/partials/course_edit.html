@@ -103,20 +103,25 @@
               ng-minlength="5" ng-maxlength="100" required
             ></textarea>
           </div>
-          <div ng-repeat="(desc,attrs) in {
-              '报名时间':{'enrollStarttime':{},'enrollEndtime':{}},
-              '开课时间':{'startTime':{},'endTime':{}}
-            }">
-            {{desc}}:
+          <div ng-repeat="time in [{
+              'desc':'报名时间',fromTo:[
+                {attr:'enrollStarttime',options:{}},
+                {attr:'enrollEndtime',options:{}}
+              ]},
+              {'desc':'开课时间',fromTo:[
+              {attr:'startTime',options:{}},{attr:'endTime',options:{}}]},
+            ] track by $index" >
+            {{time.desc}}:
             <div class="row">
-              <div class="col-md-6 cover-datepicker" ng-repeat="(attr,options) in attrs">
+              <div class="col-md-6 cover-datepicker" ng-repeat="attr in time.fromTo">
                 <p class="input-group">
                   <input type="text" class="form-control input-sm" datepicker-popup="{{format}}"
-                   ng-model="course[attr]" is-open="options.opened" min-date="minDate"
+                   ng-model="course[attr.attr]" is-open="attr.options.opened" min-date="minDate"
                     datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
                      ng-required="true" close-text="Close" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default cover-btn-tn" ng-click="open($event,options)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    <button type="button" class="btn btn-default cover-btn-tn" 
+                    ng-click="open($event,attr.options)"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
                 </p>
               </div>
