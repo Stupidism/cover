@@ -46,6 +46,10 @@ function ($scope,$http, course,create,$timeout, Restangular) {
   //form-group inputs end
 
   //teaching matatiral begin
+  $scope.chooseEnum={
+    0:'未选择',
+    1:'已选择'
+  }
   course.$related.textbooks=Restangular.one('courses',course.$id).getList('textbooks').$object;
   console.log(course);
   Restangular.one('textbooks').getList().then(function (textbooks){
