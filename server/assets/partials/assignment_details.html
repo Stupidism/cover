@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>学生姓名</th>
+      <th>答案</th>
+      <th>具体内容</th>
+    </tr>
+    <tr ng-repeat="homework in assignments.$related.homeworks">
+      <td>{{homework.$related.student.name}}</td>
+      <td>{{homework.name}}</td>
+      <td class="ellipsis wsn" style="max-width: 20em">{{homework.content}}</td>
+    </tr>
+  </tbody>
+</table>
