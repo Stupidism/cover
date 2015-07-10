@@ -71,4 +71,34 @@ angular.module('cover').directive('coverFlash', function() {
       });
     },
   };
+}).directive('coverFileUpload', function() {
+  return {
+    scope: {
+      coverFileUpload: "&",
+    },
+    restrict: 'A',
+    templateUrl: 'assets/partials/cover_file_upload.html',
+    link: function ($scope, element, attrs) {
+      element.find(".cover-file-upload").dmUploader({
+        url: '/VPFile/fileupload',
+        onNewFile: function () {
+          $scope.$apply(function () {
+            $scope.fileUploadPercent = 0;
+          });
+        },
+        onUploadProgress: function (id, percent) {
+          $scope.$apply(function () {
+            $scope.fileUploadPercent = percent;
+          });
+        },
+        dataType: 'json',
+        onUploadSuccess: function (id, data) {
+          $scope.$apply(function () {
+            $scope.fileUploadPercent = 100;
+            $scope.coverFileUpload({$data: data})
+          });
+        },
+      });
+    },
+  };
 });
