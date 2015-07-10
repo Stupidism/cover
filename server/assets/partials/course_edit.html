@@ -6,39 +6,6 @@
   </div>
   <div class="modal-body cover-modal">
     <div class="row cover-modal-row cover-top">
-      <div class="col-md-12 ">
-        <div class="col-md-4 cover-left">
-          <carousel interval="-1">
-            <slide ng-repeat="slide in slides" active="slide.active">
-              <img ng-src="{{slide.image}}" style="margin:auto;">
-            </slide>
-          </carousel>
-          <div ng-show="slide.active" ng-repeat="slide in slides">
-            <div >
-              <p>作者:{{slide.author}}</p>
-              <p>出版社:{{slide.publisher}}</p>
-              <p>出版时间:{{slide.publishTime}}</p>
-              <p>ISBN:{{slide.isbn}}</p>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 cover-right">
-          <div ng-show="slide.active" ng-repeat="slide in slides">
-            <p>教材名称: </br>{{slide.name}}</p>
-            <br>
-            <p>教材简介: </br>{{slide.description}}</p>
-          </div>
-        </div>
-        <div class="col-md-4 cover-right">
-          <div ng-show="slide.active" ng-repeat="slide in slides">
-            <button type="button" class="btn btn-primary" ng-model="slide.check" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">
-              {{chooseEnum[slide.check]}}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row cover-modal-row cover-middle">
       <div class="col-md-12">
         <div class="col-md-4 cover-left">
           <div class="form-group" ng-class="{'has-error' : userForm.name.$invalid && !userForm.name.$pristine}">
@@ -120,7 +87,7 @@
                     datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
                      ng-required="true" close-text="Close" />
                   <span class="input-group-btn">
-                    <button type="button" class="btn btn-default cover-btn-tn" 
+                    <button type="button" class="btn btn-default cover-btn-tn"
                     ng-click="open($event,attr.options)"><i class="glyphicon glyphicon-calendar"></i></button>
                   </span>
                 </p>

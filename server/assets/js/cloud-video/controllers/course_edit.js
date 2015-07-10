@@ -56,8 +56,7 @@ function ($scope,$http, course,create,$timeout, Restangular) {
     $scope.textbooks = textbooks;
   console.log($scope.textbooks);
   $scope.myInterval = 5000;
-  var slides = $scope.slides = [];
-  $scope.isRelated=new Array($scope.textbooks.length);
+
   $scope.addSlide = function(now) {
     slides.push({
       image: 'http://192.168.0.110:8080/VPFile/' + $scope.textbooks[now].pic,
@@ -70,16 +69,8 @@ function ($scope,$http, course,create,$timeout, Restangular) {
       check: $scope.isRelated[now]
     });
   };
-  for (var i=0; i<$scope.textbooks.length; i++) {
-    $scope.isRelated[i] = 0;
-    for (var j=0; j<course.$related.textbooks.length; j++) {
-      if (course.$related.textbooks[j].$id === $scope.textbooks[i].$id) {
-        $scope.isRelated[i] = 1;
-        break;
-      }
-    }
 
-  }
+
   for (var i=0; i<$scope.textbooks.length; i++) {
     $scope.addSlide(i);
   }

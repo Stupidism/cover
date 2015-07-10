@@ -14,6 +14,8 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
     $scope.courses.map(function(course){course.open=true;})
   }
 
+
+
   $scope.editCourse = function (course,$event,create) {
     $event.stopPropagation();
     create = !!create;
@@ -43,29 +45,11 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
         },
       },
     }).result.then(function (editedCourse) {
-      if (create) {
-        if (!editedCourse.classNames) editedCourse.classNames = [];
-        var classes = editedCourse.classNames.map(function (name) {
-          return JsonApiOrg.serializeResource({
-            $type: 'clazz',
-            enrollPwd: "123456",
-            name: name,
-            $relationships: {
-              course: {meta: {ref: 'primary'}}
-            }
-          });
-        });
-        editedCourse.$root = {included: classes},
-        Restangular.all('courses').post(editedCourse).then(function (course) {
-          $scope.courses.unshift(course);
-        });
-      } else {
-        $scope.courses.forEach(function (course) {
-          if (course.$id === editedCourse.$id) {
-            angular.copy(editedCourse, course);
-          }
-        });
-      }
+      $scope.courses.forEach(function (course) {
+        if (course.$id === editedCourse.$id) {
+          angular.copy(editedCourse, course);
+        }
+      });
     });
   };
 

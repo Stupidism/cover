@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <div class="cover-accordion">
       <div class="accordion-header">
-        <button class="btn btn-success" ng-click="editCourse({},$event,'create')">新建课程</button>
+        <button class="btn btn-success" ui-sref="courseNew()">新建课程</button>
         <button type="button" class="btn btn-primary" ng-click="openAll()">
           全部展开
         </button>
@@ -17,7 +17,7 @@
             <span class="cover-span">课程{{course.$id}}:{{course.name}}({{course.startTime|date}}~{{course.endTime|date}})</span>
             <span class="pull-right cover-span">
               <i class="glyphicon glyphicon-chevron-{{course.open?'up':'down'}}"></i>
-            </span> 
+            </span>
             <span class="pull-right cover-span" ng-click="editCourse(course,$event)">
               <i class="glyphicon glyphicon-edit"></i>
             </span>

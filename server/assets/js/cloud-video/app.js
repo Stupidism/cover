@@ -78,6 +78,10 @@ angular.module('cover', [
     url: '/edit',
     controller: 'CourseManageEditCtrl',
     templateUrl: 'assets/partials/course_manage_edit.html',
+  }).state('courseNew', {
+    url: '/courseNew',
+    controller: 'CourseNewCtrl',
+    templateUrl: 'assets/partials/course_new.html',
   });
 
   $urlRouterProvider.otherwise('/');

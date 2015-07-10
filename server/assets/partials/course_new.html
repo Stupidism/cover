@@ -1,0 +1,181 @@
+<form name="userForm" ng-submit="createCourse()" novalidate>
+  <div class="modal-header">
+    <h3>新建课程</h3>
+    <h4 ng-show="step==1">选择教材</h4>
+    <h4 ng-show="step==2">基本信息</h4>
+  </div>
+  <div class="modal-body cover-modal">
+    <div class="row cover-modal-row cover-top" ng-show="step==1">
+      <div class="col-md-12 ">
+        <div class="col-md-2 cover-left">
+          <ul class="textbook_list">
+            <li ng-repeat="textbook in textbooks" ng-class="{active:textbook.active}">
+              <input type="checkbox" ng-model="textbook.chosen"/>
+              <label ng-click="textbook.active=true">{{textbook.name}}</label>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4 cover-left">
+          <carousel interval="-1">
+            <slide ng-repeat="textbook in textbooks" active="textbook.active">
+              <img ng-src="{{textbook.pic}}" style="margin:auto;">
+            </slide>
+          </carousel>
+          <div ng-show="textbook.active" ng-repeat="textbook in textbooks">
+            <div >
+              <p>作者:{{textbook.author}}</p>
+              <p>出版社:{{textbook.publisher}}</p>
+              <p>出版时间:{{textbook.publishTime}}</p>
+              <p>ISBN:{{textbook.isbn}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 cover-right">
+          <div ng-show="textbook.active" ng-repeat="textbook in textbooks">
+            <p>教材名称: </br>{{textbook.name}}</p>
+            <br>
+            <p>教材简介: </br>{{textbook.description}}</p>
+            <button type="button" class="btn btn-primary" ng-model="textbook.chosen" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+              {{textbook.chosen?'已选中':'未选中'}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div  ng-show="step==2">
+      <div class="row cover-modal-row cover-middle">
+        <div class="col-md-12">
+          <div class="col-md-4 cover-left">
+            <div class="form-group" ng-class="{'has-error' : userForm.name.$invalid && !userForm.name.$pristine}">
+              课程名称:
+              <input class="form-control input-sm" type="text" name="name"
+                ng-model="course.name" ng-minlength="2" ng-maxlength="255" ng-required="true"
+                placeholder="请输入课程名称"
+                tooltip="课程名称长度至少为2"
+                tooltip-placement="top" tooltip-trigger="mouseenter"
+                tooltip-enable="userForm.name.$invalid && !userForm.name.$pristine" />
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : userForm.studentNum.$invalid && !userForm.studentNum.$pristine || !isPosInt(course.studentNum)}">
+              上课人数:
+              <input class="form-control input-sm" type="number" name="studentNum"
+                ng-model="course.studentNum" min="20" max="200" ng-required="true"
+                placeholder="请输入上课人数"
+                tooltip="上课人数要求为整数,至少为20,至多为200"
+                tooltip-placement="top" tooltip-trigger="mouseenter"
+                tooltip-enable="userForm.studentNum.$invalid && !userForm.studentNum.$pristine|| !isPosInt(course.studentNum)" />
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : userForm.assignmentRatio.$invalid
+              && !userForm.assignmentRatio.$pristine || !isPosInt(course.assignmentRatio)}">
+              作业比例:
+              <input class="form-control input-sm" type="number" name="assignmentRatio"
+                ng-model="course.assignmentRatio" ng-min="20" ng-max="50" ng-required="true"
+                placeholder="请输入作业比例"
+                tooltip="作业比例要求为整数,至少为20,至多为50"
+                tooltip-placement="top" tooltip-trigger="mouseenter"
+                tooltip-enable="userForm.assignmentRatio.$invalid
+                && !userForm.assignmentRatio.$pristine|| !isPosInt(course.assignmentRatio)" />
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : userForm.examRatio.$invalid
+              && !userForm.examRatio.$pristine || !isPosInt(course.examRatio)}">
+              考试比例:
+              <input class="form-control input-sm" type="number" name="examRatio"
+                ng-model="course.examRatio" ng-min="20" ng-max="50" ng-required="true"
+                placeholder="请输入作考试比例"
+                tooltip="考试比例要求为整数,至少为20,至多为50"
+                tooltip-placement="top" tooltip-trigger="mouseenter"
+                tooltip-enable="userForm.examRatio.$invalid
+                && !userForm.examRatio.$pristine|| !isPosInt(course.examRatio)" />
+            </div>
+            <div class="form-group"
+            ng-class="{'has-error' : userForm.classNum.$invalid && !userForm.classNum.$pristine || !isPosInt(classNum)}">
+              班级数量:
+              <input class="form-control input-sm" type="number" name="classNum"
+                ng-model="classNum"  min="1" max="10" ng-required="true"
+                placeholder="请输入班级数量"
+                tooltip="班级数量要求为整数,至少为1,至多为10"
+                tooltip-placement="top" tooltip-trigger="mouseenter"
+                tooltip-enable="userForm.classNum.$invalid && !userForm.classNum.$pristine|| !isPosInt(classNum)" />
+            </div>
+          </div>
+          <div class="col-md-8 cover-right">
+            <div class="form-group" ng-class="{'has-error' :
+            userForm.description.$invalid && !userForm.description.$pristine }">
+              课程简介:{{userForm.description.$viewValue.length||0}}/100
+              <textarea name="description" class="form-control" type="text" ng-model="course.description"
+                ng-minlength="5" ng-maxlength="100" required
+              ></textarea>
+            </div>
+            <div ng-repeat="time in [{
+                'desc':'报名时间',fromTo:[
+                  {attr:'enrollStarttime',options:{}},
+                  {attr:'enrollEndtime',options:{}}
+                ]},
+                {'desc':'开课时间',fromTo:[
+                {attr:'startTime',options:{}},{attr:'endTime',options:{}}]},
+              ] track by $index" >
+              {{time.desc}}:
+              <div class="row">
+                <div class="col-md-6 cover-datepicker" ng-repeat="attr in time.fromTo">
+                  <p class="input-group">
+                    <input type="text" class="form-control input-sm" datepicker-popup="{{format}}"
+                     ng-model="course[attr.attr]" is-open="attr.options.opened" min-date="minDate"
+                      datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                       ng-required="true" close-text="Close" />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default cover-btn-tn"
+                      ng-click="open($event,attr.options)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              成绩比例:
+              <progress class="cover-progress" ng-show="ratiosValid">
+                <bar ng-repeat="(ratioName,ratio) in ratios" value="course[ratioName]" type="{{ratio.type}}">
+                  <span>{{ratio.title}}:{{course[ratioName]}}%
+                  </span>
+                </bar>
+              </progress>
+              <div class="cover-progress progress progress-striped" ng-show="!ratiosValid">
+                <div class="progress-bar progress-bar-warning" style="width: 100%;">
+                  <span>请按左侧要求填写成绩比例！</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row cover-modal-row cover-bottom">
+        <div class="col-md-12">
+          <div class="col-md-12">
+          班级名称:
+          <div class="row">
+            <div class="col-md-4" ng-repeat="className in course.classNames track by $index">
+              <input class="form-control input-sm cover-input" type="text"
+               ng-model="course.classNames[$index]" required>
+              <p ng-show="className" style="color: #f22">{{errorText.name}}</p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <progressbar class="progress-striped active" value="step*33" type="success"></progressbar>
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
+    <button type="button" class="btn btn-wuxia btn-primary" ng-disabled="!choosedAnyTextbook(textbooks)"
+      ng-show="step==1" ng-click="step=2"
+    >下一步</button>
+    <button type="button" class="btn btn-wuxia btn-primary" ng-disabled="!choosedAnyTextbook(textbooks)"
+      ng-show="step==2" ng-click="step=1"
+    >上一步</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid"
+      ng-show="step==2"
+    >创建课程</button>
+  </div>
+</form>
