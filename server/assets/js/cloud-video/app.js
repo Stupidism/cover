@@ -59,6 +59,7 @@ angular.module('cover', [
     templateUrl: 'assets/partials/subject_details.html',
   }).state('courseManage.questions', {
     url: '/questions',
+    controller: 'QuestionsListCtrl',
     templateUrl: 'assets/partials/question_list.html',
   }).state('courseManage.questionDetails', {
     url: '/questions/:question',
