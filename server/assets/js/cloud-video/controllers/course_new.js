@@ -111,5 +111,6 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
     Restangular.all('courses').post($scope.course).then(function (course) {
       $state.go('courseManage',{course:course.$id});
     });
+    console.log($scope.course);
   };
 });
