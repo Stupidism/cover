@@ -1,6 +1,9 @@
 angular.module('cover').controller('CourseOutlineCtrl', function ($scope, $state) {
   $scope.fetchCourse.then(function (course) {
-    $scope.editCourse = course.clone();
+    $scope.course = course;
+    $scope.editCourseOutline = course.$related.courseoutline;
   });
 
+  $scope.submit = function (course) {
+  };  
 });
