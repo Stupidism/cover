@@ -1,9 +1,14 @@
-angular.module('cover').controller('CourseOutlineCtrl', function ($scope, $state) {
-  $scope.fetchCourse.then(function (course) {
-    $scope.course = course;
-    $scope.editCourseOutline = course.$related.courseoutline;
+angular.module('cover').controller('CourseOutlineCtrl', function ($scope, $http, $modal, Restangular, $stateParams) {
+  $scope.fetchOutline = Restangular.one('courses', $stateParams.course).customGET('courseoutline');
+
+  $scope.fetchOutline.then(function (courseoutline) {
+    $scope.editOutline = courseoutline;
+    console.log($scope.editOutline);
   });
 
-  $scope.submit = function (course) {
-  };  
+  $scope.submit = function (courseoutline) {
+    courseoutline.patch(courseoutline).then(function (c) {
+      $state.course.$related.courseoutline.go('courseManage.outline', {reload: true});
+    });
+  };
 });
