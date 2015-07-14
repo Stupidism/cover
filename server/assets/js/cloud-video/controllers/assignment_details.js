@@ -1,3 +1,7 @@
 angular.module('cover').controller('AssignmentDetailsCtrl', function ($scope, Restangular, $stateParams) {
-  $scope.assignments = Restangular.one('assignments', $stateParams.assign).get().$object;
+  Restangular.one('assignments', $stateParams['assign']).all('homeworks').getList()
+    .then(function (homeworks) {
+      $scope.homeworks = homeworks;
+      console.log($scope.homeworks);
+    });
 })

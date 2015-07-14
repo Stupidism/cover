@@ -3,19 +3,21 @@
     <tr>
       <th>内容</th>
       <th>作者</th>
+      <th>回答时间</th>
     </tr>
     <tr ng-repeat="answer in answers">
       <td>{{answer.content}}</td>
-      <td>{{answer.createUserId}}</td>
+      <td>{{answer.$related.student.trueName}}</td>
+      <td>{{answer.createTime}}</td>
     </tr>
   </tbody>
 </table>
 <div class="container">
-  <form class="form form-horizontal" ng-submit="submit(answer)">
+  <form class="form form-horizontal" ng-submit="submit(newanswer)">
     <div class="form-group">
       <label class="col-sm-2 control-label">回答：</label>
       <div class="col-sm-10">
-        <textarea class="form-control" rows=10 ng-model="answer.content"></textarea>
+        <textarea class="form-control" rows=10 ng-model="newanswer.content"></textarea>
       </div>
     </div>
     <p>
