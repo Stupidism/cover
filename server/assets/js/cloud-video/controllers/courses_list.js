@@ -20,13 +20,7 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
     $event.stopPropagation();
     create = !!create;
     if (create) {
-      course = {
-        type: 1,
-        $type: 'course',
-        $relationships: {
-          teachers: {data: [$scope.currentUser.$asLink()]}
-        }
-      };
+      
     } else {
       course = angular.copy(course)
     }

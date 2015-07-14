@@ -3,16 +3,19 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
   //modal begin
   $scope.textbooks=Restangular.all('textbooks').getList().$object;
   $scope.step=1;
-
-  $scope.course={};
-  $scope.course.studentNum=20;
-  $scope.course.examRatio=40;
-  $scope.course.assignmentRatio=30;
-  $scope.course.quizRatio=30;
-  $scope.classNum=1;
-
+  $scope.course = {
+    $type: 'course',
+    $relationships: {
+      teachers: {data: [$scope.currentUser.$asLink()]}
+    },
+    type: 1,
+    studentNum:20,
+    examRatio:40,
+    assignmentRatio:30,
+    quizRatio:30,
+    classNum:1,
+  };
   $scope.errorText={};
-  $scope.create=true;
   //modal end
 
   //form-group inputs begin
@@ -81,7 +84,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
   //datepicker end
 
   //className begin
-  $scope.$watch('classNum',function(newClassNum,oldClassNum){
+  $scope.$watch('course.classNum',function(newClassNum,oldClassNum){
     $scope.course.classNames=$scope.course.classNames||['班级1'];
     if(newClassNum<oldClassNum){
       for(var i=oldClassNum;i>newClassNum;i--){
