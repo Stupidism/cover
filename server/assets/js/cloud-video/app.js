@@ -101,6 +101,7 @@ angular.module('cover', [
   Restangular.setBaseUrl('/api/');
   Restangular.addResponseInterceptor(
     function (data, operation, what, url, response, deferred) {
+      if (!data) return data;
       var transformResource = function (resource, parent) {
         return Restangular.restangularizeElement(parent, resource, what, {});
       };

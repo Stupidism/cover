@@ -12,6 +12,19 @@ angular.module('cover').factory('JsonApiOrg', function () {
       resource.$asLink = function () {
         return {type: this.$type, id: this.$id};
       };
+      resource.$relationships.$add = function (name, link) {
+        if (link.$asLink) link = link.$asLink();
+        if (!this[name]) this[name] = {};
+        if (!this[name].data) this[name].data = [];
+        this[name].data.push(link);
+        return this;
+      };
+      resource.$relationships.$set = function (name, link) {
+        if (link.$asLink) link = link.$asLink();
+        if (!this[name]) this[name] = {};
+        this[name].data = link;
+        return this;
+      };
     },
     parseResource: function (item) {
       var resource = angular.copy(item.attributes);
@@ -97,7 +110,13 @@ angular.module('cover').factory('JsonApiOrg', function () {
     },
     serialize: function (resource) {
       var doc = {};
-      doc.data = this.serializeResource(resource);
+      if (Array.isArray(resource)) {
+        doc.data = resource.map(function (r) {
+          return JsonApiOrg.serializeResource(r);
+        });
+      } else {
+        doc.data = JsonApiOrg.serializeResource(resource);
+      }
       if (resource.$root) {
         for (var key in resource.$root) {
           if (doc.hasOwnProperty(key)) continue;
@@ -107,6 +126,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
       return doc;
     },
     serializeResource: function (resource) {
+      if (!resource.$type) return resource;
       var item = {};
       if (resource.toJSON) {
         item.attributes = resource.toJSON();

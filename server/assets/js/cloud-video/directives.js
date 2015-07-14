@@ -71,7 +71,7 @@ angular.module('cover').directive('coverFlash', function() {
       });
     },
   };
-}).directive('coverFileUpload', function() {
+}).directive('coverFileUpload', function(JsonApiOrg) {
   return {
     scope: {
       coverFileUpload: "&",
@@ -95,6 +95,11 @@ angular.module('cover').directive('coverFlash', function() {
         onUploadSuccess: function (id, data) {
           $scope.$apply(function () {
             $scope.fileUploadPercent = 100;
+            data = JsonApiOrg.parseResource({
+              id: data.data.id,
+              type: 'vpresource',
+              attributes: data.data,
+            });
             $scope.coverFileUpload({$data: data})
           });
         },
