@@ -20,4 +20,8 @@ angular.module('cover').controller('QuestionDetailsCtrl', function ($scope, Rest
       $state.go('courseManage.questions', {course: $scope.question.$relationships.course.data.id}, {reload: true});
     });
   };
+  $scope.answerEnum = {
+    false: "否",
+    true: "是"
+  }
 })

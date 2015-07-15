@@ -42,6 +42,10 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy-MM-dd hh:mm:ss', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[1];
   //datepicker end
+  $scope.dismiss = function(){
+    console.log(123);
+    $state.go('courseManage.assignments',{course: $scope.course.$id});
+  }
   $scope.createAssignment = function() {
     $scope.newassignment = {
       $type: "assignment",

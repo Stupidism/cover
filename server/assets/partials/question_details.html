@@ -4,11 +4,13 @@
       <th>内容</th>
       <th>作者</th>
       <th>回答时间</th>
+      <th>是否推荐</th>
     </tr>
     <tr ng-repeat="answer in answers">
       <td>{{answer.content}}</td>
       <td>{{answer.$related.student.trueName}}</td>
       <td>{{answer.createTime}}</td>
+      <td>{{answerEnum[answer.recommended]}}</td>
     </tr>
   </tbody>
 </table>
