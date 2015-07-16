@@ -34,7 +34,7 @@ angular.module('cover').factory('coverAuth', function ($http, $q, $modal,
     return loginPromise = $http.get('/api/account/current', {headers: {
       'Access-Token': accessToken
     }}).then(function (res) {
-      coverAuth.currentUser = JsonApiOrg.parse(res.data);
+      coverAuth.currentUser = JsonApiOrg.parse(res.data, 'users');
       coverAuth.currentUser.$token = accessToken;
       return coverAuth.setCurrentUser(coverAuth.currentUser);
     }, function (e) {
@@ -73,7 +73,7 @@ angular.module('cover').factory('coverAuth', function ($http, $q, $modal,
           return $q.reject(res);
         });
       }).then(function (res) {
-        coverAuth.currentUser = JsonApiOrg.parse(res.data.user);
+        coverAuth.currentUser = JsonApiOrg.parse(res.data.user, 'users');
         coverAuth.currentUser.$token = res.data.token;
         localStorage['accessToken'] = coverAuth.currentUser.$token;
         return coverAuth.setCurrentUser(coverAuth.currentUser);

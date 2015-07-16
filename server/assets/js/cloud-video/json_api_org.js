@@ -1,4 +1,4 @@
-angular.module('cover').factory('JsonApiOrg', function () {
+angular.module('cover').factory('JsonApiOrg', function (Restangular) {
   var JsonApiOrg = {
     _toJSON: function () {
       var json = angular.copy(this);
@@ -6,6 +6,16 @@ angular.module('cover').factory('JsonApiOrg', function () {
         delete json[prop];
       });
       return json;
+    },
+    _normalizeTransform: function (transform) {
+      if (!transform) transform = function (a) { return a; };
+      if (typeof transform === 'string') {
+        var what = transform;
+        transform = function (resource, parent) {
+          return Restangular.restangularizeElement(parent, resource, what, {});
+        };
+      }
+      return transform;
     },
     _addUtilsTo: function (resource) {
       resource.toJSON = JsonApiOrg._toJSON;
@@ -26,7 +36,8 @@ angular.module('cover').factory('JsonApiOrg', function () {
         return this;
       };
     },
-    parseResource: function (item) {
+    parseResource: function (item, transform) {
+      transform = JsonApiOrg._normalizeTransform(transform);
       var resource = angular.copy(item.attributes);
       resource.$id = item.id;
       resource.$type = item.type;
@@ -67,20 +78,20 @@ angular.module('cover').factory('JsonApiOrg', function () {
       }
       return resource;
     },
-    parse: function (data, transformResource) {
+    parse: function (data, transform) {
+      transform = JsonApiOrg._normalizeTransform(transform);
       var resourceMap = {};
-      if (!transformResource) transformResource = function (a) { return a; };
       var primary = null;
       if (Array.isArray(data.data)) {
         primary = [];
         data.data.forEach(function (item) {
-          var resource = transformResource(
+          var resource = transform(
             JsonApiOrg.parseResource(item), primary);
           primary.push(resource);
           JsonApiOrg.resourceMapAdd(resourceMap, resource);
         });
       } else {
-        primary = transformResource(JsonApiOrg.parseResource(data.data), null);
+        primary = transform(JsonApiOrg.parseResource(data.data), null);
         JsonApiOrg.resourceMapAdd(resourceMap, primary);
       }
       primary.$root = data;
@@ -88,7 +99,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
       if (data.included) {
         primary.$included = [];
         data.included.forEach(function (item) {
-          var resource = transformResource(
+          var resource = transform(
             JsonApiOrg.parseResource(item), null);
           primary.$included.push(resource);
           JsonApiOrg.resourceMapAdd(resourceMap, resource);

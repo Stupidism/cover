@@ -99,7 +99,7 @@ angular.module('cover').directive('coverFlash', function() {
               id: data.data.id,
               type: 'vpresource',
               attributes: data.data,
-            });
+            }, 'vpresourses');
             $scope.coverFileUpload({$data: data})
           });
         },
