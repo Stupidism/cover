@@ -51,6 +51,14 @@ angular.module('cover', [
     url: '/assignments/:assign',
     controller: 'AssignmentDetailsCtrl',
     templateUrl: 'assets/partials/assignment_details.html',
+  }).state('courseManage.assignmentDetailsFile', {
+    url: '/homeworks/:home',
+    controller: 'AssignmentDetailsFileCtrl',
+    templateUrl: 'assets/partials/assignment_details_file.html',
+  }).state('courseManage.assignmentFileAdd', {
+    url: '/assignments/:assign/fileadd',
+    controller: 'AssignmentFileCtrl',
+    templateUrl: 'assets/partials/assignment_file_add.html',
   }).state('courseManage.subjects', {
     url: '/subjects',
     templateUrl: 'assets/partials/subject_list.html',

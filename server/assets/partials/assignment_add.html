@@ -1,14 +1,11 @@
 <form name="userForm" ng-submit="createAssignment()" novalidate>
   <div class="modal-header">
     <h3>新建作业</h3>
-    <h4 ng-show="step==1">添加附件</h4>
-    <h4 ng-show="step==2">基本信息</h4>
+    <h4 ng-show="step==1">基本信息</h4>
+    <h4 ng-show="step==2">添加附件</h4>
   </div>
   <div class="modal-body cover-modal">
-    <div ng-show="step==1">
-        <input type="file" name="file">
-    </div>
-    <div  ng-show="step==2">
+    <div  ng-show="step==1">
       <div class="container">
           <div class="form-group">
             <label class="col-sm-2 control-label">作业名称：</label>
@@ -52,21 +49,17 @@
           </div>
       </div>
     </div>
+    <div ng-show="step==2">
+      <div cover-file-upload="fileUploaded($data)">
+    </div>
+    </div>
   </div>
   <div class="modal-footer">
     <progressbar class="progress-striped active" value="step*33" type="success"></progressbar>
-    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
-    <button type="button" class="btn btn-wuxia btn-primary" ng-disabled="!choosedAnyTextbook(textbooks)"
-      ng-show="step==1" ng-click="step=2"
-    >下一步</button>
-    <button type="button" class="btn btn-wuxia btn-primary" 
-      ng-show="step==1" ng-click="step=2"
-    >跳过</button>
-    <button type="button" class="btn btn-wuxia btn-primary" ng-disabled="!choosedAnyTextbook(textbooks)"
-      ng-show="step==2" ng-click="step=1"
-    >上一步</button>
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()" ng-show="step==1">取消</button>
     <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid"
-      ng-show="step==2"
+      ng-show="step==1" ng-click="step=2"
     >创建作业</button>
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()" ng-show="step==2">跳过</button>
   </div>
 </form>

@@ -68,9 +68,20 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
     $scope.deadline = [];
     $scope.deadline.push(deadline);
     $scope.newassignment.$root = {included: $scope.deadline};
-    console.log($scope.newassignment);
     Restangular.all('assignments').post($scope.newassignment).then(function (assignment) {
-      $state.go('courseManage.assignments',{course: $scope.newassignment.$relationships.course.data.id});
+      $scope.assignment = assignment;
+      console.log($scope.assignment);
     });
+  };
+  $scope.fileUploaded = function (data) {
+    var assignmentRest = Restangular.one('assignments', $scope.assignment.$id);
+    //$scope.subject = subjectRest.get().$object;
+    assignmentRest.all('links').all('resources').post([data.$asLink()]).then(
+      function () {
+        $state.go('courseManage.assignments',{course: $scope.assignment.$relationships.course.data.id});
+      });
+  };
+  $scope.$dismiss = function () {
+    $state.go('courseManage.assignments',{course: $scope.course.$id});
   };
 });
