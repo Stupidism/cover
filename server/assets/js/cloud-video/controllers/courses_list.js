@@ -1,7 +1,8 @@
 angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
-  $scope.courses = [];
+  //$scope.courses = [];
   $scope.login().then(function () {
-    angular.copy($scope.currentUser.$related.courses, $scope.courses);
+    //angular.copy($scope.currentUser.$related.courses, $scope.courses);
+    $scope.courses = $scope.currentUser.$related.courses;
     $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
     if($scope.courses.length>0){
       $scope.courses[0].open=true;
@@ -22,7 +23,7 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
     if (create) {
       
     } else {
-      course = angular.copy(course)
+      course = course.clone();
     }
     $modal.open({
       animation:true,

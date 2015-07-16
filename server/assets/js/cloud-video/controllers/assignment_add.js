@@ -82,6 +82,6 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
       });
   };
   $scope.$dismiss = function () {
-    $state.go('courseManage.assignments',{course: $scope.course.$id});
+    $state.go('courseManage.assignments',{course: $scope.course.$id},{reload: true});
   };
 });
