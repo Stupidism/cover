@@ -56,8 +56,8 @@ function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$stat
     $scope.textbooks = textbooks;
   //console.log($scope.textbooks);
   $scope.myInterval = 5000;
-
-  /*$scope.addSlide = function(now) {
+  var slides = $scope.slides = [];
+  $scope.addSlide = function(now) {
     slides.push({
       image: 'http://192.168.0.110:8080/VPFile/' + $scope.textbooks[now].pic,
       author: $scope.textbooks[now].author,
@@ -66,18 +66,17 @@ function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$stat
       isbn: $scope.textbooks[now].isbn,
       name: $scope.textbooks[now].name,
       description: $scope.textbooks[now].description,
-      check: $scope.isRelated[now]
+      //check: $scope.isRelated[now]
     });
   };
 
 
   for (var i=0; i<$scope.textbooks.length; i++) {
     $scope.addSlide(i);
-  }*/
+  }
   })
   /*
   $scope.myInterval = 5000;
-  var slides = $scope.slides = [];
   $scope.addSlide = function() {
     var newWidth = slides.length+1;
     slides.push({
@@ -144,7 +143,7 @@ function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$stat
     //console.log($scope.course);
     //console.log(course);
     course.patch(course).then(function (c) {
-      $state.go('courses.list',{reload: true});
+      $state.reload();
       $modalInstance.dismiss('cancel');
     });
   };
