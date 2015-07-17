@@ -4,5 +4,4 @@ angular.module('cover').controller('CourseManageCtrl', function ($scope, $http, 
     $scope.course = course;
     console.log(course);
   });
-  $state.go('courseManage.courseIndex');
 });

@@ -37,7 +37,7 @@
             <p>课程简介: </br>{{course.description}}</p>
           </div>
           <div class="col-md-12">
-            <a class="btn btn-primary" ui-sref="courseManage({course: course.$id})">进入课程</a>
+            <a class="btn btn-primary" ui-sref="courseManage.courseIndex({course: course.$id})">进入课程</a>
             <button class="btn btn-primary" ng-click="editCourse(course,$event)"><span class="fui-new"></span>修改课程</button>
             <button class="btn btn-primary" ng-click="course.open = false">收起</button>
           </div>

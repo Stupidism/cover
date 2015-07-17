@@ -21,10 +21,11 @@ angular.module('cover').controller('CourseOutlineCtrl', function ($scope, Restan
       }
       Restangular.all("courseoutlines").post($scope.newOutline).then(function () {
         console.log($scope.newOutline);
-        $state.go("courseManage.outline", {reload: true})
+        location.reload();
       });
   }
 
+  
   $scope.outlineId = course.$related.courseoutline.$id;
 
   $scope.fetchOutline = Restangular.one('courseoutlines', $scope.outlineId).get();
