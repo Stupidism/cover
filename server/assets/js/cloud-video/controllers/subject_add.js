@@ -17,12 +17,12 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
       $relationships: {
         courses: {data: 
           [
-            {
-                $id: $scope.course.$id,
-                $type: "course"
-            }
+          {
+            type:"course",
+            id:$scope.course.$id
+          }
           ]
-        }
+        },
       }
     }
     //var courseLinks = $scope.newsubject.$relationships.courses.data = [];
@@ -39,7 +39,7 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
     //$scope.subject = subjectRest.get().$object;
     subjectRest.all('links').all('resources').post([data.$asLink()]).then(
       function () {
-        $state.go('courseManage.subjects',{course: $scope.subject.$relationships.course.data.id});
+        $state.go('courseManage.subjects',{course: $scope.course.$id});
       });
   };
   $scope.$dismiss = function () {
