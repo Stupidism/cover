@@ -1,12 +1,12 @@
 angular.module('cover').controller('CourseNewCtrl',
-function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
+function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state) {
   //modal begin
   $scope.textbooks=Restangular.all('textbooks').getList().$object;
   $scope.step=1;
   $scope.course = {
     $type: 'course',
     $relationships: {
-      teachers: {data: [$scope.currentUser.$asLink()]}
+      textbooks: {data: []},
     },
     type: 1,
     studentNum:20,
@@ -15,6 +15,12 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
     quizRatio:30,
     classNum:1,
   };
+
+  $scope.login().then(function () {
+    $scope.course.$relationships.teachers = {data: [
+      $scope.currentUser.$asLink()
+    ]};
+  });
   $scope.errorText={};
   //modal end
 
@@ -26,7 +32,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
   };
 
   $scope.choosedAnyTextbook=function(textbooks){
-    return eval(textbooks.map(function(textbook){return textbook.chosen||false}).join("+"));
+    return textbooks.some(function(textbook){return textbook.chosen});
   };
 
   $scope.ratios={
@@ -106,9 +112,13 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg ) {
         enrollPwd: "123456",
         name: name,
         $relationships: {
-          course: {meta: {ref: 'primary'}}
+          course: {meta: {ref: 'primary'}},
         }
       });
+    });
+    var textbookLinks = $scope.course.$relationships.textbooks.data = [];
+    $scope.textbooks.forEach(function(textbook) {
+      if (textbook.chosen) textbookLinks.push(textbook.$asLink());
     });
     $scope.course.$root = {included: classes},
     Restangular.all('courses').post($scope.course).then(function (course) {

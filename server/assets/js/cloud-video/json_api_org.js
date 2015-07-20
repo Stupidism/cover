@@ -1,4 +1,4 @@
-angular.module('cover').factory('JsonApiOrg', function () {
+angular.module('cover').factory('JsonApiOrg', function (Restangular) {
   var JsonApiOrg = {
     _toJSON: function () {
       var json = angular.copy(this);
@@ -6,6 +6,16 @@ angular.module('cover').factory('JsonApiOrg', function () {
         delete json[prop];
       });
       return json;
+    },
+    _transform: function (resource, what, parent) {
+      if (what === false) return resource;
+      if (typeof what === 'function') {
+        resource = what(resource);
+      } else {
+        what = what || (resource.$type + 's');
+        resource = Restangular.restangularizeElement(parent, resource, what, {});
+      }
+      return resource;
     },
     _addUtilsTo: function (resource) {
       resource.toJSON = JsonApiOrg._toJSON;
@@ -26,11 +36,12 @@ angular.module('cover').factory('JsonApiOrg', function () {
         return this;
       };
     },
-    parseResource: function (item) {
+    parseResource: function (item, what, parent) {
       var resource = angular.copy(item.attributes);
       resource.$id = item.id;
       resource.$type = item.type;
       resource.$relationships = item.relationships || {};
+      resource = JsonApiOrg._transform(resource, what, parent);
       this._addUtilsTo(resource);
       return resource;
     },
@@ -67,20 +78,18 @@ angular.module('cover').factory('JsonApiOrg', function () {
       }
       return resource;
     },
-    parse: function (data, transformResource) {
+    parse: function (data, what) {
       var resourceMap = {};
-      if (!transformResource) transformResource = function (a) { return a; };
       var primary = null;
       if (Array.isArray(data.data)) {
         primary = [];
         data.data.forEach(function (item) {
-          var resource = transformResource(
-            JsonApiOrg.parseResource(item), primary);
+          var resource = JsonApiOrg.parseResource(item, what, primary);
           primary.push(resource);
           JsonApiOrg.resourceMapAdd(resourceMap, resource);
         });
       } else {
-        primary = transformResource(JsonApiOrg.parseResource(data.data), null);
+        primary = JsonApiOrg.parseResource(data.data, what, null);
         JsonApiOrg.resourceMapAdd(resourceMap, primary);
       }
       primary.$root = data;
@@ -88,8 +97,7 @@ angular.module('cover').factory('JsonApiOrg', function () {
       if (data.included) {
         primary.$included = [];
         data.included.forEach(function (item) {
-          var resource = transformResource(
-            JsonApiOrg.parseResource(item), null);
+          var resource = JsonApiOrg.parseResource(item);
           primary.$included.push(resource);
           JsonApiOrg.resourceMapAdd(resourceMap, resource);
         });

@@ -1,6 +1,6 @@
 angular.module('cover')
 .controller('CourseEditCtrl',
-function ($scope,$http, course,create,$timeout, Restangular) {
+function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$state) {
   //modal begin
   $scope.course=course;
   $scope.textbooks=course.$related.textbooks;
@@ -51,12 +51,12 @@ function ($scope,$http, course,create,$timeout, Restangular) {
     1:'已选择'
   }
   course.$related.textbooks=Restangular.one('courses',course.$id).getList('textbooks').$object;
-  console.log(course);
+  //console.log(course);
   Restangular.one('textbooks').getList().then(function (textbooks){
     $scope.textbooks = textbooks;
-  console.log($scope.textbooks);
+  //console.log($scope.textbooks);
   $scope.myInterval = 5000;
-
+  var slides = $scope.slides = [];
   $scope.addSlide = function(now) {
     slides.push({
       image: 'http://192.168.0.110:8080/VPFile/' + $scope.textbooks[now].pic,
@@ -66,7 +66,7 @@ function ($scope,$http, course,create,$timeout, Restangular) {
       isbn: $scope.textbooks[now].isbn,
       name: $scope.textbooks[now].name,
       description: $scope.textbooks[now].description,
-      check: $scope.isRelated[now]
+      //check: $scope.isRelated[now]
     });
   };
 
@@ -77,7 +77,6 @@ function ($scope,$http, course,create,$timeout, Restangular) {
   })
   /*
   $scope.myInterval = 5000;
-  var slides = $scope.slides = [];
   $scope.addSlide = function() {
     var newWidth = slides.length+1;
     slides.push({
@@ -140,12 +139,12 @@ function ($scope,$http, course,create,$timeout, Restangular) {
   })
   //className end
 
-  $scope.submitForm = function(isValid) {
-    alert('our form is amazing');
-
-    // check to make sure the form is completely valid
-    if (isValid) {
-    }
-
+  $scope.submit = function (course) {
+    //console.log($scope.course);
+    //console.log(course);
+    course.patch(course).then(function (c) {
+      $state.reload();
+      $modalInstance.dismiss('cancel');
+    });
   };
 });

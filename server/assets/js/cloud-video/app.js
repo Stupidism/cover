@@ -66,6 +66,10 @@ angular.module('cover', [
     url: '/subjects/:subject',
     controller: 'SubjectDetailsCtrl',
     templateUrl: 'assets/partials/subject_details.html',
+  }).state('courseManage.subjectsAdd', {
+    url: '/subjectsadd',
+    controller: 'SubjectAddCtrl',
+    templateUrl: 'assets/partials/subject_add.html',
   }).state('courseManage.questions', {
     url: '/questions',
     controller: 'QuestionsListCtrl',
@@ -110,10 +114,7 @@ angular.module('cover', [
   Restangular.addResponseInterceptor(
     function (data, operation, what, url, response, deferred) {
       if (!data) return data;
-      var transformResource = function (resource, parent) {
-        return Restangular.restangularizeElement(parent, resource, what, {});
-      };
-      return JsonApiOrg.parse(data, transformResource);
+      return JsonApiOrg.parse(data, what);
     });
   Restangular.addRequestInterceptor(function (element, operation, what, url) {
     if (['post', 'put', 'patch'].indexOf(operation) >= 0) {
