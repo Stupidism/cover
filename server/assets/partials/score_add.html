@@ -1,0 +1,16 @@
+<form name="userForm" ng-submit="submit(editHomework)" novalidate>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()">×</button>
+    <h3>打分</h3>
+  </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">课程名称：</label>
+      <div class="col-sm-10">
+        <input class="form-control" ng-model="editHomework.score">
+      </div>
+    </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">提交分数</button>
+  </div>
+</form>

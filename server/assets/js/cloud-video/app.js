@@ -40,6 +40,10 @@ angular.module('cover', [
     url: '/microcourse',
     controller: 'MicroCourseCtrl',
     templateUrl: 'assets/partials/microcourse.html',
+  }).state('courseManage.messages', {
+    url: '/messages',
+    controller: 'MessagesListCtrl',
+    templateUrl: 'assets/partials/message_list.html',
   }).state('courseManage.assignments', {
     url: '/assignments',
     templateUrl: 'assets/partials/assignment_list.html',
