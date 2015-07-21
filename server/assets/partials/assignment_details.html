@@ -11,7 +11,7 @@
       <td>{{homework.$related.student.trueName}}</td>
       <td>{{homework.name}}</td>
       <td class="ellipsis wsn" style="max-width: 20em">{{homework.content}}</td>
-      <td><a ng-click="Scoreadd(homework,$event)">{{homework.score}}</td>
+      <td><a ng-click="Scoreadd(homework)">{{homework.score}}</td>
       <td><a ui-sref="^.assignmentDetailsFile({home: homework.$id})">查看</a></td>
     </tr>
   </tbody>

@@ -1,11 +1,12 @@
-angular.module('cover').controller('ScoreAddCtrl', function ($scope, $state,homework) {
-  /*$scope.fetchhomework.then(function (homework) {
-    $scope.editHomework = homework.clone();
-  });*/
-  $scope.editHomework = homework.clone();
+angular.module('cover').controller('ScoreAddCtrl', function ($scope, $state,homework,$modalInstance,Restangular) {
+  $scope.homeworkid = homework.$id;
+  var homeworkRest = Restangular.one('homeworks', $scope.homeworkid);
+  $scope.fetchhomework = homeworkRest.get().$object;
+  $scope.editHomework = $scope.fetchhomework;
   $scope.submit = function (homework) {
     homework.patch(homework).then(function (c) {
-      $state.go('courseManage.assignmentDetails', {assign: homework.$relationship.assignment.data.id}, {reload: true});
+      $state.go('courseManage.assignmentDetails', {assign: homework.$relationships.assignment.data.id}, {reload: true});
+      $modalInstance.dismiss('cancel');
     });
 	//console.log($scope.editHomework);
   };

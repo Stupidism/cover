@@ -89,9 +89,6 @@ angular.module('cover', [
     url: '/outline',
     controller: 'CourseOutlineCtrl',
     templateUrl: 'assets/partials/course_outline.html',
-  }).state('courseManage.scores', {
-    url: '/scores',
-    templateUrl: 'assets/partials/score_list.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',

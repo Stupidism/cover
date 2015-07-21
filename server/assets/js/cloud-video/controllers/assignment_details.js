@@ -1,11 +1,11 @@
-angular.module('cover').controller('AssignmentDetailsCtrl', function ($scope, $modal,Restangular, $stateParams) {
+angular.module('cover').controller('AssignmentDetailsCtrl', function ($scope, Restangular, $stateParams,$modal) {
   Restangular.one('assignments', $stateParams['assign']).all('homeworks').getList()
     .then(function (homeworks) {
       $scope.homeworks = homeworks;
       console.log($scope.homeworks);
     });
-    $scope.Scoreadd = function (homework,$event,create) {
-	    $event.stopPropagation();
+    $scope.Scoreadd = function (homework,create) {
+    	$scope.homeworkid = homework.$id;
 	    $modal.open({
 	      animation:true,
 	      size:'lg',
@@ -20,12 +20,6 @@ angular.module('cover').controller('AssignmentDetailsCtrl', function ($scope, $m
 	          return create;
 	        },
 	      },
-	    }).result.then(function (editHomework) {
-	      $scope.homeworks.forEach(function (homework) {
-	        if (homework.$id === editHomework.$id) {
-	          angular.copy(editHomework, homework);
-	        }
-	      });
-	    });
+	    })
 	};
 })
