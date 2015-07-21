@@ -40,6 +40,10 @@ angular.module('cover', [
     url: '/microcourse',
     controller: 'MicroCourseCtrl',
     templateUrl: 'assets/partials/microcourse.html',
+  }).state('courseManage.messages', {
+    url: '/messages',
+    controller: 'MessagesListCtrl',
+    templateUrl: 'assets/partials/message_list.html',
   }).state('courseManage.assignments', {
     url: '/assignments',
     templateUrl: 'assets/partials/assignment_list.html',
@@ -85,9 +89,6 @@ angular.module('cover', [
     url: '/outline',
     controller: 'CourseOutlineCtrl',
     templateUrl: 'assets/partials/course_outline.html',
-  }).state('courseManage.scores', {
-    url: '/scores',
-    templateUrl: 'assets/partials/score_list.html',
   }).state('courseManage.classes', {
     url: '/classes',
     templateUrl: 'assets/partials/class_list.html',

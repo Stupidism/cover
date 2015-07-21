@@ -1,0 +1,22 @@
+<form name="userForm" ng-submit="submit(message)" novalidate>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()">×</button>
+    <h3>发布信息</h3>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">信息标题：</label>
+    <div class="col-sm-10">
+      <input class="form-control" ng-model="message.title">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">信息内容：</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows=10 ng-model="message.content"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">发布信息</button>
+  </div>
+</form>
