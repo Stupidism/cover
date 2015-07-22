@@ -18,20 +18,10 @@ angular.module('student', [
     url: '/courseslist',
     controller: 'CourseAllCtrl',
     templateUrl: 'assets/partials/course_all.html',
-  }).state('courses', {
-    url: '/courses',
-    controller: 'CoursesCtrl',
-    templateUrl: 'assets/partials/course_list.html',
-  }).state('courses.list', {
-    url: '/my_courses',
+  }).state('mycourses', {
+    url: '/mycourses',
     controller: 'CoursesListCtrl',
     templateUrl: 'assets/partials/course_list_my_courses.html',
-  }).state('courses.service', {
-    url: '/service_incubator',
-    templateUrl: 'assets/partials/course_list_service_incubator.html',
-  }).state('courses.communication', {
-    url: '/international_communication',
-    templateUrl: 'assets/partials/course_list_international_communication.html',
   }).state('courseManage', {
     url: '/course_manage/:course',
     controller: 'CourseManageCtrl',
@@ -78,10 +68,6 @@ angular.module('student', [
     url: '/subjects/:subject',
     controller: 'SubjectDetailsCtrl',
     templateUrl: 'assets/partials/subject_details.html',
-  }).state('courseManage.subjectsAdd', {
-    url: '/subjectsadd',
-    controller: 'SubjectAddCtrl',
-    templateUrl: 'assets/partials/subject_add.html',
   }).state('courseManage.questions', {
     url: '/questions',
     controller: 'QuestionsListCtrl',
@@ -104,14 +90,6 @@ angular.module('student', [
     url: '/classes/:class',
     controller: 'ClassDetailsCtrl',
     templateUrl: 'assets/partials/class_details.html',
-  }).state('courseManage.edit', {
-    url: '/edit',
-    controller: 'CourseManageEditCtrl',
-    templateUrl: 'assets/partials/course_manage_edit.html',
-  }).state('courseNew', {
-    url: '/courseNew',
-    controller: 'CourseNewCtrl',
-    templateUrl: 'assets/partials/course_new.html',
   });
 
   $urlRouterProvider.otherwise('/');

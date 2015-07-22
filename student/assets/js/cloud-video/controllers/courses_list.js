@@ -72,4 +72,10 @@ angular.module('student').controller('CoursesListCtrl', function ($scope, $http,
 
   $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
   $scope.format = $scope.formats[0];
+  $scope.courseEnum={
+    1:'公共基础课',
+    2:'专业核心课',
+    3:'实训课',
+    8:'模板课',
+  }
 });

@@ -1,5 +1,5 @@
 angular.module('student').controller('CourseAllCtrl',
-function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state) {
+function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   //modal begin
   $scope.page = 1;
   $scope.login().then(function () {
@@ -45,21 +45,22 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state) {
   	});
   }
   $scope.enrollclass = function (courseid) {
-      $scope.homeworkid = homework.$id;
-      $modal.open({
-        animation:true,
-        size:'lg',
-        backdrop: create ? true : false,
-        templateUrl: 'assets/partials/score_add.html',
-        controller: 'ScoreAddCtrl',
-        resolve: {
-          homework: function () {
-            return homework;
+      Restangular.one('courses', courseid).all('clazzs').getList().then(function(clazz){
+        $scope.clazz = clazz;
+        $modal.open({
+          animation:true,
+          size:'lg',
+          templateUrl: 'assets/partials/course_enroll.html',
+          controller: 'CourseEnrollCtrl',
+          resolve: {
+            clazz: function () {
+              return $scope.clazz;
+            },
+            user:function(){
+              return $scope.currentUser;
+            }
           },
-          create: function(){
-            return create;
-          },
-        },
-      })
+        })
+      });
   };
 })

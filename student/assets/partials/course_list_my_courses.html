@@ -2,7 +2,6 @@
   <div class="col-md-12">
     <div class="cover-accordion">
       <div class="accordion-header">
-        <button class="btn btn-success" ui-sref="courseNew()">新建课程</button>
         <button type="button" class="btn btn-primary" ng-click="openAll()">
           全部展开
         </button>
@@ -18,12 +17,6 @@
             <span class="pull-right cover-span">
               <i class="glyphicon glyphicon-chevron-{{course.open?'up':'down'}}"></i>
             </span>
-            <span class="pull-right cover-span" ng-click="editCourse(course,$event)">
-              <i class="glyphicon glyphicon-edit"></i>
-            </span>
-            <span class="pull-right cover-span" ng-click="editCourse(course,$event)">
-              <i class="glyphicon glyphicon-tasks"></i>
-            </span>
           </accordion-heading>
           <div class="col-md-6 cover-left">
             <p class="cover-top">课程名称: {{course.name}}</p>
@@ -38,7 +31,7 @@
           </div>
           <div class="col-md-12">
             <a class="btn btn-primary" ui-sref="courseManage.courseIndex({course: course.$id})">进入课程</a>
-            <button class="btn btn-primary" ng-click="editCourse(course,$event)"><span class="fui-new"></span>修改课程</button>
+            <button class="btn btn-primary" ng-click="quitCourse(course,$event)"><span class="fui-new"></span>退出课程</button>
             <button class="btn btn-primary" ng-click="course.open = false">收起</button>
           </div>
         </accordion-group>

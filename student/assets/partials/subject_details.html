@@ -5,8 +5,6 @@
     <div class="col-md-6 cover-resource" ng-repeat="resource in subject.$related.resources" ng-if="resource.type == 13">
       <div cover-video="/VPFile{{resource.url}}.mp4"></div>
     </div>
-    <div class="col-md-6 cover-resource-new" cover-file-upload="fileUploaded($data)">
-    </div>
   </div>
   <div class="col-md-4" style="border-left: solid 1px #ccc;">
     <ul>

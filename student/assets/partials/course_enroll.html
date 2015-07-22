@@ -1,0 +1,17 @@
+<form name="userForm" ng-submit="courseEnroll()" novalidate>
+  <div class="modal-header">
+    <h3>选择班级</h3>
+  </div>
+  <div class="modal-body cover-modal">
+	  <ul class="textbook_list">
+	    <li ng-repeat="classes in clazz" ng-class="{active:classes.active}">
+	      <input type="radio" name= "classes" value = "{{classes.id}}" ng-model="classes.chosen"  />
+	      <label ng-click="classes.active=true" >{{classes.name}}</label>
+	    </li>
+	  </ul>
+  </div>
+  <div class="modal-footer">
+  	<button type="button" class="btn btn-wuxia" ng-click="$dismiss()" >取消</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" >确定</button>
+  </div>
+</form>
