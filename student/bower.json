@@ -1,0 +1,95 @@
+{
+  "name": "cloud_video_platform",
+  "version": "0.1.0",
+  "authors": [
+    "redduck3 <zhouxc3@gmail.com>"
+  ],
+  "description": "cloud video platform",
+  "keywords": [
+    "cloud",
+    "video"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.4",
+    "flat-ui": "~2.2.2",
+    "angular": "~1.3.15",
+    "angular-ui-router": "~0.2.15",
+    "angular-bootstrap": "~0.13.0",
+    "angular-i18n": "~1.3.15",
+    "angular-animate": "~1.3.15",
+    "angular-ui-utils": "~0.2.3",
+    "ngprogress": "~1.0.7",
+    "ladda": "~0.9.8",
+    "less": "~2.5.1",
+    "restangular": "~1.5.1"
+  },
+  "exportsOverride": {
+    "angular": {
+      "js/lib": "angular.js"
+    },
+    "angular-animate": {
+      "js/lib": "*.min.*"
+    },
+    "angular-bootstrap": {
+      "js/lib": "ui-bootstrap-tpls.min.js"
+    },
+    "angular-i18n": {
+      "js/lib": [
+        "angular-locale_zh-cn.js"
+      ]
+    },
+    "angular-ui-router": {
+      "js/lib": "release/*.js"
+    },
+    "angular-ui-utils": {
+      "js/lib": "ui-utils.min.js"
+    },
+    "less": {
+      "js/lib": "dist/less.js"
+    },
+    "bootstrap": {
+      "$css": "dist/css/*",
+      "$fonts": "dist/fonts/*",
+      "js/lib": "js/dropdown.*"
+    },
+    "flat-ui": {
+      "$css": "dist/css/*.css",
+      "$fonts/glyphicons": "dist/fonts/glyphicons/*",
+      "$fonts/lato": "dist/fonts/lato/*",
+      "js/lib": "dist/js/flat-ui.min.js"
+    },
+    "jquery": {
+      "js/lib": "dist/jquery.min.*"
+    },
+    "ladda": {
+      "styles/lib": "dist/ladda-themeless.min.css",
+      "js/lib": [
+        "dist/ladda.min.js"
+      ]
+    },
+    "ngprogress": {
+      "js/lib": "build/*.min.js"
+    },
+    "spin.js": {
+      "js/lib": "*"
+    },
+    "videojs": {
+      "js/lib": "*"
+    },
+    "restangular": {
+      "js/lib": "dist/*"
+    },
+    "lodash": {
+      "js/lib": "*"
+    }
+  }
+}

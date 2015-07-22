@@ -1,0 +1,11 @@
+<label class="cover-file-upload">
+  <div class="cover-file-upload-content">
+    <div><b>拖动文件至此处</b></div>
+    <div class="cover-file-upload-sign">
+      <span class="fui-plus"></span>
+    </div>
+    <div>或点击选择文件</div>
+  </div>
+  <input type="file" name="file" title="点击选择文件上传">
+  <div progressbar animate="true" class="progress-striped active" value="fileUploadPercent" type="success" ng-show="fileUploadPercent"><b>{{fileUploadPercent.toFixed(0)}}%</b></div>
+</label>

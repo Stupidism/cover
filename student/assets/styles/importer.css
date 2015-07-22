@@ -1,0 +1,175 @@
+/* Navbar */
+.navbar {
+  margin-bottom: 0;
+}
+.navbar-inverse .navbar-brand:hover {
+  color: white;
+}
+.navbar .dropdown-menu {
+  margin-top: 0 !important;
+}
+.navbar-inverse .navbar-nav > .open > .dropdown-menu > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.navbar-inverse .navbar-nav > .dropdown > a:hover .caret {
+  border-top-color: white;
+  border-bottom-color: white;
+}
+/* Layout */
+body {
+  padding-top: 70px;
+}
+.modal-backdrop {
+  bottom: 0;
+}
+.panel-heading {
+  font-size: .8em;
+}
+.plain-link,
+.plain-link:hover,
+.plain-link:active,
+.plain-link:visited {
+  color: inherit !important;
+}
+.plain-link {
+  color: inherit !important;
+}
+hr.condensed {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.table.middle-aligned th,
+.table.middle-aligned td {
+  vertical-align: middle;
+}
+.highlight-match {
+  background: yellow;
+}
+/* Form */
+.remap-radio,
+.remap-checkbox {
+  font-size: inherit !important;
+  padding-left: 28px !important;
+}
+.remap-radio .icons,
+.remap-checkbox .icons {
+  top: 3px;
+  color: inherit !important;
+}
+.remap-radio .icon-unchecked,
+.remap-checkbox .icon-unchecked {
+  color: #bdc3c7;
+}
+.remap-radio .icon-checked,
+.remap-checkbox .icon-checked {
+  color: inherit !important;
+}
+.sep-lg {
+  display: inline-block;
+  width: 1em;
+}
+.input-group.focus .input-group-btn .btn-primary {
+  background-color: #3498db;
+  color: #fff;
+}
+/* Login Form */
+.login-form .close {
+  margin: -12px -12px 0 0;
+}
+.login-form .modal-title {
+  text-align: center;
+  margin-top: -12px;
+  margin-bottom: 12px;
+}
+/* Paper List */
+.paper-list {
+  padding: 0 30px;
+}
+.paper .panel-heading {
+  font-size: 1.2em;
+}
+.paper .panel-heading .label {
+  position: relative;
+  top: -2px;
+}
+.paper .panel-heading .badge {
+  position: relative;
+  top: -3px;
+}
+.badge-success {
+  background-color: #27ae60 !important;
+}
+.badge-warning {
+  background-color: #f0ad4e !important;
+}
+.paper-author {
+  display: block;
+  font-size: .8em;
+}
+@media screen and (min-width: 480px) {
+  .paper-author {
+    float: right;
+    font-size: 1em;
+  }
+}
+.paper-details,
+p.paper-details {
+  font-size: .8em;
+  color: #666;
+}
+.paper-attachment {
+  display: block;
+}
+@media screen and (min-width: 480px) {
+  .paper-attachment {
+    float: right;
+    font-size: 1em;
+  }
+}
+.paper-tags > * {
+  vertical-align: middle;
+}
+.paper-code {
+  display: block;
+  font-size: .8em;
+  color: #666;
+}
+@media screen and (min-width: 768px) {
+  .paper-code {
+    float: right;
+  }
+}
+/* Paper Assign */
+.bootstrap-tagsinput input[type="text"]:first-child {
+  margin: 3px 0 6px;
+}
+.paper .tagsinput-primary {
+  width: 90%;
+  width: calc(-20%);
+  margin-right: 20px;
+  float: left;
+  display: inline-block;
+  margin-bottom: 0;
+}
+.paper .paper-action {
+  display: inline-block;
+  width: 90px;
+  float: right;
+  margin-right: 2px;
+}
+/* Paper Details */
+.paper-review,
+.paper-review-edit,
+.paper-comment-edit {
+  position: relative;
+}
+.paper-review-action {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.main-view-container {
+  width: 80%;
+  margin: auto;
+}

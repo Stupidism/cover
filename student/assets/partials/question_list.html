@@ -1,0 +1,17 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>问题</th>
+      <th>描述</th>
+      <th>提问时间</th>
+      <th>访问量</th>
+    </tr>
+    <tr ng-repeat="question in course.$related.questions">
+      <td><a ui-sref="^.questionDetails({question: question.$id})">{{question.title}}</a></td>
+      <td>{{question.content}}</td>
+      <td>{{question.createTime}}</td>
+      <td>{{question.viewCount}}</td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-success" ng-click="newQuestion({},$event,'create')">发起讨论</button>

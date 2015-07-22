@@ -1,0 +1,18 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>学生姓名</th>
+      <th>答案</th>
+      <th>具体内容</th>
+      <th>得分</th>
+      <th>附件</th>
+    </tr>
+    <tr ng-repeat="homework in homeworks">
+      <td>{{homework.$related.student.trueName}}</td>
+      <td>{{homework.name}}</td>
+      <td class="ellipsis wsn" style="max-width: 20em">{{homework.content}}</td>
+      <td><a ng-click="Scoreadd(homework)">{{homework.score}}</td>
+      <td><a ui-sref="^.assignmentDetailsFile({home: homework.$id})">查看</a></td>
+    </tr>
+  </tbody>
+</table>

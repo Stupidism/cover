@@ -1,0 +1,48 @@
+<div class="row cover-row">
+  <div class="col-md-12">
+    <div class="cover-accordion">
+      <div class="accordion-header">
+        <button class="btn btn-success" ui-sref="courseNew()">新建课程</button>
+        <button type="button" class="btn btn-primary" ng-click="openAll()">
+          全部展开
+        </button>
+        <div class="btn-group">
+          <label class="btn btn-primary" ng-model="oneAtATime" btn-radio="true" uncheckable>只展开一个</label>
+          <label class="btn btn-primary" ng-model="oneAtATime" btn-radio="false" uncheckable>任意展开</label>
+        </div>
+      </div>
+      <accordion close-others="oneAtATime">
+        <accordion-group ng-repeat="course in courses"  is-open="course.open">
+          <accordion-heading class="cover-accordion-heading">
+            <span class="cover-span">课程{{course.$id}}:{{course.name}}({{course.startTime|date}}~{{course.endTime|date}})</span>
+            <span class="pull-right cover-span">
+              <i class="glyphicon glyphicon-chevron-{{course.open?'up':'down'}}"></i>
+            </span>
+            <span class="pull-right cover-span" ng-click="editCourse(course,$event)">
+              <i class="glyphicon glyphicon-edit"></i>
+            </span>
+            <span class="pull-right cover-span" ng-click="editCourse(course,$event)">
+              <i class="glyphicon glyphicon-tasks"></i>
+            </span>
+          </accordion-heading>
+          <div class="col-md-6 cover-left">
+            <p class="cover-top">课程名称: {{course.name}}</p>
+            <p class="cover-middle">课程编号: {{course.code}}</p>
+            <p class="cover-middle">课程类型: {{courseEnum[course.type]}}</p>
+            <p class="cover-middle">学生人数: {{course.studentNum}}人</p>
+            <p class="cover-middle">创建时间: {{course.createTime|date}}</p>
+            <p class="cover-middle">开课时间: {{course.startTime|date}} - {{course.endTime|date}}</p>
+          </div>
+          <div class="col-md-6 cover-right">
+            <p>课程简介: </br>{{course.description}}</p>
+          </div>
+          <div class="col-md-12">
+            <a class="btn btn-primary" ui-sref="courseManage.courseIndex({course: course.$id})">进入课程</a>
+            <button class="btn btn-primary" ng-click="editCourse(course,$event)"><span class="fui-new"></span>修改课程</button>
+            <button class="btn btn-primary" ng-click="course.open = false">收起</button>
+          </div>
+        </accordion-group>
+      </accordion>
+    </div>
+  </div>
+</div>

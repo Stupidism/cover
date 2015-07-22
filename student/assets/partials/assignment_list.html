@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th>编号</th>
+      <th>名称</th>
+      <th>简介</th>
+      <th>总分</th>
+      <th>开始日期</th>
+      <th>附件</th>
+    </tr>
+    <tr ng-repeat="assign in course.$related.assignments">
+      <td><a ui-sref="^.assignmentDetails({assign: assign.$id})">{{assign.code}}</a></td>
+      <td>{{assign.name}}</td>
+      <td class="ellipsis wsn" style="max-width: 20em">{{assign.description}}</td>
+      <td>{{assign.totalScore}}</td>
+      <td>{{assign.startTime}}</td>
+      <td><a ui-sref="^.assignmentFileAdd({assign: assign.$id})">查看</a></td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-success" ui-sref="courseManage.assignmentsAdd()">新建作业</button>

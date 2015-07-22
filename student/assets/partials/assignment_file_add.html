@@ -1,0 +1,18 @@
+<h3>作业名称： {{assignment.name}}</h3>
+
+<div class="container">
+  <div class="row col-md-8">
+    <div class="col-md-6 cover-resource" ng-repeat="resource in assignment.$related.resources" ng-if="resource.type == 13">
+      <div cover-video="/VPFile{{resource.url}}.mp4"></div>
+    </div>
+    <div class="col-md-6 cover-resource-new" cover-file-upload="fileUploaded($data)">
+    </div>
+  </div>
+  <div class="col-md-4" style="border-left: solid 1px #ccc;">
+    <ul>
+      <li ng-repeat="resource in assignment.$related.resources">
+        <a href="/VPFile{{resource.url}}">{{resource.name}}</a>
+      </div>
+    </ul>
+  </div>
+</div>

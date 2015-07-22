@@ -1,0 +1,47 @@
+<style type="text/css">
+  blockquote {
+    background: #f9f9f9;
+    border-left: 10px solid #ccc;
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+    quotes: "\201C""\201D""\2018""\2019";
+  }
+  blockquote:before {
+    color: #ccc;
+    content: open-quote;
+    font-size: 4em;
+    line-height: 0.1em;
+    margin-right: 0.25em;
+    vertical-align: -0.4em;
+  }
+  blockquote p {
+    display: inline;
+  }
+</style>
+<div ng-repeat="answer in answers">
+  <div class="col-md-12">
+    <div class="col-md-4 cover-left">
+      <p class="cover-top">作者: {{answer.$related.student.trueName + answer.$related.teacher.truename}}</p>
+      <p class="cover-middle">回答时间: {{answer.createTime}}</p>
+      <p class="cover-middle">是否推荐: {{answerEnum[answer.recommended]}}</p>
+    </div>
+    <div class="col-md-8 cover-right">
+      <p ng-bind-html="renderHtml(answer.content)"></p>
+    </div>
+  </div>
+  <button class="btn btn-success" ng-click="quote(answer.content)">引用</button>
+  <hr>
+</div>
+<div class="container">
+  <form class="form form-horizontal" ng-submit="submit(newanswer)">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">回答：</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" id="t1" rows=10 ng-model="value"></textarea>
+      </div>
+    </div>
+    <p>
+      <button class="btn btn-primary col-sm-offset-2">提交</button>
+    </p>
+  </form>
+</div>

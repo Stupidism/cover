@@ -1,0 +1,14 @@
+  <h3>个人信息</h3>
+  <div collapse="isCollapsed">
+      <p class="user-top">用户名: {{user.username}}</p>
+      <p class="user-middle">真实姓名: {{user.trueName}}</p>
+      <p class="user-middle">性别: {{genderEnum[user.gender]}}</p>
+      <p class="user-middle">电子邮箱: {{user.email}}</p>
+      <p class="user-middle">年龄: {{user.age}}</p>
+      <p class="user-middle">电话号码: {{user.phone}}</p>
+      <p class="user-middle">家庭地址: {{user.address}}</p>
+      <p class="user-middle">余额: {{user.money}}</p>
+      <p class="user-middle">信用额: {{user.credit}}</p>
+      <p class="user-middle">等级: {{user.level}}</p>
+      <p class="user-middle">学校名: {{user.$related.school.name}}</p>
+  </div>
