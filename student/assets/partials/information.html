@@ -1,14 +1,38 @@
-  <h3>个人信息</h3>
-  <div collapse="isCollapsed">
-      <p class="user-top">用户名: {{user.username}}</p>
-      <p class="user-middle">真实姓名: {{user.trueName}}</p>
-      <p class="user-middle">性别: {{genderEnum[user.gender]}}</p>
-      <p class="user-middle">电子邮箱: {{user.email}}</p>
-      <p class="user-middle">年龄: {{user.age}}</p>
-      <p class="user-middle">电话号码: {{user.phone}}</p>
-      <p class="user-middle">家庭地址: {{user.address}}</p>
-      <p class="user-middle">余额: {{user.money}}</p>
-      <p class="user-middle">信用额: {{user.credit}}</p>
-      <p class="user-middle">等级: {{user.level}}</p>
-      <p class="user-middle">学校名: {{user.$related.school.name}}</p>
-  </div>
+<h3>个人信息</h3>
+<div class="container">
+  <form class="form form-horizontal" ng-submit="submit(editUser)">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">真实姓名：</label>
+      <div class="col-sm-10">
+        <input class="form-control" ng-model="editUser.trueName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">电子邮箱：</label>
+      <div class="col-sm-10">
+        <input class="form-control" ng-model="editUser.email">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">年龄：</label>
+      <div class="col-sm-10">
+        <input class="form-control" ng-model="editUser.age">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">电话号码：</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" ng-model="editUser.phone"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">家庭地址：</label>
+      <div class="col-sm-10">
+        <input class="form-control" ng-model="editUser.address">
+      </div>
+    </div>
+    <p>
+      <button class="btn btn-primary col-sm-offset-2">提交</button>
+    </p>
+  </form>
+</div>

@@ -8,7 +8,7 @@
       <th>开始日期</th>
       <th>附件</th>
     </tr>
-    <tr ng-repeat="assign in course.$related.assignments">
+    <tr ng-repeat="assign in assignments">
       <td><a ui-sref="^.assignmentDetails({assign: assign.$id})">{{assign.code}}</a></td>
       <td>{{assign.name}}</td>
       <td class="ellipsis wsn" style="max-width: 20em">{{assign.description}}</td>

@@ -1,14 +1,16 @@
 angular.module('student').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
   //$scope.courses = [];
   $scope.login().then(function () {
-    //angular.copy($scope.currentUser.$related.courses, $scope.courses);
-    $scope.courses = $scope.currentUser.$related.courses;
-    $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
-    if($scope.courses.length>0){
-      $scope.courses[0].open=true;
-    }
+    var id = $scope.currentUser.$id;
+    Restangular.one('students', id).all('courses').getList()
+    .then(function (courses) {
+      $scope.courses = courses;
+      $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
+      if($scope.courses.length>0){
+        $scope.courses[0].open=true;
+      }
+    });
   });
-
   $scope.oneAtATime=true;
   $scope.openAll=function(){
     $scope.oneAtATime=false;
@@ -17,35 +19,25 @@ angular.module('student').controller('CoursesListCtrl', function ($scope, $http,
 
 
 
-  $scope.editCourse = function (course,$event,create) {
-    $event.stopPropagation();
-    create = !!create;
-    if (create) {
-      
-    } else {
-      course = course.clone();
-    }
-    $modal.open({
-      animation:true,
-      size:'lg',
-      backdrop: create ? true : false,
-      templateUrl: 'assets/partials/course_edit.html',
-      controller: 'CourseEditCtrl',
-      resolve: {
-        course: function () {
-          return course;
-        },
-        create: function(){
-          return create;
-        },
-      },
-    }).result.then(function (editedCourse) {
-      $scope.courses.forEach(function (course) {
-        if (course.$id === editedCourse.$id) {
-          angular.copy(editedCourse, course);
-        }
-      });
+  $scope.quitCourse = function (course) {
+    var courseid = course.$id;
+    var studentid = $scope.currentUser.$id;
+    console.log($scope.currentUser.$token);
+    var path = '/api/students/'+studentid+'/links/course';
+    var qcourse = JsonApiOrg.serialize({
+        "data":[
+          {
+            type:"course",
+            id: courseid
+          }
+        ]
     });
+    $http['delete'](path,{headers: {
+      'Access-Token': $scope.currentUser.$token,
+    }},{params:qcourse})
+      .then(function () {
+          $state.reload();
+        });
   };
 
   // Disable weekend selection

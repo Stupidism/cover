@@ -1,4 +1,10 @@
 angular.module('student').controller('QuestionsListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
+  $scope.fetchCourse.then(function () {
+    Restangular.one('courses', $scope.course.id).all('questions').getList()
+      .then(function (questions) {
+        $scope.questions = questions;
+      });
+    });
   $scope.question = [];
   $scope.newQuestion = function (course,$event,create) {
     $event.stopPropagation();

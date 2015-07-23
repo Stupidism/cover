@@ -25,9 +25,13 @@ angular.module('student').controller('CourseEnrollCtrl', function ($scope, $stat
       id: $scope.classes.$id,
       meta:{password:$scope.classes.enrollPwd}
     }
-    console.log($scope.myclass);
-    Restangular.all('students').all(id).all("links").all("clazz").post($scope.myclass).then(function () {
-      state.reload();
-    });
-  };
+    Restangular.all('students').all(id).all("links").all("clazz").post($scope.myclass).catch(function (res) {
+          if (res.status === 409 ) {
+            alert('已报名该课程');
+          }
+        }).then(function () {
+              $state.reload();
+              $modalInstance.dismiss('cancel');
+            });
+    };
 });

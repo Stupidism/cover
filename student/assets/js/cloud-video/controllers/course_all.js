@@ -4,15 +4,17 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   $scope.page = 1;
   $scope.login().then(function () {
     //angular.copy($scope.currentUser.$related.courses, $scope.courses);
-    $scope.courselists=Restangular.all('courses').getList({
+    Restangular.all('courses').getList({
     	size:15,
     	page:$scope.page
-    }).$object;
-    $scope.totalpage = $scope.courselists.$totalpage;
-    $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
-    if($scope.courselists.length>0){
-      $scope.courselists[0].open=true;
-    }
+    }).then(function (courses) {
+      $scope.courselists = courses;
+      $scope.totalpage = $scope.courselists.$totalpage;
+      $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
+      if($scope.courselists.length>0){
+        $scope.courselists[0].open=true;
+      }
+    });
   });
 
   $scope.oneAtATime=true;
@@ -23,10 +25,16 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   $scope.prepage = function(){
   	if($scope.page > 1){
   		$scope.page--;
-	  	$scope.courselists=Restangular.all('courses').getList({
-	    	size:15,
-	    	page:$scope.page
-	    }).$object;
+      Restangular.all('courses').getList({
+        size:15,
+        page:$scope.page
+      }).then(function (courses) {
+        $scope.courselists = courses;
+        $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
+        if($scope.courselists.length>0){
+          $scope.courselists[0].open=true;
+        }
+      });
 	}
   }
   $scope.nextpage = function(){
@@ -38,6 +46,10 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
     	$scope.newcourselists = courses;
 	    if($scope.newcourselists.length!=0){
 	    	$scope.courselists = $scope.newcourselists;
+        $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
+        if($scope.courselists.length>0){
+          $scope.courselists[0].open=true;
+        }
 	    }
 	    else{
 	    	$scope.page--;
