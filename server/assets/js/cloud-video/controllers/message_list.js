@@ -1,4 +1,10 @@
 angular.module('cover').controller('MessagesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
+  $scope.fetchCourse.then(function () { 
+    Restangular.one('courses', $scope.course.$id).all('messages').getList()
+      .then(function (messages) {
+        $scope.messages = messages;
+      });
+  });
   $scope.message = [];
   $scope.newMessage = function (course,$event,create) {
     $event.stopPropagation();

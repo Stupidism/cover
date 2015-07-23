@@ -6,7 +6,7 @@
       <th>提问时间</th>
       <th>访问量</th>
     </tr>
-    <tr ng-repeat="question in course.$related.questions">
+    <tr ng-repeat="question in questions">
       <td><a ui-sref="^.questionDetails({question: question.$id})">{{question.title}}</a></td>
       <td>{{question.content}}</td>
       <td>{{question.createTime}}</td>

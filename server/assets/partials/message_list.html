@@ -5,7 +5,7 @@
       <th>简介</th>
       <th>创建日期</th>
     </tr>
-    <tr ng-repeat="message in course.$related.messages">
+    <tr ng-repeat="message in messages">
       <td>{{message.title}}</td>
       <td class="ellipsis wsn" style="max-width: 20em">{{message.content}}</td>
       <td>{{message.createTime}}</td>
