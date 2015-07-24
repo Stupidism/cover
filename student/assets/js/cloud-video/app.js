@@ -46,10 +46,6 @@ angular.module('student', [
     url: '/assignments',
     controller: 'AssignmentListCtrl',
     templateUrl: 'assets/partials/assignment_list.html',
-  }).state('courseManage.assignmentsAdd', {
-    url: '/assignmentsadd',
-    controller: 'AssignmentAddCtrl',
-    templateUrl: 'assets/partials/assignment_add.html',
   }).state('courseManage.assignmentDetails', {
     url: '/assignments/:assign',
     controller: 'AssignmentDetailsCtrl',

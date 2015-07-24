@@ -24,17 +24,18 @@ angular.module('student').controller('CoursesListCtrl', function ($scope, $http,
     var studentid = $scope.currentUser.$id;
     console.log($scope.currentUser.$token);
     var path = '/api/students/'+studentid+'/links/course';
-    var qcourse = JsonApiOrg.serialize({
+    var qcourse = {
         "data":[
           {
             type:"course",
             id: courseid
           }
         ]
-    });
-    $http['delete'](path,{headers: {
+    };
+    console.log(qcourse);
+    $http.delete(path,{headers: {
       'Access-Token': $scope.currentUser.$token,
-    }},{params:qcourse})
+    }})
       .then(function () {
           $state.reload();
         });

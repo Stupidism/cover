@@ -37,6 +37,8 @@ angular.module('student').factory('JsonApiOrg', function (Restangular) {
       };
     },
     parseResource: function (item, what, parent) {
+      if(item == null)
+        return {};
       var resource = angular.copy(item.attributes);
       resource.$id = item.id;
       resource.$type = item.type;
