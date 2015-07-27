@@ -1,4 +1,4 @@
-angular.module('cover').factory('coverAuth', function ($http, $q, $modal,
+﻿angular.module('cover').factory('coverAuth', function ($http, $q, $modal,
                                                        $rootScope, JsonApiOrg) {
 
   var currentUserChangedCallbacks = [];
@@ -110,6 +110,7 @@ angular.module('cover').factory('coverAuth', function ($http, $q, $modal,
     }}).then(function () {
       delete localStorage['accessToken'];
       coverAuth.setCurrentUser(null);
+      loginPromise = null;
     });
   }
 });
