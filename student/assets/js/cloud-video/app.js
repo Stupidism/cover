@@ -80,13 +80,6 @@ angular.module('student', [
     url: '/outline',
     controller: 'CourseOutlineCtrl',
     templateUrl: 'assets/partials/course_outline.html',
-  }).state('courseManage.classes', {
-    url: '/classes',
-    templateUrl: 'assets/partials/class_list.html',
-  }).state('courseManage.classDetails', {
-    url: '/classes/:class',
-    controller: 'ClassDetailsCtrl',
-    templateUrl: 'assets/partials/class_details.html',
   });
 
   $urlRouterProvider.otherwise('/');
