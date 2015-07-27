@@ -2,20 +2,11 @@ angular.module('student').controller('CourseEnrollCtrl', function ($scope, $stat
   console.log(user);
   var id = user.$id;
   $scope.clazz=clazz;
-  console.log($scope.clazz);
-  /*$scope.submit = function (question) {
-  console.log($scope.question);
-  Restangular.all('questions').post($scope.question).then(function (question) {
-      $state.go('courseManage.questions', {course: $scope.question.$relationships.course.data.id}, {reload: true});
-      $modalInstance.dismiss('cancel');
-    });
-  };*/
   $scope.dismiss = function(){
     $state.reload();
   }
   $scope.courseEnroll = function() {
     $scope.clazz.forEach(function(classes) {
-      console.log(classes.chosen);
       if (classes.chosen) {
         $scope.classes = classes;
       }

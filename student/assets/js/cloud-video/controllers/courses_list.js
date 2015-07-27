@@ -1,4 +1,4 @@
-angular.module('student').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg) {
+angular.module('student').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg,$state) {
   //$scope.courses = [];
   $scope.login().then(function () {
     var id = $scope.currentUser.$id;
@@ -23,19 +23,22 @@ angular.module('student').controller('CoursesListCtrl', function ($scope, $http,
     var courseid = course.$id;
     var studentid = $scope.currentUser.$id;
     console.log($scope.currentUser.$token);
-    var path = '/api/students/'+studentid+'/links/course';
-    var qcourse = {
+    var req = {
+    method: 'DELETE',
+    url: '/api/students/'+studentid+'/links/courses',
+    headers: {
+     'Access-Token': $scope.currentUser.$token,
+    },
+    data: {         
         "data":[
           {
             type:"course",
             id: courseid
           }
-        ]
-    };
-    console.log(qcourse);
-    $http.delete(path,{headers: {
-      'Access-Token': $scope.currentUser.$token,
-    }})
+        ] 
+      }
+    }
+    $http(req)
       .then(function () {
           $state.reload();
         });
