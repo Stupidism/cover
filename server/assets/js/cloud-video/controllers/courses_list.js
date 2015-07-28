@@ -3,9 +3,11 @@ angular.module('cover').controller('CoursesListCtrl', function ($scope, $http, $
   $scope.login().then(function () {
     //angular.copy($scope.currentUser.$related.courses, $scope.courses);
     $scope.courses = $scope.currentUser.$related.courses;
-    $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
-    if($scope.courses.length>0){
-      $scope.courses[0].open=true;
+    if($scope.courses!=null){
+      $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
+      if($scope.courses.length>0){
+        $scope.courses[0].open=true;
+      }
     }
   });
 

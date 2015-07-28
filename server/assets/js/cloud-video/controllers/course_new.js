@@ -126,4 +126,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state) {
     });
     console.log($scope.course);
   };
+  $scope.$dismiss = function () {
+    $state.go('courses',{reload: true});
+  };
 });

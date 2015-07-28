@@ -6,6 +6,7 @@
       <th>简介</th>
       <th>总分</th>
       <th>开始日期</th>
+      <th>截止日期</th>
       <th>附件</th>
     </tr>
     <tr ng-repeat="assign in assignments">
@@ -14,6 +15,7 @@
       <td class="ellipsis wsn" style="max-width: 20em">{{assign.description}}</td>
       <td>{{assign.totalScore}}</td>
       <td>{{assign.startTime}}</td>
+      <td><a ng-click="Deadlineadd(assign)">{{assign.endTime}}</td>
       <td><a ui-sref="^.assignmentFileAdd({assign: assign.$id})">查看</a></td>
     </tr>
   </tbody>

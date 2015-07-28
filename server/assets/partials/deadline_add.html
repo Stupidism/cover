@@ -1,0 +1,33 @@
+<form name="userForm" ng-submit="submit(deadline)" novalidate>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()">×</button>
+    <h3>选择截止日期</h3>
+  </div>
+  <div class="container">
+    <div ng-repeat="time in [{
+        'desc':'截止日期',in:[
+          {attr:'time',options:{}},
+        ]},
+      ] track by $index" >
+      {{time.desc}}:
+      <div class="row">
+        <div class="col-md-6 cover-datepicker" ng-repeat="attr in time.in">
+          <p class="input-group">
+            <input type="text" class="form-control input-sm" datepicker-popup="{{format}}"
+             ng-model="deadline[attr.attr]" is-open="attr.options.opened" min-date="minDate"
+              datepicker-options="dateOptions" 
+               ng-required="true" close-text="Close" />
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default cover-btn-tn"
+              ng-click="open($event,attr.options)"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">提交</button>
+  </div>
+</form>

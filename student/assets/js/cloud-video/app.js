@@ -54,10 +54,10 @@ angular.module('student', [
     url: '/homeworks/:home',
     controller: 'AssignmentDetailsFileCtrl',
     templateUrl: 'assets/partials/assignment_details_file.html',
-  }).state('courseManage.assignmentFileAdd', {
-    url: '/assignments/:assign/fileadd',
+  }).state('courseManage.assignmentFile', {
+    url: '/assignments/:assign/file',
     controller: 'AssignmentFileCtrl',
-    templateUrl: 'assets/partials/assignment_file_add.html',
+    templateUrl: 'assets/partials/assignment_file.html',
   }).state('courseManage.subjects', {
     url: '/subjects',
     templateUrl: 'assets/partials/subject_list.html',
