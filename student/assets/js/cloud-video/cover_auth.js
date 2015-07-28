@@ -9,7 +9,6 @@ angular.module('student').factory('coverAuth', function ($http, $q, $modal,
     onCurrentUserChange: onCurrentUserChange,
     autoLogin: autoLogin,
     login: login,
-    register: register,
     logout: logout,
   };
   return coverAuth;
@@ -83,25 +82,6 @@ angular.module('student').factory('coverAuth', function ($http, $q, $modal,
       });
     }
     return loginPromise || $q.reject();
-  }
-
-  function register() {
-    var scope = $rootScope.$new('isolate');
-    scope.register = true;
-    return $modal.open({
-      templateUrl : 'assets/partials/user_edit.html',
-      backdrop : 'static',
-      keyboard : false,
-      size : 'sm',
-      scope : scope,
-    }).result.then(function (user) {
-      return $http.post("api/users/", user)
-        .then(function(res){
-          return coverAuth.login(user);
-        });
-    }).then(function (user) {
-      return user;
-    });
   }
 
   function logout() {
