@@ -25,11 +25,15 @@ angular.module('student').controller('AssignmentDetailsCtrl', function ($scope, 
 	  	}
 	  });
 	$scope.submit = function (homework) {
-		console.log(create);
+		//console.log(create);
 	    if(create == 1){
-		    homework.patch(homework).then(function (c) {
-		      $state.reload();
-		    });    	
+	    	var hid = homework.$id;
+	    	$scope.fetchHomework = Restangular.one('homeworks',hid).get();
+  			$scope.fetchHomework.then(function (newhomework) {
+			    newhomework.patch(homework).then(function (c) {
+			      $state.reload();
+			    }); 
+			});   	
 	    }
 	    else{
 	      console.log(homework);

@@ -2,9 +2,12 @@ angular.module('student').controller('InformationCtrl', function ($scope, $http,
   $scope.login().then(function () {
   	$scope.editUser = $scope.currentUser.clone();
   });
+  $scope.genderEnum={
+    1:'男',
+    2:'女',
+  }
   $scope.submit = function (user) {
-    user.patch(user).then(function (c) {
-      $state.reload();
+    user.patch(user).then(function (newuser) {
     });
   };
 });
