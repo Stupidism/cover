@@ -1,5 +1,20 @@
 angular.module('student').controller('CoursesListCtrl', function ($scope, $http, $modal, Restangular, $q, JsonApiOrg,$state) {
   //$scope.courses = [];
+
+  function StringToDate(){
+    var i = 0;
+    while (i < $scope.courses.length) {
+      $scope.courses[i].startTime = new Date($scope.courses[i].startTime);
+      $scope.courses[i].endTime = new Date($scope.courses[i].endTime);
+      $scope.courses[i].enrollStarttime = new Date($scope.courses[i].enrollStarttime);
+      $scope.courses[i].enrollEndtime = new Date($scope.courses[i].enrollEndtime);
+      $scope.courses[i].createTime = new Date($scope.courses[i].createTime);
+      i = i + 1;
+    }
+    i = 0;
+  }
+
+
   $scope.login().then(function () {
     var id = $scope.currentUser.$id;
     Restangular.one('students', id).all('courses').getList()
@@ -9,6 +24,7 @@ angular.module('student').controller('CoursesListCtrl', function ($scope, $http,
       if($scope.courses.length>0){
         $scope.courses[0].open=true;
       }
+      StringToDate();
     });
   });
   $scope.oneAtATime=true;
