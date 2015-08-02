@@ -2,6 +2,19 @@ angular.module('student').controller('CourseAllCtrl',
 function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   //modal begin
   $scope.page = 1;
+  //
+  function StringToDate(){
+    var i = 0;
+    while (i < $scope.courselists.length) {
+      $scope.courselists[i].startTime = new Date($scope.courselists[i].startTime);
+      $scope.courselists[i].endTime = new Date($scope.courselists[i].endTime);
+      $scope.courselists[i].enrollStarttime = new Date($scope.courselists[i].enrollStarttime);
+      $scope.courselists[i].enrollEndtime = new Date($scope.courselists[i].enrollEndtime);
+      i = i + 1;
+    }
+    i = 0;
+  }
+
   $scope.login().then(function () {
     console.log($scope.currentUser);
     $scope.schoolid = $scope.currentUser.$related.school.$id;
