@@ -43,5 +43,5 @@ angular.module('cover').controller('AssignmentListCtrl', function ($scope, $http
         },
       },
     })
-};
+  };
 });

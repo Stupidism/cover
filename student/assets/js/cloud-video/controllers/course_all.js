@@ -3,8 +3,10 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   //modal begin
   $scope.page = 1;
   $scope.login().then(function () {
+    console.log($scope.currentUser);
+    $scope.schoolid = $scope.currentUser.$related.school.$id;
     //angular.copy($scope.currentUser.$related.courses, $scope.courses);
-    Restangular.all('courses').getList({
+    Restangular.all('schools').all($scope.schoolid).all('courses').getList({
     	size:15,
     	page:$scope.page
     }).then(function (courses) {

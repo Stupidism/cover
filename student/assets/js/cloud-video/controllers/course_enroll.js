@@ -1,9 +1,8 @@
-angular.module('student').controller('CourseEnrollCtrl', function ($scope, $state,clazz,user,$modalInstance,Restangular) {
-  console.log(user);
-  var id = user.$id;
+angular.module('student').controller('CourseEnrollCtrl', function ($scope, $state,clazz,user,$modalInstance,Restangular,$modal) {
   $scope.clazz=clazz;
   $scope.dismiss = function(){
     $state.reload();
+    $modalInstance.dismiss('cancel');
   }
   $scope.courseEnroll = function() {
     $scope.clazz.forEach(function(classes) {
@@ -11,18 +10,20 @@ angular.module('student').controller('CourseEnrollCtrl', function ($scope, $stat
         $scope.classes = classes;
       }
     });
-    $scope.myclass = {
-      type: 'clazz',
-      id: $scope.classes.$id,
-      meta:{password:$scope.classes.enrollPwd}
-    }
-    Restangular.all('students').all(id).all("links").all("clazz").post($scope.myclass).catch(function (res) {
-          if (res.status === 409 ) {
-            alert('已报名该课程');
-          }
-        }).then(function () {
-              $state.reload();
-              $modalInstance.dismiss('cancel');
-            });
-    };
+    $modal.open({
+      animation:true,
+      size:'lg',
+      templateUrl: 'assets/partials/password.html',
+      controller: 'PasswordCtrl',
+      resolve: {
+        clazz: function () {
+          return $scope.classes;
+        },
+        user:function(){
+          return user;
+        }
+      },
+    })
+    $modalInstance.dismiss('cancel');
+  };
 });

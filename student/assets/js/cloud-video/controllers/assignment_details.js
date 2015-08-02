@@ -18,14 +18,12 @@ angular.module('student').controller('AssignmentDetailsCtrl', function ($scope, 
 	};
   	Restangular.one(path).get().then(function(homework){
   		$scope.neweditHomework = homework;
-  		console.log(homework);
 	  	if($scope.neweditHomework.$id){
 	  		create = 1;
 	  		$scope.editHomework = $scope.neweditHomework;
 	  	}
 	  });
 	$scope.submit = function (homework) {
-		//console.log(create);
 	    if(create == 1){
 	    	var hid = homework.$id;
 	    	$scope.fetchHomework = Restangular.one('homeworks',hid).get();
@@ -36,9 +34,7 @@ angular.module('student').controller('AssignmentDetailsCtrl', function ($scope, 
 			});   	
 	    }
 	    else{
-	      console.log(homework);
 	      Restangular.all("homeworks").post(homework).then(function () {
-
 	        $state.reload();
 	      });
 	    }
