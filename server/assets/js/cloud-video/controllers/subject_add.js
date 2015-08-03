@@ -36,6 +36,7 @@ function ($scope,$state,$http,$timeout, Restangular,JsonApiOrg ) {
   };
   $scope.fileUploaded = function (data) {
     var subjectRest = Restangular.one('subjects', $scope.subject.$id);
+    console.log(data);
     //$scope.subject = subjectRest.get().$object;
     subjectRest.all('links').all('resources').post([data.$asLink()]).then(
       function () {
