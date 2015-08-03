@@ -106,4 +106,40 @@ angular.module('cover').directive('coverFlash', function() {
       });
     },
   };
+}).directive('coverSwfFileUpload', function(JsonApiOrg) {
+  return {
+    scope: {
+      coverSwfFileUpload: "&",
+    },
+    restrict: 'A',
+    templateUrl: 'assets/partials/cover_swffile_upload.html',
+    link: function ($scope, element, attrs) {
+      console.log(element.find("input[type=file]"));
+      element.find(".cover-swf-file-upload").dmUploader({
+        url: '/VPFile/swffileupload',
+        onNewFile: function () {
+          $scope.$apply(function () {
+            $scope.swffileUploadPercent = 0;
+          });
+        },
+        onUploadProgress: function (id, percent) {
+          $scope.$apply(function () {
+            $scope.swffileUploadPercent = percent;
+          });
+        },
+        dataType: 'json',
+        onUploadSuccess: function (id, data) {
+          $scope.$apply(function () {
+            $scope.swffileUploadPercent = 100;
+            data = JsonApiOrg.parseResource({
+              id: data.data.id,
+              type: 'vpresource',
+              attributes: data.data,
+            });
+            $scope.coverSwfFileUpload({$data: data});
+          });
+        },
+      });
+    },
+  };
 });
