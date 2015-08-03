@@ -1,23 +1,32 @@
-<table class="table table-striped">
+<table class="table table-striped" at-table at-paginated 
+      at-list="assignments" at-config="config">
+  <thead></thead>
   <tbody>
     <tr>
-      <th>编号</th>
-      <th>名称</th>
-      <th>简介</th>
-      <th>总分</th>
-      <th>开始日期</th>
-      <th>截止日期</th>
-      <th>附件</th>
-    </tr>
-    <tr ng-repeat="assign in assignments">
-      <td><a ui-sref="^.assignmentDetails({assign: assign.$id})">{{assign.code}}</a></td>
-      <td>{{assign.name}}</td>
-      <td class="ellipsis wsn" style="max-width: 20em">{{assign.description}}</td>
-      <td>{{assign.totalScore}}</td>
-      <td>{{assign.startTime}}</td>
-      <td><a ng-click="Deadlineadd(assign)">{{assign.endTime}}</td>
-      <td><a ui-sref="^.assignmentFileAdd({assign: assign.$id})">查看</a></td>
+      <td at-title="编号">
+        <a ui-sref="^.assignmentDetails({assign: item.$id})">{{item.code}}</a>
+      </td>
+      <td  at-title="名称">
+        {{item.name}}
+      </td>
+      <td class="ellipsis wsn" style="max-width: 20em" at-title="简介">
+        {{item.description}}
+      </td>
+      <td  at-title="总分">
+        {{item.totalScore}}
+      </td>
+      <td at-title="开始日期">
+        {{item.startTime.substring(0,10)}}
+      </td>
+      <td at-title="结束日期">
+        <a ng-click="Deadlineadd(item)">{{item.endTime}}
+      </td>
+      <td at-title="附件">
+        <a ui-sref="^.assignmentFileAdd({assign: item.$id})">查看</a>
+      </td>
     </tr>
   </tbody>
 </table>
+<at-pagination at-list="assignments" at-config="config" ></at-pagination>
+
 <button class="btn btn-success" ui-sref="courseManage.assignmentsAdd()">新建作业</button>
