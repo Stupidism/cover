@@ -2,7 +2,6 @@ angular.module('cover', [
   'ui.bootstrap',
   'ui.router',
   'restangular',
-  'angular-table',
 ]).config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
   $stateProvider.state('home', {
     url: '/',

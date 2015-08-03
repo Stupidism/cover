@@ -9,7 +9,7 @@
       <td  at-title="名称">
         {{item.name}}
       </td>
-      <td class="ellipsis wsn" style="max-width: 20em" at-title="简介">
+      <td class="ellipsis wsn" style="max-width: 15em" at-title="简介">
         {{item.description}}
       </td>
       <td  at-title="总分">
@@ -19,7 +19,7 @@
         {{item.startTime.substring(0,10)}}
       </td>
       <td at-title="结束日期">
-        <a ng-click="Deadlineadd(item)">{{item.endTime}}
+        <a ng-click="Deadlineadd(item)">{{item.endTime.substring(0,10)}}
       </td>
       <td at-title="附件">
         <a ui-sref="^.assignmentFileAdd({assign: item.$id})">查看</a>
