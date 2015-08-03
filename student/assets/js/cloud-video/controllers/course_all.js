@@ -15,6 +15,11 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
     i = 0;
   }
 
+  $scope.myInterval = 5000;
+  var slides = $scope.slides = [];
+  slides.push({image:'assets/images/kittys/1.jpg',text:'nihao'});
+  slides.push({image:'assets/images/kittys/2.jpg',text:'miao'});
+
   $scope.login().then(function () {
     console.log($scope.currentUser);
     $scope.schoolid = $scope.currentUser.$related.school.$id;
@@ -29,6 +34,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
       if($scope.courselists.length>0){
         $scope.courselists[0].open=true;
       }
+      StringToDate();
     });
   });
 
@@ -49,6 +55,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
         if($scope.courselists.length>0){
           $scope.courselists[0].open=true;
         }
+        StringToDate();
       });
 	}
   }
@@ -69,6 +76,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
 	    else{
 	    	$scope.page--;
 	    }
+      StringToDate();
   	});
   }
   $scope.enrollclass = function (courseid) {
