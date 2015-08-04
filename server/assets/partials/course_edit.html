@@ -51,16 +51,6 @@
               tooltip-enable="userForm.examRatio.$invalid
               && !userForm.examRatio.$pristine|| !isPosInt(course.examRatio)" />
           </div>
-          <div class="form-group"
-          ng-class="{'has-error' : userForm.classNum.$invalid && !userForm.classNum.$pristine || !isPosInt(classNum)}">
-            班级数量:
-            <input class="form-control input-sm" type="number" name="classNum"
-              ng-model="classNum"  min="1" max="10" ng-required="true"
-              placeholder="请输入班级数量"
-              tooltip="班级数量要求为整数,至少为1,至多为10"
-              tooltip-placement="top" tooltip-trigger="mouseenter"
-              tooltip-enable="userForm.classNum.$invalid && !userForm.classNum.$pristine|| !isPosInt(classNum)" />
-          </div>
         </div>
         <div class="col-md-8 cover-right">
           <div class="form-group" ng-class="{'has-error' :
@@ -109,20 +99,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row cover-modal-row cover-bottom">
-      <div class="col-md-12">
-        <div class="col-md-12">
-        班级名称:
-        <div class="row">
-          <div class="col-md-4" ng-repeat="className in course.classNames track by $index">
-            <input class="form-control input-sm cover-input" type="text"
-             ng-model="course.classNames[$index]" required>
-            <p ng-show="className" style="color: #f22">{{errorText.name}}</p>
-          </div>
-        </div>
-      </div>
       </div>
     </div>
   </div>

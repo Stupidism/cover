@@ -11,8 +11,6 @@ function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$stat
     $scope.course.assignmentRatio=30;
     $scope.course.quizRatio=30;
     $scope.classNum=1;
-  }else{
-    $scope.classNum=1;
   }
   $scope.errorText={};
   $scope.create=create;
@@ -124,20 +122,6 @@ function ($scope,$http, course,create,$timeout,$modalInstance, Restangular,$stat
   $scope.format = $scope.formats[1];
   //datepicker end
 
-  //className begin
-  $scope.$watch('classNum',function(newClassNum,oldClassNum){
-    $scope.course.classNames=$scope.course.classNames||['班级1'];
-    if(newClassNum<oldClassNum){
-      for(var i=oldClassNum;i>newClassNum;i--){
-        $scope.course.classNames.pop();
-      }
-    }else{
-      for(var i=oldClassNum;i<newClassNum;i++){
-        $scope.course.classNames.push('班级'+(i+1));
-      }
-    }
-  })
-  //className end
 
   $scope.submit = function (course) {
     //console.log($scope.course);
