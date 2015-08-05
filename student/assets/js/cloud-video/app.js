@@ -2,6 +2,7 @@ angular.module('student', [
   'ui.bootstrap',
   'ui.router',
   'restangular',
+  'angular-table',
 ]).config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
   $stateProvider.state('home', {
     url: '/',

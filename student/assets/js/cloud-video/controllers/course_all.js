@@ -2,14 +2,15 @@ angular.module('student').controller('CourseAllCtrl',
 function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   //modal begin
   $scope.page = 1;
+  $scope.courses = [];
   //
   function StringToDate(){
     var i = 0;
-    while (i < $scope.courselists.length) {
-      $scope.courselists[i].startTime = new Date($scope.courselists[i].startTime);
-      $scope.courselists[i].endTime = new Date($scope.courselists[i].endTime);
-      $scope.courselists[i].enrollStarttime = new Date($scope.courselists[i].enrollStarttime);
-      $scope.courselists[i].enrollEndtime = new Date($scope.courselists[i].enrollEndtime);
+    while (i < $scope.courses.length) {
+      $scope.courses[i].startTime = new Date($scope.courses[i].startTime);
+      $scope.courses[i].endTime = new Date($scope.courses[i].endTime);
+      $scope.courses[i].enrollStarttime = new Date($scope.courses[i].enrollStarttime);
+      $scope.courses[i].enrollEndtime = new Date($scope.courses[i].enrollEndtime);
       i = i + 1;
     }
     i = 0;
@@ -19,6 +20,7 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   var slides = $scope.slides = [];
   slides.push({image:'assets/images/kittys/1.jpg',text:'nihao'});
   slides.push({image:'assets/images/kittys/2.jpg',text:'miao'});
+  slides.push({image:'assets/images/kittys/970.jpg',text:'miao'});
 
   $scope.login().then(function () {
     console.log($scope.currentUser);
@@ -28,20 +30,16 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
     	size:15,
     	page:$scope.page
     }).then(function (courses) {
-      $scope.courselists = courses;
-      $scope.totalpage = $scope.courselists.$totalpage;
-      $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
-      if($scope.courselists.length>0){
-        $scope.courselists[0].open=true;
-      }
-      StringToDate();
+      $scope.courses = courses;
+      $scope.totalpage = $scope.courses.$totalpage;
+      $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
     });
   });
 
   $scope.oneAtATime=true;
   $scope.openAll=function(){
     $scope.oneAtATime=false;
-    $scope.courselists.map(function(course){course.open=true;})
+    $scope.courses.map(function(course){course.open=true;})
   }
   $scope.prepage = function(){
   	if($scope.page > 1){
@@ -50,12 +48,11 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
         size:15,
         page:$scope.page
       }).then(function (courses) {
-        $scope.courselists = courses;
-        $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
-        if($scope.courselists.length>0){
-          $scope.courselists[0].open=true;
+        $scope.courses = courses;
+        $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
+        if($scope.courses.length>0){
+          $scope.courses[0].open=true;
         }
-        StringToDate();
       });
 	}
   }
@@ -65,18 +62,17 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
     	size:15,
     	page:$scope.page
     }).then(function(courses){
-    	$scope.newcourselists = courses;
-	    if($scope.newcourselists.length!=0){
-	    	$scope.courselists = $scope.newcourselists;
-        $scope.courselists.sort(function (a, b) { return b.$id - a.$id; });
-        if($scope.courselists.length>0){
-          $scope.courselists[0].open=true;
+    	$scope.newcourses = courses;
+	    if($scope.newcourses.length!=0){
+	    	$scope.courses = $scope.newcourses;
+        $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
+        if($scope.courses.length>0){
+          $scope.courses[0].open=true;
         }
 	    }
 	    else{
 	    	$scope.page--;
 	    }
-      StringToDate();
   	});
   }
   $scope.enrollclass = function (courseid) {

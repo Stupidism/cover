@@ -1,31 +1,37 @@
-<div>
-  <carousel interval="myInterval">
-    <slide ng-repeat="slide in slides" active="slide.active">
-      <img ng-src="{{slide.image}}" style="margin:auto;">
+<div class="container">
+  <div class="row">
+    <carousel interval="myInterval">
+      <slide ng-repeat="slide in slides" active="slide.active">
+        <img ng-src="{{slide.image}}" style="margin:auto;">
         <div class="carousel-caption">
           <p>{{slide.text}}</p>
         </div>
-    </slide>
-  </carousel>
-</div>
-
-<div>
-  <div align="center" class="col=md-10">
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <th>name</th>
-          <th>num</th>
-          <th>endTime</th>
-        </tr>        
-        <tr ng-repeat="course in courselists">
-          <td ><a ui-sref="courseManage.courseIndex({course: course.$id})">{{course.name}}</a></td>
-          <td>{{course.studentNum}}</td>
-          <td>{{course.endTime | date:"yyyy-MM-dd"}}</td>
-        </tr>
-    </tbody>
-    </table>
+      </slide>
+    </carousel>
   </div>
-  <button class="btn btn-success" ng-click="prepage()">上一页</button>
-  <button class="btn btn-success" ng-click="nextpage()">下一页</button>
+
+  <div class="row">
+    <table class="table table-striped" at-table 
+           at-paginated at-list="courses" at-config="tableConfig" >
+      <thead></thead>
+      <tbody>
+          <td at-title="课程名字">
+            <a ui-sref="courseManage.courseIndex({course: item.$id})">{{item.name}}</a>
+          </td>
+          <td at-title="学生人数">
+            {{item.studentNum}}
+          </td>
+          <td at-title="开始时间">
+            {{item.startTime.substring(0,10)}}
+          </td>
+          <td at-title="结束时间">
+            {{item.endTime.substring(0,10)}}
+          </td>
+          <td at-title="描述" style="max-width: 100px;">
+            {{item.description}}
+          </td>
+      </tbody>
+    </table>
+    <at-pagination at-list="courses" at-config="config" ></at-pagination>
+  </div>
 </div>
