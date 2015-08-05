@@ -61,6 +61,7 @@ angular.module('student', [
     templateUrl: 'assets/partials/assignment_file.html',
   }).state('courseManage.subjects', {
     url: '/subjects',
+    controller: 'SubjectListCtrl',
     templateUrl: 'assets/partials/subject_list.html',
   }).state('courseManage.subjectDetails', {
     url: '/subjects/:subject',

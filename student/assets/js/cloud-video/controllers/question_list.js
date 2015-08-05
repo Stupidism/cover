@@ -5,6 +5,11 @@ angular.module('student').controller('QuestionsListCtrl', function ($scope, $htt
         $scope.questions = questions;
       });
     });
+  $scope.questions = [];
+  $scope.tableConfig = {
+    itemPerPage: 10,
+  };
+
   $scope.question = [];
   $scope.newQuestion = function (course,$event,create) {
     $event.stopPropagation();

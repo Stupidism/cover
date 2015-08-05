@@ -1,17 +1,26 @@
-<table class="table table-striped">
+<table class="table table-striped" at-table at-paginated
+       at-list="questions" at-config="tableConfig">
+  <thead>
+  </thead>
   <tbody>
     <tr>
-      <th>问题</th>
-      <th>描述</th>
-      <th>提问时间</th>
-      <th>访问量</th>
-    </tr>
-    <tr ng-repeat="question in questions">
-      <td><a ui-sref="^.questionDetails({question: question.$id})">{{question.title}}</a></td>
-      <td>{{question.content}}</td>
-      <td>{{question.createTime}}</td>
-      <td>{{question.viewCount}}</td>
+      <td at-title="问题">
+        <a ui-sref="^.questionDetails({question: item.$id})">{{item.title}}</a>
+      </td>
+      <td at-title="描述">
+        {{item.content}}
+      </td>
+      <td at-title="提问时间">
+        {{item.createTime}}
+      </td>
+      <td at-title="访问量">
+        {{item.viewCount}}
+      </td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-success" ng-click="newQuestion({},$event,'create')">发起讨论</button>
+
+<div>
+    <at-pagination at-list="questions" at-config="tableConfig" ></at-pagination>
+    <button class="btn btn-primary" ng-click="newQuestion({},$event,'create')">发起讨论</button>
+</div>

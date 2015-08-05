@@ -19,4 +19,9 @@ angular.module('student').controller('AssignmentListCtrl', function ($scope, $ht
 		  });
 	    });
   });
+  
+  $scope.assignments=[];
+  $scope.tableConfig = {
+  	itemsPerPage: 10,
+  }
 });

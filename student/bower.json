@@ -30,7 +30,8 @@
     "ngprogress": "~1.0.7",
     "ladda": "~0.9.8",
     "less": "~2.5.1",
-    "restangular": "~1.5.1"
+    "restangular": "~1.5.1",
+    "at-table":"~1.0.4"
   },
   "exportsOverride": {
     "angular": {
@@ -90,6 +91,9 @@
     },
     "lodash": {
       "js/lib": "*"
+    },
+    "at-table":{
+      "js/lib": "dist/*" 
     }
   }
 }

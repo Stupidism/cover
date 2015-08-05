@@ -3,6 +3,9 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
   //modal begin
   $scope.page = 1;
   $scope.courses = [];
+  $scope.tableConfig = {
+    itemsPerPage: 10,
+  }
   //
   function StringToDate(){
     var i = 0;
