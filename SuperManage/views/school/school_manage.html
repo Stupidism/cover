@@ -1,0 +1,100 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">学校管理</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        学校列表
+      </div>
+      <div class="panel-body">
+        搜索学校：&nbsp
+        <input ng-model="query">
+        <hr>
+        <div class="form-group">
+          <select class="form-control" multiple ng-change="update()" ng-model="selected.value" ng-options="school.name for school in schools | filter:{ name : query }"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        学校信息
+      </div>
+      <div class="panel-body">
+        <form data-ng-submit="submitForm(school)">
+          <div class="dataTable_wrapper">
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr class="even gradeC">
+                  <td>学校名：</td>
+                  <td><input class="form-control" data-ng-model="school.name" id="Inputname" placeholder="请输入学校名" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>编号：</td>
+                  <td><input class="form-control" data-ng-model="school.code" id="InputCode" placeholder="请输入学校编号" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>资金：</td>
+                  <td><input class="form-control" data-ng-model="school.money" id="InputMoney" placeholder="请输入学校资金" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>信用额度：</td>
+                  <td><input class="form-control" data-ng-model="school.credit" id="InputCredit" placeholder="请输入学校信用额度" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>等级：</td>
+                  <td><input class="form-control" data-ng-model="school.level" id="InputLevel" placeholder="请输入学校等级" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>地址：</td>
+                  <td><input class="form-control" data-ng-model="school.address" id="InputAddress" placeholder="请输入学校地址" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>985：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="school.shi985">
+                        <option>是</option>
+                        <option>否</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>211：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="school.shi211">
+                        <option>是</option>
+                        <option>否</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <center><button class="btn btn-primary btn-w-md" type="submit">修改学校信息</button></center>
+        </form>
+        <hr>
+          <div class="dataTable_wrapper">
+            <table class="table table-bordered table-hover">
+              <tbody>
+                  <td><center><button class="btn btn-primary btn-w-md" type="button" ng-click="schoolremove()">删除学校</button></center></td>
+              </tbody>
+            </table>
+          </div>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

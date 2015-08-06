@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">学生管理</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        添加学生
+      </div>
+      <div class="panel-body">
+        <form data-ng-submit="submitForm()" name="form_signin">
+          <div class="dataTable_wrapper">
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr class="even gradeC">
+                  <td>用户名：</td>
+                  <td><input class="form-control" data-ng-model="user.username" id="InputUsername" placeholder="请输入学生登陆用户名" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>密码：</td>
+                  <td><input class="form-control" data-ng-model="user.password" id="InputPassword" placeholder="输入学生登陆密码" required type="password"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>E-mail：</td>
+                  <td><input class="form-control" data-ng-model="user.email" id="InputEmail" placeholder="输入学生邮箱" required type="email"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>年龄：</td>
+                  <td><input class="form-control" data-ng-model="user.age" id="InputCode" placeholder="请输入学生年龄" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>真实姓名：</td>
+                  <td><input class="form-control" data-ng-model="user.trueName" id="InputTrueUsername" placeholder="请输入学生真实姓名" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>性别：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="user.gendername">
+                        <option>男</option>
+                        <option>女</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>电话：</td>
+                  <td><input class="form-control" data-ng-model="user.phone" id="InputPhone" placeholder="请输入学生电话" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>信用额度：</td>
+                  <td><input class="form-control" data-ng-model="user.credit" id="InputCredit" placeholder="请输入学生信用额度" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>等级：</td>
+                  <td><input class="form-control" data-ng-model="user.level" id="InputLevel" placeholder="请输入学生等级" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>住址：</td>
+                  <td><input class="form-control" data-ng-model="user.address" id="InputAddress" placeholder="请输入学生住址" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>专业：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="major" ng-options="major.name for major in majors">
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn btn-primary btn-w-md" type="submit">提交</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

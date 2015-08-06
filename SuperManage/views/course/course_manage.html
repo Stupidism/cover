@@ -1,0 +1,230 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">课程管理</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        课程列表
+      </div>
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <tr class="even gradeC">
+            <td>
+              搜索课程：&nbsp
+              <input ng-model="querycourseAll">
+            </td>
+            <td >
+              <div style="padding-top:6px;float:left">
+                选择专业：&nbsp
+              </div>
+              <select class="form-control" ng-change="updateMajor()" ng-model="major" ng-options="major.name for major in majors" style="width:60%;float:right">
+                <option value="">显示所有</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <hr>
+        <div class="form-group">
+          <select class="form-control" multiple ng-change="updateAll()" ng-model="selectedcourseAll.value" ng-options="courseAll.name for courseAll in coursesAll | filter:{ name : querycourseAll }" style="height: 450px"></select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        课程信息
+      </div>
+      <form name="userForm" ng-submit="submit(course)" novalidate>
+        <div class="panel-body">
+          <div class="col-lg-4">
+            <div class="form-group" ng-class="{'has-error' : userForm.name.$invalid && !userForm.name.$pristine}">
+              课程名称:
+              <br><br>
+              <input class="form-control input-sm" name="name" ng-maxlength="255" ng-minlength="2" ng-model="course.name" ng-required="true" placeholder="请输入课程名称" tooltip-enable="userForm.name.$invalid && !userForm.name.$pristine" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="课程名称长度至少为2" type="text"/>
+            </div>
+            <hr>
+            <div class="form-group" ng-class="{'has-error' : userForm.studentNum.$invalid && !userForm.studentNum.$pristine || !isPosInt(course.studentNum)}">
+              上课人数:
+              <br><br>
+              <input class="form-control input-sm" max="200" min="20" name="studentNum" ng-model="course.studentNum" ng-required="true" placeholder="请输入上课人数" tooltip-enable="userForm.studentNum.$invalid && !userForm.studentNum.$pristine|| !isPosInt(course.studentNum)" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="上课人数要求为整数,至少为20,至多为200" type="number"/>
+            </div>
+            <hr>
+            <div class="form-group" ng-class="{'has-error' : userForm.assignmentRatio.$invalid && !userForm.assignmentRatio.$pristine || !isPosInt(course.assignmentRatio)}">
+              作业比例:
+              <br><br>
+              <input class="form-control input-sm" name="assignmentRatio" ng-max="50" ng-min="20" ng-model="course.assignmentRatio" ng-required="true" placeholder="请输入作业比例" tooltip-enable="userForm.assignmentRatio.$invalid && !userForm.assignmentRatio.$pristine|| !isPosInt(course.assignmentRatio)" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="作业比例要求为整数,至少为20,至多为50" type="number"/>
+            </div>
+            <hr>
+            <div class="form-group" ng-class="{'has-error' : userForm.examRatio.$invalid && !userForm.examRatio.$pristine || !isPosInt(course.examRatio)}">
+              考试比例:
+              <br><br>
+              <input class="form-control input-sm" name="examRatio" ng-max="50" ng-min="20" ng-model="course.examRatio" ng-required="true" placeholder="请输入作考试比例" tooltip-enable="userForm.examRatio.$invalid && !userForm.examRatio.$pristine|| !isPosInt(course.examRatio)" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip="考试比例要求为整数,至少为20,至多为50" type="number"/>
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <div class="form-group" ng-class="{'has-error' : userForm.description.$invalid && !userForm.description.$pristine }">
+              课程简介:{{userForm.description.$viewValue.length||0}}/100
+              <br><br>
+              <textarea class="form-control" name="description" ng-maxlength="100" ng-minlength="5" ng-model="course.description" required type="text"></textarea>
+            </div>
+            <hr>
+            报名时间:
+            <br><br>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <div class="input-group date form_enrollStarttime col-md-5" data-link-field="dtp_input_enrollStarttime">
+                  <input class="form-control" ng-model="course.enrollStarttime" readonly size="16" type="text">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </span>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </span>
+                </div>
+                <input id="dtp_input_enrollStarttime" type="hidden" value=""/><br/>
+              </div>
+
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <div class="input-group date form_enrollEndtime col-md-5" data-link-field="dtp_input_enrollEndtime">
+                  <input class="form-control" ng-model="course.enrollEndtime" readonly size="16" type="text">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </span>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </span>
+                </div>
+                <input id="dtp_input_enrollEndtime" type="hidden" value=""/><br/>
+              </div>
+            </div>
+            <br><br><hr>
+            开课时间:
+            <br><br>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <div class="input-group date form_startTime col-md-5" data-link-field="dtp_input_startTime">
+                  <input class="form-control" ng-model="course.startTime" readonly size="16" type="text">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </span>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </span>
+                </div>
+                <input id="dtp_input_startTime" type="hidden" value=""/><br/>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <div class="input-group date form_endTime col-md-5" data-link-field="dtp_input_endTime">
+                  <input class="form-control" ng-model="course.endTime" readonly size="16" type="text">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </span>
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                  </span>
+                </div>
+                <input id="dtp_input_endTime" type="hidden" value=""/><br/>
+              </div>
+            </div>
+
+            <br><br><hr>
+            <div class="form-group">
+              成绩比例:
+              <progress class="cover-progress" ng-show="ratiosValid">
+              <bar ng-repeat="(ratioName,ratio) in ratios" type="{{ratio.type}}" value="course[ratioName]">
+                <span>{{ratio.title}}:{{course[ratioName]}}%
+                </span>
+              </bar>
+            </progress>
+            <div class="cover-progress progress progress-striped" ng-show="!ratiosValid">
+              <div class="progress-bar progress-bar-warning" style="width: 100%;">
+                <span>请按左侧要求填写成绩比例！</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <hr>
+
+      <div class="dataTable_wrapper">
+        <table class="table table-bordered table-hover">
+          <tbody>
+
+            <tr class="even gradeC">
+
+              <td>
+                <center>
+                  <button class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid" type="submit">保存修改</button>
+                </center>
+              </td>
+            </form>
+            <td>
+              <center>
+                <button class="btn btn-primary btn-w-md" ng-click="courseremove()" type="button">删除课程</button>
+              </center>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <br>
+  </form>
+</div>
+
+</div>
+</div>
+<script type="text/javascript">
+$('.form_enrollStarttime').datetimepicker({
+//language:  'fr',
+  weekStart: 1,
+  todayBtn: 1,
+  autoclose: 1,
+  todayHighlight: 1,
+  startView: 2,
+  forceParse: 0,
+  showMeridian: 1
+});
+$('.form_enrollEndtime').datetimepicker({
+//language:  'fr',
+  weekStart: 1,
+  todayBtn: 1,
+  autoclose: 1,
+  todayHighlight: 1,
+  startView: 2,
+  forceParse: 0,
+  showMeridian: 1
+});
+$('.form_startTime').datetimepicker({
+//language:  'fr',
+  weekStart: 1,
+  todayBtn: 1,
+  autoclose: 1,
+  todayHighlight: 1,
+  startView: 2,
+  forceParse: 0,
+  showMeridian: 1
+});
+$('.form_endTime').datetimepicker({
+//language:  'fr',
+  weekStart: 1,
+  todayBtn: 1,
+  autoclose: 1,
+  todayHighlight: 1,
+  startView: 2,
+  forceParse: 0,
+  showMeridian: 1
+});
+</script>

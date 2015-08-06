@@ -1,0 +1,27 @@
+<ul class="nav navbar-top-links navbar-right">
+  <li class="dropdown">
+    <ul class="nav navbar-nav navbar-right">
+      <li ng-show="!currentUser">
+        <a href="#" target="_self" ng-click="login()">
+          <i class="fa fa-user fa-fw"></i>
+          登录
+        </a>
+      </li>
+      <li dropdown class="dropdown" ng-show="!!currentUser">
+        <a href="#" target="_self" target="_self" dropdown-toggle>
+          <i class="fa fa-user fa-fw"></i>
+          {{currentUser.username}}
+          <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="#" target="_self" role="button" ng-click="logout()">
+              <span class="fui-exit"></span>
+              登出
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
