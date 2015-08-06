@@ -3,13 +3,12 @@ angular.module('superAdminApp')
 function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
   $rootScope.pageTitle = "教师管理 - 添加教师";
   $scope.login().then(function (){
-  $scope.school = $scope.currentUser.$related.school;
-  $scope.majors = Restangular.all('schools/'+$scope.school.$id.toString()+'/majors').getList().$object;
+  $scope.schools = Restangular.all('schools').getList().$object;
+  $scope.majors = Restangular.all('majors').getList().$object;
   var original;
   return $scope.user = {
       $type: "teacher",
       $relationships: {
-        school: {data:$scope.school.$asLink()},
       },
       username: "",
       password: "",
@@ -35,7 +34,19 @@ function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
   $scope.canSubmit = function() {
       return $scope.form_signin.$valid && !angular.equals($scope.user, original)
   },
+  $scope.updateSchool = function() {
+    if ($scope.school) {
+      Restangular.all('schools/' + $scope.school.$id + '/majors').getList().then(function(majors){
+        $scope.majors = majors;
+      });
+    } else {
+      Restangular.all('majors').getList().then(function(majors){
+        $scope.majors = majors;
+      });
+    }
+  },
   $scope.submitForm = function() {
+    $scope.user.$relationships.school = {data:$scope.school.$asLink()};
     $scope.user.$relationships.major = {data:$scope.major.$asLink()};
       Restangular.all('teachers').post($scope.user).then(function (teacher) {
           alert("新增老师成功");

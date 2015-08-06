@@ -19,6 +19,14 @@
             </td>
             <td >
               <div style="padding-top:6px;float:left">
+                选择学校：&nbsp
+              </div>
+              <select class="form-control" ng-change="updateSchool()" ng-model="school" ng-options="school.name for school in schools" style="width:60%;float:right">
+                <option value="">显示所有</option>
+              </select>
+            </td>
+            <td >
+              <div style="padding-top:6px;float:left">
                 选择专业：&nbsp
               </div>
               <select class="form-control" ng-change="updateMajor()" ng-model="major" ng-options="major.name for major in majors" style="width:60%;float:right">
