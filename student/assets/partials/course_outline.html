@@ -1,7 +1,19 @@
-  <h3>课程大纲</h3>
-  <div collapse="isCollapsed">
-      <p class="cover-top">课程名称: {{course.name}}</p>
-      <p>课程目标: </br>{{courseoutline.courseAim}}</p>
-      <p>课程方针: </br>{{courseoutline.courseFangzhen}}</p>
-      <p>课程计划: </br>{{courseoutline.courseJihua}}</p>
-  </div>
+<h3>课程基本信息</h3>
+<table class="table">
+  <tr>
+    <td class="col-md-4">课程名称: </td>
+    <td class="col-md-8">{{course.name}}</td>
+  </tr>
+  <tr>
+    <td class="col-md-4">课程目标: </td>
+    <td class="col-md-8">{{courseoutline.courseAim}}</td>
+  </tr>
+  <tr>
+    <td class="col-md-4">课程方针: </td>
+    <td class="col-md-8">{{courseoutline.courseFangzhen}}</td>    
+  </tr>
+  <tr>
+    <td class="col-md-4">课程计划: </td>
+    <td class="col-md-8">{{courseoutline.courseJihua}}</td>
+  </tr>
+</table>
