@@ -14,7 +14,7 @@ angular.module('student').controller('PasswordCtrl', function ($scope, $state,cl
     var id = user.$id;
     Restangular.all('students').all(id).all("links").all("clazz").post($scope.myclass).catch(function (res) {
           if (res.status === 409 ) {
-            alert('已报名该课程或用户名密码错误');
+            alert('已报名该课程或报名密码错误');
           }
         }).then(function () {
               $state.reload();
