@@ -3,20 +3,45 @@ angular.module('superAdminApp')
 function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFilter, $rootScope) {
   $rootScope.pageTitle = "课程管理 - 详细管理";
   $scope.login().then(function() {
-    $scope.school = $scope.currentUser.$related.school;
-
-    Restangular.all('schools/' + $scope.school.$id.toString() + '/majors').getList().then(function(majors) {
-      $scope.majors = majors;
-      $scope.major = $scope.majors[0];
-      console.log($scope.major);
-      $scope.coursesAll = Restangular.all('majors/' + $scope.major.$id + '/courses').getList().$object;
+    Restangular.all('schools').getList().then(function(schools) {
+      $scope.schools = schools;
+      $scope.school = $scope.schools[0];
+      Restangular.all('schools/' + $scope.school.$id.toString() + '/majors').getList().then(function(majors) {
+        $scope.majors = majors;
+        $scope.major = $scope.majors[0];
+        $scope.coursesAll = Restangular.all('majors/' + $scope.major.$id + '/courses').getList().$object;
+      });
     });
+
+    $scope.user = {};
+
+    $scope.updateSchool = function() {
+      console.log($scope.school);
+      if ($scope.school) {
+        Restangular.all('schools/' + $scope.school.$id + '/majors').getList().then(function(majors){
+          $scope.majors = majors;
+          $scope.major = $scope.majors[0];
+          $scope.updateMajor();
+        });
+      } else {
+        Restangular.all('majors').getList().then(function(majors){
+          $scope.majors = majors;
+          $scope.major = $scope.majors[0];
+          $scope.updateMajor();
+        });
+      }
+    };
 
     $scope.updateMajor = function() {
       if ($scope.major) {
         $scope.coursesAll = Restangular.all('majors/' + $scope.major.$id + '/courses').getList().$object;
       } else {
-        $scope.coursesAll = Restangular.all('schools/' + $scope.school.$id + '/courses').getList().$object;
+        if($scope.school){
+          $scope.coursesAll = Restangular.all('schools/' + $scope.school.$id.toString() + '/courses').getList().$object;
+        }
+        else{
+          $scope.coursesAll = [];
+        }
       }
     };
 
@@ -125,16 +150,17 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
       if (course.$id != null) {
         course.patch(course).then(function(c) {
           alert("修改成功");
-          $scope.coursesAll = Restangular.all('schools/' + schoolid + '/courses').getList().$object;
+          $scope.coursesAll = Restangular.all('schools/' + course.$related.school.$id + '/courses').getList().$object;
         });
       }
 
     };
     $scope.courseremove = function() {
       if ($scope.course) {
+        console.log($scope.course.$related.school.$id);
         var reqDEL = {
           method: 'DELETE',
-          url: '/api/schools/' + schoolid + '/links/courses',
+          url: '/api/schools/' + $scope.course.$related.school.$id + '/links/courses',
           headers: {
             'Access-Token': $scope.currentUser.$token,
           },
@@ -149,7 +175,7 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
         $http(reqDEL)
           .then(function() {
             alert("删除成功");
-            $scope.coursesAll = Restangular.all('schools/' + schoolid + '/courses').getList().$object;
+            $scope.coursesAll = Restangular.all('schools/' + $scope.course.$related.school.$id + '/courses').getList().$object;
           });
       }
     };
