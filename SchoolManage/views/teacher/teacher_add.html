@@ -1,0 +1,92 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">教师管理</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        添加教师
+      </div>
+      <div class="panel-body">
+        <form data-ng-submit="submitForm()" name="form_signin">
+          <div class="dataTable_wrapper">
+            <table class="table table-bordered table-hover">
+              <tbody>
+                <tr class="even gradeC">
+                  <td>用户名：</td>
+                  <td><input class="form-control" data-ng-model="user.username" id="InputUsername" placeholder="请输入教师登陆用户名" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>密码：</td>
+                  <td><input class="form-control" data-ng-model="user.password" id="InputPassword" placeholder="输入教师登陆密码" required type="password"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>E-mail：</td>
+                  <td><input class="form-control" data-ng-model="user.email" id="InputEmail" placeholder="输入教师邮箱" required type="email"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>编号：</td>
+                  <td><input class="form-control" data-ng-model="user.code" id="InputCode" placeholder="请输入教师编号" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>真实姓名：</td>
+                  <td><input class="form-control" data-ng-model="user.truename" id="InputTrueUsername" placeholder="请输入教师真实姓名" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>部门：</td>
+                  <td><input class="form-control" data-ng-model="user.department" id="InputDepartment" placeholder="请输入教师所属部门" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>职称：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="user.title">
+                        <option>教授</option>
+                        <option>研究员</option>
+                        <option>副教授</option>
+                        <option>副研究员</option>
+                        <option>讲师</option>
+                        <option>助理研究员</option>
+                        <option>助教</option>
+                        <option>研究实习员</option>
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>电话：</td>
+                  <td><input class="form-control" data-ng-model="user.phone" id="InputPhone" placeholder="请输入教师电话" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>信用额度：</td>
+                  <td><input class="form-control" data-ng-model="user.credit" id="InputCredit" placeholder="请输入教师信用额度" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>等级：</td>
+                  <td><input class="form-control" data-ng-model="user.level" id="InputLevel" placeholder="请输入教师等级" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>住址：</td>
+                  <td><input class="form-control" data-ng-model="user.address" id="InputAddress" placeholder="请输入教师住址" required type="text"></td>
+                </tr>
+                <tr class="even gradeC">
+                  <td>专业：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="major" ng-options="major.name for major in majors">
+                      </select>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn btn-primary btn-w-md" type="submit">提交</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

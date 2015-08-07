@@ -1,0 +1,39 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button aria-hidden="true" class="close" ng-click="closeModal()" type="button">&times;</button>
+    <h4 class="modal-title" id="myModalLabel">分配课程</h4>
+  </div>
+
+  <div class="modal-footer" style="text-align:center;">
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          已选课程
+        </div>
+      </div>
+      搜索课程：&nbsp
+      <input ng-model="querycourseExisted">
+      <hr>
+      <div class="form-group">
+        <select class="form-control" multiple ng-change="updateExisted()" ng-model="selectedcourseExisted.value" ng-options="courseExisted.name for courseExisted in coursesExisted | filter:{ name : querycourseExisted }" style="height: 300px"></select>
+      </div>
+      <button class="btn btn-primary btn-w-md" ng-click="delCourse()">删除课程</button>
+    </div>
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          可选课程列表
+        </div>
+      </div>
+      搜索课程：&nbsp
+      <input ng-model="querycourseAll">
+      <hr>
+      <div class="form-group">
+        <select class="form-control" multiple ng-change="updateAll()" ng-model="selectedcourseAll.value" ng-options="courseAll.name for courseAll in coursesAll | filter:{ name : querycourseAll }" style="height: 300px"></select>
+      </div>
+      <button class="btn btn-primary btn-w-md" ng-click="addCourse()">添加课程</button>
+    </div>
+  </div>
+  <div class="modal-footer"></div>
+
+</div>

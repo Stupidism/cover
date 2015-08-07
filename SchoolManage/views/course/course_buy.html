@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">购买课程</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-7">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        可购买课程列表
+      </div>
+      <div class="col-lg-12">
+        <br>
+        <table class="table table-bordered">
+          <tr class="even gradeC">
+            <td>
+              搜索课程：&nbsp
+              <input ng-model="querycourseAll">
+            </td>
+            <td>
+              <div style="padding-top:6px;float:left">
+                选择专业：&nbsp
+              </div>
+              <select class="form-control" ng-change="updateMajor()" ng-model="major" ng-options="major.name for major in majors" style="width:60%;float:right">
+                <option value="">显示所有</option>
+              </select>
+            </td>
+          </tr>
+        </table>
+        <hr>
+      </div>
+      <div class="col-lg-5">
+        <div class="form-group">
+          <select class="form-control" multiple ng-change="updateAll()" ng-model="selectedcourseAll.value" ng-options="courseAll.name for courseAll in coursesAll | filter:{ name : querycourseAll }" style="height: 350px"></select>
+        </div>
+        &nbsp
+        <button class="btn btn-primary btn-w-md" ng-click="buyCourse()">购买课程</button>
+      </div>
+      <div class="col-lg-7">
+        <p>课程名称:
+          {{courseAll.name}}</p><hr>
+        <p>课程编号:
+          {{courseAll.code}}</p><hr>
+        <p>课程类型:
+          {{courseEnum[courseAll.type]}}</p><hr>
+        <p>学生人数:
+          {{courseAll.studentNum}}人</p><hr>
+        <p>创建时间:
+          {{courseAll.createTime|date}}</p><hr>
+        <p>开课时间:
+          {{courseAll.startTime|date}}
+          -
+          {{courseAll.endTime|date}}</p><hr>
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        已存在课程列表
+      </div>
+      <div class="col-lg-12">
+        <br>
+        搜索课程：&nbsp
+        <input ng-model="querycourseExisted">
+        <hr>
+        <div class="col-lg-12">
+          <div class="form-group">
+            <select class="form-control" multiple ng-change="updateExisted()" ng-model="selectedcourseExisted.value" ng-options="courseExisted.name for courseExisted in coursesExisted | filter:{ name : querycourseExisted }" style="height: 400px"></select>
+          </div>
+        </div>
+
+      </div>
+      <div class="panel-body"></div>
+    </div>
+  </div>
+</div>
