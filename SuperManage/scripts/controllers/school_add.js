@@ -1,6 +1,7 @@
 angular.module('superAdminApp')
 .controller('schoolAddCtrl',
-function ($scope, $http, $state, $timeout, Restangular) {
+function ($scope, $http, $state, $timeout, Restangular,$rootScope) {
+  $rootScope.pageTitle = "学校管理 - 添加学校";
   $scope.login().then(function (){
   var original;
   return $scope.school = {

@@ -7,9 +7,11 @@
  * Controller of the superAdminApp
  */
 angular.module('superAdminApp')
-  .controller('ChartCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
+  .controller('ChartCtrl', 
+   function ($scope, $timeout,Restangular,$http) {
     $scope.login().then(function() {
-      $scope.school = $scope.currentUser.$related.school;
-      console.log($scope.school);
+      $scope.schools = Restangular.all('schools').getList().$object;
+      //$scope.school = $scope.currentUser.$related.school;
+      //console.log($scope.school);
     });
-}]);
+});

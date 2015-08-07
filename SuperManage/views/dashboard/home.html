@@ -15,37 +15,17 @@
         <div class="dataTable_wrapper">
           <table class="table table-bordered table-hover">
             <tbody>
-              <tr class="even gradeC">
-                <td>学校名称：</td>
-                <td>{{school.name}}</td>
+              <tr>
+                <th>名称</th>
+                <th>金额</th>
+                <th>等级</th>
+                <th>信用额度</th>
               </tr>
-              <tr class="even gradeC">
-                <td>学校编号：</td>
-                <td>{{school.code}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>学校地址：</td>
-                <td>{{school.address}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>是否是211：</td>
-                <td>{{school.is211}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>是否是985：</td>
-                <td>{{school.is985}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>学校金额：</td>
+              <tr ng-repeat="school in schools">
+                <td>{{school.name}}</a></td>
                 <td>{{school.money}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>学校信用额度：</td>
-                <td>{{school.credit}}</td>
-              </tr>
-              <tr class="even gradeC">
-                <td>学校等级：</td>
                 <td>{{school.level}}</td>
+                <td>{{school.credit}}</td>
               </tr>
             </tbody>
           </table>

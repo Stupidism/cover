@@ -11,8 +11,22 @@
         专业列表
       </div>
       <div class="panel-body">
-        搜索名称：&nbsp
-        <input ng-model="query">
+        <table class="table table-bordered">
+          <tr class="even gradeC">
+            <td>
+              搜索名称：&nbsp
+              <input ng-model="query">
+            </td>
+            <td>
+              <div style="padding-top:6px;float:left">
+                选择学校：&nbsp
+              </div>
+              <select class="form-control" ng-change="updateSchool()" ng-model="school" ng-options="school.name for school in schools" style="width:60%;float:right">
+                <option value="">显示所有</option>
+              </select>
+            </td>
+          </tr>
+        </table>
         <hr>
         <div class="form-group">
           <select class="form-control" multiple ng-change="update()" ng-model="selected.value" ng-options="major.name for major in majors | filter:{ name : query }"></select>

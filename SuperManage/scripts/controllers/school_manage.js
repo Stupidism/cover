@@ -1,6 +1,7 @@
 angular.module('superAdminApp')
 .controller('schoolManageCtrl',
-function ($scope, $http, $state, $modal, $timeout, Restangular) {
+function ($scope, $http, $state, $modal, $timeout, Restangular,$rootScope) {
+  $rootScope.pageTitle = "学校管理 - 详细管理";
   $scope.login().then(function (){
     $scope.school = {};
     $scope.schools=Restangular.all('schools').getList().$object;

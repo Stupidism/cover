@@ -27,6 +27,15 @@
                   <td>专业简介：</td>
                   <td><textarea class="form-control" rows="5" data-ng-model="major.description" id="InputDescription" placeholder="请输入专业简介" required></textarea></td>
                 </tr>
+                <tr class="even gradeC">
+                  <td>学校：</td>
+                  <td>
+                    <div class="form-group">
+                      <select class="form-control" data-ng-model="school" ng-options="school.name for school in schools">
+                      </select>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
