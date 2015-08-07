@@ -46,8 +46,8 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
     };
 
     $scope.updateAll = function() {
-      $scope.course = Restangular.one('courses', $scope.selectedcourseAll.value[0].$id).get().$object;
-      console.log($scope.course);
+        $scope.course = $scope.selectedcourseAll.value[0];
+        console.log($scope.course);
     };
 
     //form-group inputs begin
@@ -150,33 +150,47 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
       if (course.$id != null) {
         course.patch(course).then(function(c) {
           alert("修改成功");
-          $scope.coursesAll = Restangular.all('schools/' + course.$related.school.$id + '/courses').getList().$object;
+          if($scope.school)
+            $scope.coursesAll = Restangular.all('schools/' + $scope.school.$id + '/courses').getList().$object;
+          else{
+            if($scope.major)
+              $scope.coursesAll = Restangular.all('majors/' + $scope.major.$id + '/courses').getList().$object;
+            else
+              $scope.coursesAll = Restangular.all('courses').getList().$object;
+          }
         });
       }
 
     };
     $scope.courseremove = function() {
       if ($scope.course) {
-        console.log($scope.course.$related.school.$id);
-        var reqDEL = {
-          method: 'DELETE',
-          url: '/api/schools/' + $scope.course.$related.school.$id + '/links/courses',
-          headers: {
-            'Access-Token': $scope.currentUser.$token,
-          },
-          data: {
-            "data": [{
-              type: "course",
-              id: $scope.course.$id
-            }]
-          }
-        };
-        console.log(reqDEL);
-        $http(reqDEL)
-          .then(function() {
-            alert("删除成功");
-            $scope.coursesAll = Restangular.all('schools/' + $scope.course.$related.school.$id + '/courses').getList().$object;
-          });
+        if($scope.school == null){
+          alert("请选择学校");
+        }
+        else{
+          var reqDEL = {
+            method: 'DELETE',
+            url: '/api/schools/' + $scope.school.$id + '/links/courses',
+            headers: {
+              'Access-Token': $scope.currentUser.$token,
+            },
+            data: {
+              "data": [{
+                type: "course",
+                id: $scope.course.$id
+              }]
+            }
+          };
+          console.log(reqDEL);
+          $http(reqDEL)
+            .then(function() {
+              alert("删除成功");
+              if($scope.major)
+                $scope.coursesAll = Restangular.all('majors/' + $scope.major.$id + '/courses').getList().$object;
+              else
+                $scope.coursesAll = Restangular.all('schools/' + $scope.school.$id + '/courses').getList().$object;
+            });
+        }
       }
     };
 

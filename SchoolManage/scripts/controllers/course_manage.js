@@ -21,7 +21,7 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
     };
 
     $scope.updateAll = function() {
-      $scope.course = Restangular.one('courses', $scope.selectedcourseAll.value[0].$id).get().$object;
+      $scope.course = $scope.selectedcourseAll.value[0];
       console.log($scope.course);
     };
 
