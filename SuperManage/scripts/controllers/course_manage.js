@@ -148,7 +148,8 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $filter, dateFil
 
     $scope.submit = function(course) {
       if (course.$id != null) {
-        course.patch(course).then(function(c) {
+        var path = 'courses/'+ course.$id;
+        Restangular.one(path).patch(course).then(function(c) {
           alert("修改成功");
           if($scope.school)
             $scope.coursesAll = Restangular.all('schools/' + $scope.school.$id + '/courses').getList().$object;

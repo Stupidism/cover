@@ -22,11 +22,12 @@ function ($scope, $http, $state, $modal, $timeout, Restangular, $rootScope) {
 
     $scope.update = function() {
       $scope.user = $scope.selected.value[0];
-      if($scope.user.gender == 1)
-        $scope.user.gendername = '男';
-      else
-        $scope.user.gendername = '女';
-      console.log($scope.user);
+      if($scope.user){
+        if($scope.user.gender == 1)
+          $scope.user.gendername = '男';
+        else
+          $scope.user.gendername = '女';
+      }
     };
 
     $scope.submitForm = function (student) {
