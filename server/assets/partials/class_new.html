@@ -1,0 +1,28 @@
+<form name="userForm" ng-submit="submit(clazz)" novalidate>
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="$dismiss()">×</button>
+    <h3>新建班级</h3>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">班级名称：</label>
+    <div class="col-sm-10">
+      <input class="form-control" ng-model="clazz.name">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">班级密码：</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" ng-model="clazz.enrollPwd"></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">学生数量：</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" ng-model="clazz.studentNum"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-wuxia" ng-click="$dismiss()">取消</button>
+    <button type="submit" class="btn btn-wuxia btn-primary" ng-disabled="userForm.$invalid">新增班级</button>
+  </div>
+</form>

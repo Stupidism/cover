@@ -93,6 +93,7 @@ angular.module('cover', [
     templateUrl: 'assets/partials/course_outline.html',
   }).state('courseManage.classes', {
     url: '/classes',
+    controller: 'ClassesCtrl',
     templateUrl: 'assets/partials/class_list.html',
   }).state('courseManage.classDetails', {
     url: '/classes/:class',

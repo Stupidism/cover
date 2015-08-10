@@ -1,11 +1,14 @@
 <div class="container">
   <div class="row">
-    <div ng-repeat="clazz in course.$related.clazzs" class="col-md-6">
+    <div ng-repeat="clazz in classes" class="col-md-6">
       <div class="clazz cover-card">
         <h3><a ui-sref="^.classDetails({class: clazz.$id})">{{clazz.name}}</a></h3>
         <p>学生数量：{{clazz.studentNum}}人</p>
         <p>加入密码：{{clazz.enrollPwd}}</p>
+        <button class="btn btn-primary" ng-click="classremove(clazz.$id)">删除班级</button>
       </div>
     </div>
   </div>
+  <br>
+  <button class="btn btn-success" ng-click="newClazz({},$event,'create')">新建班级</button>
 </div>
