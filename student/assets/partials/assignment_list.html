@@ -19,10 +19,10 @@
         {{item.startTime.substring(0,10)}}
       </td>
       <td at-title="结束日期">
-        <a ng-click="Deadlineadd(item)">{{item.endTime.substring(0,10)}}
+        {{item.endTime.substring(0,10)}}
       </td>
       <td at-title="附件">
-        <a ui-sref="^.assignmentFileAdd({assign: item.$id})">查看</a>
+        <a ui-sref="^.assignmentFile({assign: item.$id})">查看</a>
       </td>
     </tr>
   </tbody>
