@@ -44,6 +44,8 @@ angular.module('cover').controller('AssignmentListCtrl', function ($scope, $http
       },
     })
   };
+
+  $scope.assignments = [];
   $scope.config = {
           itemsPerPage: 10,
   };
