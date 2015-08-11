@@ -1,14 +1,25 @@
-﻿<h2>{{course.name}}</h2>
-<div class="col-md-2">
-<ul class="nav bs-docs-sidenav">
-  <li ui-sref-active="active"><a ui-sref=".courseIndex">课程首页</a></li>
-  <li ui-sref-active="active"><a ui-sref=".subjects">知识点</a></li>
-  <li ui-sref-active="active"><a ui-sref=".microcourse">微课程</a></li>
-  <li ui-sref-active="active"><a ui-sref=".questions">问题与讨论</a></li>
-  <li ui-sref-active="active"><a ui-sref=".assignments">我的作业</a></li>
-  <li ui-sref-active="active"><a ui-sref=".exercises">我的测试</a></li>
-  <li ui-sref-active="active"><a ui-sref=".messages">我的通知</a></li>
-  <li ui-sref-active="active"><a ui-sref=".outline">教学大纲</a></li>
-</ul>
+﻿<div class="col-md-2">
+  <h3>{{course.name}}</h3>
+  <nav class="navbar navbar-default animated">
+  	<div class="navbar-header bs-docs-sidenav">
+  		<button type="button" class="navbar-toggle" data-toggle="collapse" 
+         data-target="#remap-course-navbar">
+         <span class="sr-only">切换导航</span>
+        </button>        
+  	</div>
+  	<div class="collapse navbar-collapse" id="remap-course-navbar">
+      <ul class="nav bs-docs-sidenav">
+          <li ui-sref-active="active"><a ui-sref=".courseIndex">课程首页</a></li>
+          <li ui-sref-active="active"><a ui-sref=".subjects">知识点</a></li>
+          <li ui-sref-active="active"><a ui-sref=".microcourse">微课程</a></li>
+          <li ui-sref-active="active"><a ui-sref=".questions">问题与讨论</a></li>
+          <li ui-sref-active="active"><a ui-sref=".assignments">我的作业</a></li>
+          <li ui-sref-active="active"><a ui-sref=".exercises">我的测试</a></li>
+          <li ui-sref-active="active"><a ui-sref=".messages">我的通知</a></li>
+          <li ui-sref-active="active"><a ui-sref=".outline">教学大纲</a></li>
+      </ul>
+    </div>
+
+  </nav>
 </div>
 <div ui-view class="col-md-10"></div>

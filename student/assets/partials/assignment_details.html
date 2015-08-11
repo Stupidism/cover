@@ -28,15 +28,17 @@
   </div>
 
   <div class="col-md-4">
-    <div class="row"> 
-      <div class="col-md-12 cover-resource-new" cover-file-upload="fileUploaded($data)">
-      </div>
-
+    <div class="row">
+      <p>已上传的文件</p>
       <div class="col-md-12" style="border-left: solid 1px #ccc;">
         <ul>
-          <li ng-repeat="resource in editHomework.$related.resources">
+          <li ng-repeat="resource in editHomework.$related.resources"></li>
           <a href="/VPFile{{resource.url}}" target="_blank">{{resource.name}}</a>
         </ul>
+      </div>
+    </div>    
+    <div class="row"> 
+      <div class="col-md-12 cover-resource-new" cover-file-upload="fileUploaded($data)">
       </div>
     </div>
   </div>

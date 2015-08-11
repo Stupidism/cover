@@ -44,40 +44,6 @@ function ($scope,$http,$timeout, Restangular,JsonApiOrg, $state,$modal) {
     $scope.oneAtATime=false;
     $scope.courses.map(function(course){course.open=true;})
   }
-  $scope.prepage = function(){
-  	if($scope.page > 1){
-  		$scope.page--;
-      Restangular.all('courses').getList({
-        size:15,
-        page:$scope.page
-      }).then(function (courses) {
-        $scope.courses = courses;
-        $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
-        if($scope.courses.length>0){
-          $scope.courses[0].open=true;
-        }
-      });
-	}
-  }
-  $scope.nextpage = function(){
-  	$scope.page++; 
-  	Restangular.all('courses').getList({
-    	size:15,
-    	page:$scope.page
-    }).then(function(courses){
-    	$scope.newcourses = courses;
-	    if($scope.newcourses.length!=0){
-	    	$scope.courses = $scope.newcourses;
-        $scope.courses.sort(function (a, b) { return b.$id - a.$id; });
-        if($scope.courses.length>0){
-          $scope.courses[0].open=true;
-        }
-	    }
-	    else{
-	    	$scope.page--;
-	    }
-  	});
-  }
   $scope.enrollclass = function (courseid) {
       Restangular.one('courses', courseid).all('clazzs').getList().then(function(clazz){
         $scope.clazz = clazz;
