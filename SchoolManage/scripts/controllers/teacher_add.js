@@ -4,7 +4,6 @@ function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
   $rootScope.pageTitle = "教师管理 - 添加教师";
   $scope.login().then(function (){
   $scope.school = $scope.currentUser.$related.school;
-  $scope.majors = Restangular.all('schools/'+$scope.school.$id.toString()+'/majors').getList().$object;
   var original;
   return $scope.user = {
       $type: "teacher",
@@ -24,16 +23,15 @@ function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
       address: "",
   },
   $scope.showInfoOnSubmit = !1,
+  $scope.user.title = "教授",
+  Restangular.all('schools/'+$scope.school.$id.toString()+'/majors').getList().then(function(majors) {
+    $scope.majors = majors;
+    $scope.major = $scope.majors[0];
+  }),
   original = angular.copy($scope.user),
   $scope.revert = function() {
       return $scope.user = angular.copy(original),
       $scope.form_signin.$setPristine()
-  },
-  $scope.canRevert = function() {
-      return ! angular.equals($scope.user, original) || !$scope.form_signin.$pristine
-  },
-  $scope.canSubmit = function() {
-      return $scope.form_signin.$valid && !angular.equals($scope.user, original)
   },
   $scope.submitForm = function() {
     $scope.user.$relationships.major = {data:$scope.major.$asLink()};
