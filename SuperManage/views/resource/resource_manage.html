@@ -3,29 +3,41 @@
     <h1 class="page-header">资源管理</h1>
   </div>
 </div>
-
-  <div class="dataTable_wrapper">
-    <table class="table table-bordered table-hover">
-      <tbody>
-        <tr class="even gradeC">
-          <td>名称</td>
-          <td>编号</td>
-          <td>描述</td>
-          <td>大小</td>
-          <td>URL</td>
-          <td>操作列表</td>
-        </tr>
-        <tr ng-repeat="resource in resources" class="even gradeC">
-            <td>{{resource.attributes.name}}</td>
-            <td>{{resource.attributes.code}}</td>
-            <td>{{resource.attributes.description}}</td>
-            <td>{{resource.attributes.size}}</td>
-            <td>{{resource.attributes.url}}</td>
-            <td><button class="btn btn-primary btn-w-md" ng-click="delete(resource)">删除</button></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="col-lg-4">
+  <div class="input-group custom-search-form">
+    <input type="text" class="form-control" placeholder="搜索关键字..." ng-model="keyword">
+    <span class="input-group-btn">
+      <button ng-click="search()" class="btn btn-default" type="button" >
+        <i class="fa fa-search"></i>
+      </button>
+    </span>
   </div>
+</div>
+<br>
+<br>
+<br>
+<div class="dataTable_wrapper">
+  <table class="table table-bordered table-hover">
+    <tbody>
+      <tr class="even gradeC">
+        <td>名称</td>
+        <td>编号</td>
+        <td>描述</td>
+        <td>大小</td>
+        <td>URL</td>
+        <td>操作列表</td>
+      </tr>
+      <tr ng-repeat="resource in resources" class="even gradeC">
+        <td>{{resource.attributes.name}}</td>
+        <td>{{resource.attributes.code}}</td>
+        <td>{{resource.attributes.description}}</td>
+        <td>{{resource.attributes.size}}</td>
+        <td>{{resource.attributes.url}}</td>
+        <td><button class="btn btn-primary btn-w-md" ng-click="delete(resource)">删除</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <button ng-disabled="nowPage == 1" class="btn btn-primary btn-w-md" ng-click="prev()">上一页</button>
 {{nowPage}}
