@@ -3,7 +3,10 @@ angular.module('superAdminApp')
 function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
   $rootScope.pageTitle = "专业管理 - 添加专业";
   $scope.login().then(function (){
-    $scope.schools=Restangular.all('schools').getList().$object;
+    Restangular.all('schools').getList().then(function(schools){
+      $scope.schools = schools;
+      $scope.school = $scope.schools[0];
+    });
     //$scope.majors = Restangular.all('schools/'+$scope.school.$id.toString()+'/majors').getList().$object;
     var original;
     return $scope.major = {

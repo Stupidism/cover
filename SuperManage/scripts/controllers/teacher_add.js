@@ -3,8 +3,17 @@ angular.module('superAdminApp')
 function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
   $rootScope.pageTitle = "教师管理 - 添加教师";
   $scope.login().then(function (){
-  $scope.schools = Restangular.all('schools').getList().$object;
-  $scope.majors = Restangular.all('majors').getList().$object;
+  Restangular.all('schools').getList().then(function(schools){
+    $scope.schools = schools;
+    $scope.school = $scope.schools[0];
+    var path = 'schools/' + $scope.school.$id + '/majors';
+    Restangular.all(path).getList().then(function(majors){
+      $scope.majors = majors;
+      if(majors){
+        $scope.major = majors[0];
+      }
+    });
+  });
   var original;
   return $scope.user = {
       $type: "teacher",
@@ -38,10 +47,9 @@ function ($scope, $http, $state, $timeout, Restangular, $rootScope) {
     if ($scope.school) {
       Restangular.all('schools/' + $scope.school.$id + '/majors').getList().then(function(majors){
         $scope.majors = majors;
-      });
-    } else {
-      Restangular.all('majors').getList().then(function(majors){
-        $scope.majors = majors;
+        if(majors){
+          $scope.major = $scope.majors[0];
+        }
       });
     }
   },
