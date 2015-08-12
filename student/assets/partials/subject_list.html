@@ -1,18 +1,24 @@
-<table class="table table-striped" at-table 
+<div class="container">
+  <h3>知识点列表</h3>
+  <div class="row">
+    <table class="table table-striped" at-table 
        at-paginated at-list="subjects" at-config="tableConfig">
-  <thead>
-  </thead>
-  <tbody>
-      <td at-title="编号">
-        <a ui-sref="^.subjectDetails({subject: item.$id})">{{item.code}}</a>
-      </td>
-      <td at-title="名称">
-        {{item.name}}
-      </td>
-      <td at-title="描述" class="ellipsis wsn" style="max-width: 20em">
-        {{item.description}}
-      </td>
-    </tr>
-  </tbody>
-</table>
-<at-pagination at-list="subjects" at-config="tableConfig" ></at-pagination>
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+        <td at-title="编号" at-attribute="code" at-sortable at-initial-sorting="desc">
+          <a ui-sref="^.subjectDetails({subject: item.$id})">{{item.code}}</a>
+        </td>
+        <td at-title="名称" at-attribute="name" at-sortable>
+          {{item.name}}
+        </td>
+        <td at-title="描述">
+          {{item.description}}
+        </td>
+        </tr>
+       </tbody>
+    </table>
+    <at-pagination at-list="subjects" at-config="tableConfig" ></at-pagination>
+  </div>
+</div>

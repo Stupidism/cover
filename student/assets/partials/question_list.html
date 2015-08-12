@@ -1,26 +1,31 @@
-<table class="table table-striped" at-table at-paginated
+<div class="container">
+  <h3>问题与讨论</h3>
+  <div class="row">
+    <table class="table table-striped" at-table at-paginated
        at-list="questions" at-config="tableConfig">
-  <thead>
-  </thead>
-  <tbody>
-    <tr>
-      <td at-title="问题">
-        <a ui-sref="^.questionDetails({question: item.$id})">{{item.title}}</a>
-      </td>
-      <td at-title="描述">
-        {{item.content}}
-      </td>
-      <td at-title="提问时间">
-        {{item.createTime}}
-      </td>
-      <td at-title="访问量">
-        {{item.viewCount}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+      <thead>
+      </thead>
+      <tbody>
+        <tr>
+          <td at-implicit at-title="问题" at-attibute="id" at-sortable>
+            <a ui-sref="^.questionDetails({question: item.$id})">{{item.title}}</a>
+          </td>
+          <td at-title="描述">
+            {{item.content}}
+          </td>
+          <td at-title="提问时间" at-attribute="createTime" at-sortable>
+            {{item.createTime}}
+          </td>
+          <td at-title="访问量">
+            {{item.viewCount}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <at-pagination at-list="questions" at-config="tableConfig" ></at-pagination>
+</div>
 
-<div>
-    <at-pagination at-list="questions" at-config="tableConfig" ></at-pagination>
+<div>    
     <button class="btn btn-primary" ng-click="newQuestion({},$event,'create')">发起讨论</button>
 </div>

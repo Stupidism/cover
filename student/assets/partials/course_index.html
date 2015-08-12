@@ -1,27 +1,32 @@
-<h3>课程基本信息</h3>
-<table class="table">
-  <tr>
-    <td class="col-md-4">课程名称: </td>
-    <td class="col-md-8">{{course.name}}</td>
-  </tr>
-  <tr>
-    <td class="col-md-4">课程类型: </td>
-    <td class="col-md-8">{{courseEnum[course.type]}}</td>
-  </tr>
-  <tr>
-    <td class="col-md-4">学生人数: </td>
-    <td class="col-md-8">{{course.studentNum}}人</td>
-  </tr>
-  <tr>
-    <td class="col-md-4">创建时间: </td>
-    <td class="col-md-8">{{course.createTime.substring(0,10)}}</td>    
-  </tr>
-  <tr>
-    <td class="col-md-4">开课时间: </td>
-    <td class="col-md-8">{{course.startTime.substring(0,10)}} 至 {{course.endTime.substring(0,10)}}</td>
-  </tr>
-  <tr>
-    <td class="col-md-4">课程简介: </td>
-    <td class="col-md-8">{{course.description}}</td>
-  </tr>
-</table>
+<div class="container">
+  <h3>课程基本信息</h3>
+  <div class="col-md-11">
+    <table class="table">
+      <tr>
+        <td class="col-md-4">课程名称: </td>
+        <td class="col-md-8">{{course.name}}</td>
+      </tr>
+      <tr>
+        <td class="col-md-4">课程类型: </td>
+        <td class="col-md-8">{{courseEnum[course.type]}}</td>
+      </tr>
+      <tr>
+        <td class="col-md-4">学生人数: </td>
+        <td class="col-md-8">{{course.studentNum}}人</td>
+      </tr>
+      <tr>
+        <td class="col-md-4">创建时间: </td>
+        <td class="col-md-8">{{course.createTime.substring(0,10)}}</td>    
+      </tr>
+      <tr>
+        <td class="col-md-4">开课时间: </td>
+        <td class="col-md-8">{{course.startTime.substring(0,10)}} 
+          至 {{course.endTime.substring(0,10)}}</td>
+      </tr>
+      <tr>
+        <td class="col-md-4">课程简介: </td>
+        <td class="col-md-8">{{course.description}}</td>
+      </tr>
+    </table>
+  <div>
+</div>
