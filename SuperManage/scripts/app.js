@@ -141,6 +141,11 @@ angular
       url:'/course/manageSchool',
       controller:'schoolManageCtrl',
     })
+    .state('dashboard.manageResource',{
+      templateUrl:'views/resource/resource_manage.html',
+      url:'/resource/manageResource',
+      controller:'resourceManageCtrl',
+    })
       .state('login',{
         templateUrl:'views/pages/login.html',
         url:'/login'

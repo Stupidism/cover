@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">资源管理</h1>
+  </div>
+</div>
+
+  <div class="dataTable_wrapper">
+    <table class="table table-bordered table-hover">
+      <tbody>
+        <tr class="even gradeC">
+          <td>名称</td>
+          <td>编号</td>
+          <td>描述</td>
+          <td>大小</td>
+          <td>URL</td>
+          <td>操作列表</td>
+        </tr>
+        <tr ng-repeat="resource in resources" class="even gradeC">
+            <td>{{resource.attributes.name}}</td>
+            <td>{{resource.attributes.code}}</td>
+            <td>{{resource.attributes.description}}</td>
+            <td>{{resource.attributes.size}}</td>
+            <td>{{resource.attributes.url}}</td>
+            <td><button class="btn btn-primary btn-w-md" ng-click="delete(resource)">删除</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<button ng-disabled="nowPage == 1" class="btn btn-primary btn-w-md" ng-click="prev()">上一页</button>
+{{nowPage}}
+/
+{{totalPage}}
+<button ng-disabled="nowPage == totalPage" class="btn btn-primary btn-w-md" ng-click="next()">下一页</button>
