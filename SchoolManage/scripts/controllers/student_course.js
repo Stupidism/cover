@@ -73,7 +73,10 @@ function ($scope, $http, $state, $timeout, $modalInstance, Restangular, school, 
     $scope.updateAll = function() {
       $scope.courseAll = $scope.selectedcourseAll.value[0];
       if($scope.courseAll != null){
-        $scope.clazzs  = $scope.courseAll.$related.clazzs;
+        Restangular.one('courses', $scope.courseAll.$id).all('clazzs').getList()
+        .then(function (clazzs) {
+          $scope.clazzs = clazzs;
+        });
       }
     };
 

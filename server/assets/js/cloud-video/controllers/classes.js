@@ -1,6 +1,9 @@
 angular.module('cover').controller('ClassesCtrl', function ($scope, $http, $modal, Restangular, $stateParams,$state) {
   $scope.fetchCourse.then(function (course) {
-    $scope.classes = course.$related.clazzs;
+    Restangular.one('courses', $scope.course.$id).all('clazzs').getList()
+      .then(function (clazzs) {
+        $scope.classes = clazzs;
+      });
   });
   $scope.clazz = [];
   $scope.classremove = function(classid){
@@ -10,6 +13,19 @@ angular.module('cover').controller('ClassesCtrl', function ($scope, $http, $moda
       $state.reload();
     });
   }
+  $scope.classedit = function (clazz) {
+    $modal.open({
+      animation:true,
+      size:'lg',
+      templateUrl: 'assets/partials/class_edit.html',
+      controller: 'ClazzEditCtrl',
+      resolve: {
+        clazz: function () {
+          return clazz;
+        },
+      }
+    });
+  };
   $scope.newClazz = function (course,$event,create) {
   	console.log("aaa");
     $event.stopPropagation();

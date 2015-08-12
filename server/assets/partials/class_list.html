@@ -5,10 +5,12 @@
         <h3><a ui-sref="^.classDetails({class: clazz.$id})">{{clazz.name}}</a></h3>
         <p>学生数量：{{clazz.studentNum}}人</p>
         <p>加入密码：{{clazz.enrollPwd}}</p>
-        <button class="btn btn-primary" ng-click="classremove(clazz.$id)">删除班级</button>
+        <div class="btn-group">
+          <button class="btn btn-primary" ng-click="classremove(clazz.$id)">删除班级</button>
+          <button class="btn btn-primary" ng-click="classedit(clazz)">修改班级</button>
+        </div>
       </div>
     </div>
   </div>
-  <br>
-  <button class="btn btn-success" ng-click="newClazz({},$event,'create')">新建班级</button>
 </div>
+<button class="btn btn-success" ng-click="newClazz({},$event,'create')">新建班级</button>
